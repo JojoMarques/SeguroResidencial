@@ -11,12 +11,13 @@ public class Imovel {
 	private String logradouro;
 	private int numero;
 	private String cep;
+	private int idCliente;
 
 	public Imovel() {
 	}
 
 	public Imovel(double valorImovel, double area, String pais, String cidade, String bairro, String logradouro,
-			int numero, String cep) {
+			int numero, String cep, int idCliente) {
 		super();
 		this.valorImovel = valorImovel;
 		this.area = area;
@@ -26,6 +27,17 @@ public class Imovel {
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.cep = cep;
+		this.idCliente = idCliente;
+	}
+	
+	
+
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public int getIdImovel() {
