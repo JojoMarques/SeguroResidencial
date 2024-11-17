@@ -1,4 +1,4 @@
-package br.com.tokio.DAO;
+package br.com.tokio.dao;
 
 public class SinistroDAO {
 
