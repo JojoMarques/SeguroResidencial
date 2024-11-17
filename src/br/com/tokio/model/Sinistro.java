@@ -5,22 +5,43 @@ import java.sql.Date;
 public class Sinistro {
 
 	private int idSinistro;
-	private int idSeguro;
 	private String tipoSinistro;
 	private Date dataSinistro;
 	private String descricao;
 	private boolean status;
+	private int idSeguro;
+	private int idCliente;
 
-	public Sinistro(int idSeguro, String tipoSinistro, Date dataSinistro, String descricao, boolean status) {
+	public Sinistro(String tipoSinistro, Date dataSinistro, String descricao, 
+			boolean status, int idSeguro, int idCliente) {
 		this.idSeguro = idSeguro;
 		this.tipoSinistro = tipoSinistro;
 		this.dataSinistro = dataSinistro;
 		this.descricao = descricao;
 		this.status = status;
+		this.idSeguro = idSeguro;
+		this.idCliente = idCliente;
 	}
 
 	public Sinistro() {
 
+	}
+	
+
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+	
+	public int getIdSeguro() {
+		return idSeguro;
+	}
+
+	public void setIdSeguro(int idSeguro) {
+		this.idSeguro = idSeguro;
 	}
 
 	public int getIdSinistro() {
@@ -29,14 +50,6 @@ public class Sinistro {
 
 	public void setIdSinistro(int idSinistro) {
 		this.idSinistro = idSinistro;
-	}
-
-	public int getIdSeguro() {
-		return idSeguro;
-	}
-
-	public void setIdSeguro(int idSeguro) {
-		this.idSeguro = idSeguro;
 	}
 
 	public String getTipoSinistro() {

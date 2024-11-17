@@ -18,7 +18,6 @@ public class Imovel {
 
 	public Imovel(double valorImovel, double area, String pais, String cidade, String bairro, String logradouro,
 			int numero, String cep, int idCliente) {
-		super();
 		this.valorImovel = valorImovel;
 		this.area = area;
 		this.pais = pais;
@@ -32,7 +31,7 @@ public class Imovel {
 	
 	
 
-	public int getIdCliente() {
+	public int  getIdCliente() {
 		return idCliente;
 	}
 
