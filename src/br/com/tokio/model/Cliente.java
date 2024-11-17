@@ -3,13 +3,11 @@ package br.com.tokio.model;
 public class Cliente extends Usuario {
 
 	private int idCliente;
-	private int senhaCliente;
-	private int idImovel;
+	private String senhaCliente;
 
-	public Cliente(String nome, String cpf, String telefone, String email, int senhaCliente, int idImovel) {
+	public Cliente(String nome, String cpf, String telefone, String email, String senhaCliente) {
 		super(nome, cpf, telefone, email);
 		this.senhaCliente = senhaCliente;
-		this.idImovel = idImovel;
 	}
 
 	public Cliente() {
@@ -23,19 +21,12 @@ public class Cliente extends Usuario {
 		this.idCliente = idCliente;
 	}
 
-	public int getSenhaCliente() {
+	public String getSenhaCliente() {
 		return senhaCliente;
 	}
 
-	public void setSenhaCliente(int senhaCliente) {
+	public void setSenhaCliente(String senhaCliente) {
 		this.senhaCliente = senhaCliente;
 	}
 
-	public int getIdImovel() {
-		return idImovel;
-	}
-
-	public void setIdImovel(int idImovel) {
-		this.idImovel = idImovel;
-	}
 }

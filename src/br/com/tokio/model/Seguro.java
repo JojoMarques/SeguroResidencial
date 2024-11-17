@@ -4,21 +4,21 @@ import java.sql.Date;
 
 public class Seguro {
 	private int idSeguro;
-	private int idCliente;
 	private double valorPremio;
 	private int idCobertura;
 	private int idAssistencia;
 	private Date dataInicio;
 	private Date dataFim;
+	private int idCliente;
 
-	public Seguro(int idCliente, double valorPremio, int idCobertura, int idAssistencia, Date dataInicio,
-			Date dataFim) {
-		this.idCliente = idCliente;
+	public Seguro(double valorPremio, int idCobertura, int idAssistencia, Date dataInicio,
+			Date dataFim, int idCliente) {
 		this.valorPremio = valorPremio;
 		this.idCobertura = idCobertura;
 		this.idAssistencia = idAssistencia;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
+		this.idCliente = idCliente;
 	}
 
 	public Seguro() {

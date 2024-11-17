@@ -1,5 +1,5 @@
 package br.com.tokio.dao;
 
-public class servicoDAO {
+public class ServicoDAO {
 
 }
