@@ -1,4 +1,4 @@
-package br.com.tokio.pacote2;
+package br.com.tokio.DAO;
 
 public class servicoDAO {
 
