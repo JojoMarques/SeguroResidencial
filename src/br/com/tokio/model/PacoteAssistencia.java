@@ -8,9 +8,9 @@ public class PacoteAssistencia {
 	private String tipo;
 	private String descricao;
 	private double preco;
-	private ArrayList<String> servicos; // Há de pensar nisso aqui
+	private ArrayList<Servico> servicos; // Há de pensar nisso aqui
 
-	public PacoteAssistencia(String tipo, String descricao, double preco, ArrayList<String> servicos) {
+	public PacoteAssistencia(String tipo, String descricao, double preco, ArrayList<Servico> servicos) {
 		this.tipo = tipo;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -52,11 +52,11 @@ public class PacoteAssistencia {
 		this.preco = preco;
 	}
 
-	public ArrayList<String> getServicos() {
+	public ArrayList<Servico> getServicos() {
 		return servicos;
 	}
 
-	public void setServicos(ArrayList<String> servicos) {
+	public void setServicos(ArrayList<Servico> servicos) {
 		this.servicos = servicos;
 	}
 

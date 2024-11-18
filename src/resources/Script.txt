@@ -1,0 +1,392 @@
+CREATE TABLE t_cliente (
+    cd_cliente       NUMBER(5) NOT NULL,
+    ds_senha_cliente CHAR(8),
+    nm_cliente       VARCHAR2(50),
+    cpf_cliente      CHAR(11),
+    telefone_cliente CHAR(11),
+    email_cliente    VARCHAR2(50)
+);
+
+COMMENT ON COLUMN t_cliente.cd_cliente IS
+    'identificador do cliente';
+
+COMMENT ON COLUMN t_cliente.ds_senha_cliente IS
+    'senha do cliente';
+
+COMMENT ON COLUMN t_cliente.nm_cliente IS
+    'nome do cliente';
+
+COMMENT ON COLUMN t_cliente.cpf_cliente IS
+    'cpf do cliente';
+
+COMMENT ON COLUMN t_cliente.telefone_cliente IS
+    'telefone do cliente';
+
+COMMENT ON COLUMN t_cliente.email_cliente IS
+    'email do cliente';
+
+ALTER TABLE t_cliente ADD CONSTRAINT t_cliente_pk PRIMARY KEY ( cd_cliente );
+
+CREATE TABLE t_corretora (
+    cd_corretora          NUMBER NOT NULL,
+    nm_corretora          VARCHAR2(50),
+    ds_endereco_corretora VARCHAR2(100)
+);
+
+COMMENT ON COLUMN t_corretora.cd_corretora IS
+    'indentificador da corretora';
+
+COMMENT ON COLUMN t_corretora.nm_corretora IS
+    'nome da corretora';
+
+COMMENT ON COLUMN t_corretora.ds_endereco_corretora IS
+    'endereço da corretora';
+
+ALTER TABLE t_corretora ADD CONSTRAINT t_corretora_pk PRIMARY KEY ( cd_corretora );
+
+CREATE TABLE t_evento_cobertura (
+    cd_cobertura NUMBER(5) NOT NULL,
+    cd_evento    NUMBER(5) NOT NULL
+);
+
+CREATE UNIQUE INDEX t_evento_cobertura__idx ON
+    t_evento_cobertura (
+        cd_evento
+    ASC );
+
+CREATE UNIQUE INDEX t_evento_cobertura__idxv1 ON
+    t_evento_cobertura (
+        cd_cobertura
+    ASC );
+
+CREATE TABLE t_eventos (
+    cd_evento NUMBER(5) NOT NULL,
+    nm_evento VARCHAR2(50),
+    ds_evento VARCHAR2(100)
+);
+
+COMMENT ON COLUMN t_eventos.cd_evento IS
+    'identificador do evento das coberturas';
+
+COMMENT ON COLUMN t_eventos.nm_evento IS
+    'nome do evento';
+
+ALTER TABLE t_eventos ADD CONSTRAINT t_eventos_pk PRIMARY KEY ( cd_evento );
+
+CREATE TABLE t_funcionario (
+    cd_funcionario NUMBER(5) NOT NULL,
+    ds_acesso_func CHAR(5),
+    dt_admissao    DATE,
+    senha          CHAR 
+--  WARNING: CHAR size not specified 
+    ,
+    nm_func        VARCHAR2(50),
+    cpf_func       CHAR(11),
+    telefone_func  CHAR(11),
+    email_func     VARCHAR2(50)
+);
+
+COMMENT ON COLUMN t_funcionario.cd_funcionario IS
+    'identificador do funcionario';
+
+COMMENT ON COLUMN t_funcionario.ds_acesso_func IS
+    'acesso do funcionario para login';
+
+COMMENT ON COLUMN t_funcionario.senha IS
+    'senha do funcionario';
+
+ALTER TABLE t_funcionario ADD CONSTRAINT t_funcionario_pk PRIMARY KEY ( cd_funcionario );
+
+CREATE TABLE t_imovel (
+    cd_imovel  NUMBER(5) NOT NULL,
+    cep        CHAR(8),
+    numero     NUMBER(5),
+    logradouro VARCHAR2(100),
+    bairro     VARCHAR2(50),
+    cidade     VARCHAR2(30),
+    pais       VARCHAR2(30),
+    vl_area    NUMBER(*, 2),
+    vl_imovel  NUMBER(*, 2),
+    cd_cliente NUMBER(5) NOT NULL
+);
+
+COMMENT ON COLUMN t_imovel.cd_imovel IS
+    'identificador do imovel';
+
+COMMENT ON COLUMN t_imovel.cep IS
+    'cep do imovel';
+
+COMMENT ON COLUMN t_imovel.numero IS
+    'numero do imovel';
+
+COMMENT ON COLUMN t_imovel.logradouro IS
+    'logradouro do imovel';
+
+COMMENT ON COLUMN t_imovel.bairro IS
+    'bairro do endereço do imovel';
+
+COMMENT ON COLUMN t_imovel.cidade IS
+    'cidade do endereço do imovel';
+
+COMMENT ON COLUMN t_imovel.pais IS
+    'pais do endereço do imovel';
+
+COMMENT ON COLUMN t_imovel.vl_area IS
+    'area do imovel';
+
+COMMENT ON COLUMN t_imovel.vl_imovel IS
+    'valor do imovel';
+
+ALTER TABLE t_imovel ADD CONSTRAINT t_imovel_pk PRIMARY KEY ( cd_imovel,
+                                                              cd_cliente );
+
+CREATE TABLE t_pct_assistencia (
+    cd_assistencia     NUMBER(5) NOT NULL,
+    tp_assistencia     VARCHAR2(20),
+    ds_assistencia     VARCHAR2(100),
+    vl_pct_assistencia NUMBER(5, 2) NOT NULL
+);
+
+COMMENT ON COLUMN t_pct_assistencia.cd_assistencia IS
+    'identificador do pacote da assistencia';
+
+COMMENT ON COLUMN t_pct_assistencia.tp_assistencia IS
+    'nome do tipo da assistencia';
+
+COMMENT ON COLUMN t_pct_assistencia.ds_assistencia IS
+    'descricao do pacote de assistencia';
+
+COMMENT ON COLUMN t_pct_assistencia.vl_pct_assistencia IS
+    'valor do pacote';
+
+ALTER TABLE t_pct_assistencia ADD CONSTRAINT t_pct_assistencia_pk PRIMARY KEY ( cd_assistencia );
+
+CREATE TABLE t_pct_cobertura (
+    cd_cobertura     NUMBER(5) NOT NULL,
+    tp_cobertura     VARCHAR2(20) NOT NULL,
+    ds_cobertura     VARCHAR2(100),
+    vl_pct_cobertura NUMBER(5, 2)
+);
+
+COMMENT ON COLUMN t_pct_cobertura.cd_cobertura IS
+    'identificador da cobertura';
+
+COMMENT ON COLUMN t_pct_cobertura.tp_cobertura IS
+    'nome do tipo da cobertura';
+
+COMMENT ON COLUMN t_pct_cobertura.ds_cobertura IS
+    'descricao do pacote de cobertura';
+
+COMMENT ON COLUMN t_pct_cobertura.vl_pct_cobertura IS
+    'valor do pacote';
+
+ALTER TABLE t_pct_cobertura ADD CONSTRAINT t_pct_cobertura_pk PRIMARY KEY ( cd_cobertura );
+
+CREATE TABLE t_seguro (
+    cd_seguro      NUMBER(5) NOT NULL,
+    vl_premio      NUMBER(7, 2),
+    dt_inicio      DATE,
+    dt_fim         DATE,
+    cd_cliente     NUMBER(5) NOT NULL,
+    cd_cobertura   NUMBER(5) NOT NULL,
+    cd_assistencia NUMBER(5) NOT NULL,
+    cd_corretora   NUMBER NOT NULL
+);
+
+COMMENT ON COLUMN t_seguro.cd_seguro IS
+    'identificador do seguro';
+
+COMMENT ON COLUMN t_seguro.vl_premio IS
+    'valor coberto pelo seguro';
+
+COMMENT ON COLUMN t_seguro.dt_inicio IS
+    'data de contratação do seguro';
+
+COMMENT ON COLUMN t_seguro.dt_fim IS
+    'data do fim do contrato';
+
+CREATE UNIQUE INDEX t_seguro__idx ON
+    t_seguro (
+        cd_assistencia
+    ASC );
+
+CREATE UNIQUE INDEX t_seguro__idxv1 ON
+    t_seguro (
+        cd_cobertura
+    ASC );
+
+ALTER TABLE t_seguro ADD CONSTRAINT t_seguro_pk PRIMARY KEY ( cd_seguro,
+                                                              cd_cliente );
+
+CREATE TABLE t_servico (
+    cd_servico NUMBER(5) NOT NULL,
+    nm_servico VARCHAR2(50),
+    ds_servico VARCHAR2(100)
+);
+
+COMMENT ON COLUMN t_servico.cd_servico IS
+    'identificador do servico prestado no pacote assistencia';
+
+COMMENT ON COLUMN t_servico.ds_servico IS
+    'descricao do servico ';
+
+ALTER TABLE t_servico ADD CONSTRAINT t_servico_pk PRIMARY KEY ( cd_servico );
+
+CREATE TABLE t_servico_assistencia (
+    cd_assistencia NUMBER(5) NOT NULL,
+    cd_servico     NUMBER(5) NOT NULL
+);
+
+CREATE UNIQUE INDEX t_servico_assistencia__idx ON
+    t_servico_assistencia (
+        cd_assistencia
+    ASC );
+
+CREATE UNIQUE INDEX t_servico_assistencia__idxv1 ON
+    t_servico_assistencia (
+        cd_servico
+    ASC );
+
+CREATE TABLE t_sinistro (
+    cd_sinistro NUMBER(5),
+    tp_sinistro VARCHAR2(30),
+    dt_sinistro DATE,
+    ds_sinistro VARCHAR2(100),
+    status      CHAR(1),
+    cd_seguro   NUMBER(5) NOT NULL,
+    cd_cliente  NUMBER(5) NOT NULL
+);
+
+
+
+
+COMMENT ON COLUMN t_sinistro.cd_sinistro IS
+    'identificador do sinistro';
+
+COMMENT ON COLUMN t_sinistro.tp_sinistro IS
+    'nome do tipo de sinistro';
+
+COMMENT ON COLUMN t_sinistro.dt_sinistro IS
+    'data de abertura do sinistro';
+
+COMMENT ON COLUMN t_sinistro.ds_sinistro IS
+    'descricao do sinistro';
+
+COMMENT ON COLUMN t_sinistro.status IS
+    'estado do sinistro ';
+
+ALTER TABLE t_sinistro ADD CONSTRAINT t_sinistro_pk PRIMARY KEY ( cd_seguro,
+                                                                  cd_cliente );
+
+--  ERROR: FK name length exceeds maximum allowed length(30) 
+ALTER TABLE t_servico_assistencia
+    ADD CONSTRAINT fk_assistencia_servico_assistencia FOREIGN KEY ( cd_assistencia )
+        REFERENCES t_pct_assistencia ( cd_assistencia );
+
+ALTER TABLE t_imovel
+    ADD CONSTRAINT fk_cliente_imovel FOREIGN KEY ( cd_cliente )
+        REFERENCES t_cliente ( cd_cliente );
+
+ALTER TABLE t_seguro
+    ADD CONSTRAINT fk_cliente_seguro FOREIGN KEY ( cd_cliente )
+        REFERENCES t_cliente ( cd_cliente );
+
+ALTER TABLE t_evento_cobertura
+    ADD CONSTRAINT fk_evento_evento_cobertura FOREIGN KEY ( cd_evento )
+        REFERENCES t_eventos ( cd_evento );
+
+ALTER TABLE t_evento_cobertura
+    ADD CONSTRAINT fk_pacote_evento_cobertura FOREIGN KEY ( cd_cobertura )
+        REFERENCES t_pct_cobertura ( cd_cobertura );
+
+ALTER TABLE t_seguro
+    ADD CONSTRAINT fk_seguro_assistencia FOREIGN KEY ( cd_assistencia )
+        REFERENCES t_pct_assistencia ( cd_assistencia );
+
+ALTER TABLE t_seguro
+    ADD CONSTRAINT fk_seguro_cobertura FOREIGN KEY ( cd_cobertura )
+        REFERENCES t_pct_cobertura ( cd_cobertura );
+
+ALTER TABLE t_seguro
+    ADD CONSTRAINT fk_seguro_corretora FOREIGN KEY ( cd_corretora )
+        REFERENCES t_corretora ( cd_corretora );
+
+ALTER TABLE t_sinistro
+    ADD CONSTRAINT fk_seguro_sinistro FOREIGN KEY ( cd_seguro,
+                                                    cd_cliente )
+        REFERENCES t_seguro ( cd_seguro,
+                              cd_cliente );
+
+ALTER TABLE t_servico_assistencia
+    ADD CONSTRAINT fk_servico_servico_assistencia FOREIGN KEY ( cd_servico )
+        REFERENCES t_servico ( cd_servico );
+
+-- Sequence e Trigger para t_cliente
+CREATE SEQUENCE SEQ_ID_CLIENTE START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_CLIENTE
+BEFORE INSERT ON t_cliente FOR EACH ROW
+BEGIN
+	SELECT SEQ_ID_CLIENTE.NEXTVAL INTO :NEW.cd_cliente FROM DUAL;
+END;
+/
+
+-- Sequence e Trigger para t_corretora
+CREATE SEQUENCE SEQ_ID_CORRETORA START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_CORRETORA
+BEFORE INSERT ON t_corretora FOR EACH ROW
+BEGIN
+	SELECT SEQ_ID_CORRETORA.NEXTVAL INTO :NEW.cd_corretora FROM DUAL;
+END;
+/
+
+-- Sequence e Trigger para t_eventos
+CREATE SEQUENCE SEQ_ID_EVENTOS START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_EVENTOS
+BEFORE INSERT ON t_eventos FOR EACH ROW
+BEGIN
+	SELECT SEQ_ID_EVENTOS.NEXTVAL INTO :NEW.cd_evento FROM DUAL;
+END;
+/
+
+-- Sequence e Trigger para t_funcionario
+CREATE SEQUENCE SEQ_ID_FUNCIONARIO START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_FUNCIONARIO
+BEFORE INSERT ON t_funcionario FOR EACH ROW
+BEGIN
+	SELECT SEQ_ID_FUNCIONARIO.NEXTVAL INTO :NEW.cd_funcionario FROM DUAL;
+END;
+/
+
+-- Sequence e Trigger para t_imovel
+CREATE SEQUENCE SEQ_ID_IMOVEL START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_IMOVEL
+BEFORE INSERT ON t_imovel FOR EACH ROW
+BEGIN
+	SELECT SEQ_ID_IMOVEL.NEXTVAL INTO :NEW.cd_imovel FROM DUAL;
+END;
+/
+
+-- Sequence e Trigger para t_pct_assistencia
+CREATE SEQUENCE SEQ_ID_ASSISTENCIA START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_ASSISTENCIA
+BEFORE INSERT ON t_pct_assistencia FOR EACH ROW
+BEGIN
+	SELECT SEQ_ID_ASSISTENCIA.NEXTVAL INTO :NEW.cd_assistencia FROM DUAL;
+END;
+/
+
+-- Sequence e Trigger para t_pct_cobertura
+CREATE SEQUENCE SEQ_ID_COBERTURA START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_COBERTURA
+BEFORE INSERT ON t_pct_cobertura FOR EACH ROW
+BEGIN
+	SELECT SEQ_ID_COBERTURA.NEXTVAL INTO :NEW.cd_cobertura FROM DUAL;
+END;
+/

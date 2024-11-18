@@ -8,13 +8,13 @@ public class PacoteCobertura {
 	private String tipo;
 	private String descricao;
 	private double preco;
-	private ArrayList<String> coberturas; // tem que pensar nesse, em como as coisas são passadas
+	private ArrayList<Evento> eventos; // tem que pensar nesse, em como as coisas são passadas
 
-	public PacoteCobertura(String tipo, String descricao, double preco, ArrayList<String> coberturas) {
+	public PacoteCobertura(String tipo, String descricao, double preco, ArrayList<Evento> eventos) {
 		this.tipo = tipo;
 		this.descricao = descricao;
 		this.preco = preco;
-		this.coberturas = coberturas;
+		this.eventos = eventos;
 	}
 
 	public PacoteCobertura() {
@@ -52,12 +52,12 @@ public class PacoteCobertura {
 		this.preco = preco;
 	}
 
-	public ArrayList<String> getCoberturas() {
-		return coberturas;
+	public ArrayList<Evento> getCoberturas() {
+		return eventos;
 	}
 
-	public void setCoberturas(ArrayList<String> coberturas) {
-		this.coberturas = coberturas;
+	public void setCoberturas(ArrayList<Evento> eventos) {
+		this.eventos = eventos;
 	}
 
 }
