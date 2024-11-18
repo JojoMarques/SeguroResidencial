@@ -55,7 +55,8 @@ public class PacoteAssistenciaDAO {
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		
+		}
+}
 
 	// Listar todos os serviços
 	public List<PacoteAssistencia> selectAll() {
@@ -110,5 +111,6 @@ public class PacoteAssistenciaDAO {
 		}
 
 		return pacote;
+		//.
 	}
-
+}
