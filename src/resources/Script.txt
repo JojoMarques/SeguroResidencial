@@ -30,6 +30,8 @@ DROP SEQUENCE SEQ_ID_FUNCIONARIO;
 DROP SEQUENCE SEQ_ID_IMOVEL;
 DROP SEQUENCE SEQ_ID_ASSISTENCIA;
 DROP SEQUENCE SEQ_ID_COBERTURA;
+drop SEQUENCE SEQ_ID_SERVICO;
+
 
 
 ---------------------------------------------------------------------------
@@ -113,8 +115,7 @@ CREATE TABLE t_funcionario (
     cd_funcionario NUMBER(5) NOT NULL,
     ds_acesso_func CHAR(5),
     dt_admissao    DATE,
-    senha          CHAR 
---  WARNING: CHAR size not specified 
+    senha          CHAR (15)
     ,
     nm_func        VARCHAR2(50),
     cpf_func       CHAR(11),
@@ -394,6 +395,16 @@ CREATE OR REPLACE TRIGGER TR_INSERT_FUNCIONARIO
 BEFORE INSERT ON t_funcionario FOR EACH ROW
 BEGIN
 	SELECT SEQ_ID_FUNCIONARIO.NEXTVAL INTO :NEW.cd_funcionario FROM DUAL;
+END;
+/
+
+-- Sequence e Trigger para t_servicos
+CREATE SEQUENCE SEQ_ID_SERVICO START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_SERVICO
+BEFORE INSERT ON t_servico FOR EACH ROW
+BEGIN
+    SELECT SEQ_ID_SERVICO.NEXTVAL INTO :NEW.cd_servico FROM DUAL;
 END;
 /
 
