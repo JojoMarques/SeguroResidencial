@@ -10,16 +10,18 @@ public class Seguro {
 	private Date dataInicio;
 	private Date dataFim;
 	private int idCliente;
+	private int idCorretora;
 
 	public Seguro(double valorPremio, int idCobertura, int idAssistencia, Date dataInicio,
-			Date dataFim, int idCliente) {
+			Date dataFim, int idCliente,int idCorretora ) {
 		this.valorPremio = valorPremio;
 		this.idCobertura = idCobertura;
 		this.idAssistencia = idAssistencia;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.idCliente = idCliente;
-	}
+		this.idCorretora = idCorretora;
+		}
 
 	public Seguro() {
 	}
@@ -79,5 +81,15 @@ public class Seguro {
 	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
+
+	public int getIdCorretora() {
+		return idCorretora;
+	}
+
+	public void setIdCorretora(int idCorretora) {
+		this.idCorretora = idCorretora;
+	}
+	
+	
 
 }

@@ -50,6 +50,9 @@ DROP SEQUENCE SEQ_ID_SERVICO;
 
 DROP SEQUENCE SEQ_ID_SINISTRO;
 
+DROP SEQUENCE SEQ_ID_SERVICO_ASSISTENCIA;
+
+DROP SEQUENCE SEQ_ID_EVENTO_COBERTURA;
 
 
 -- predefined type, no DDL - MDSYS.SDO_GEOMETRY
@@ -103,19 +106,11 @@ COMMENT ON COLUMN t_corretora.ds_endereco_corretora IS
 ALTER TABLE t_corretora ADD CONSTRAINT t_corretora_pk PRIMARY KEY ( cd_corretora );
 
 CREATE TABLE t_evento_cobertura (
+    cd_evento_cobertura NUMBER (5) NOT NULL,
     cd_cobertura NUMBER(5) NOT NULL,
     cd_evento    NUMBER(5) NOT NULL
 );
-
-CREATE UNIQUE INDEX t_evento_cobertura__idx ON
-    t_evento_cobertura (
-        cd_evento
-    ASC );
-
-CREATE UNIQUE INDEX t_evento_cobertura__idxv1 ON
-    t_evento_cobertura (
-        cd_cobertura
-    ASC );
+ALTER TABLE t_evento_cobertura ADD CONSTRAINT T_evento_cobertura_PK PRIMARY KEY ( cd_evento_cobertura );
 
 CREATE TABLE t_evento (
     cd_evento NUMBER(5) NOT NULL,
@@ -248,7 +243,7 @@ CREATE TABLE t_seguro (
     cd_cliente     NUMBER(5) NOT NULL,
     cd_cobertura   NUMBER(5) NOT NULL,
     cd_assistencia NUMBER(5) NOT NULL,
-    cd_corretora   NUMBER NOT NULL
+    cd_corretora   NUMBER(5) NOT NULL
 );
 
 COMMENT ON COLUMN t_seguro.cd_seguro IS
@@ -291,19 +286,11 @@ COMMENT ON COLUMN t_servico.ds_servico IS
 ALTER TABLE t_servico ADD CONSTRAINT t_servico_pk PRIMARY KEY ( cd_servico );
 
 CREATE TABLE t_servico_assistencia (
+    cd_servico_assistencia NUMBER(5) NOT NULL,
     cd_assistencia NUMBER(5) NOT NULL,
     cd_servico     NUMBER(5) NOT NULL
 );
-
-CREATE UNIQUE INDEX t_servico_assistencia__idx ON
-    t_servico_assistencia (
-        cd_assistencia
-    ASC );
-
-CREATE UNIQUE INDEX t_servico_assistencia__idxv1 ON
-    t_servico_assistencia (
-        cd_servico
-    ASC );
+ALTER TABLE t_servico_assistencia ADD CONSTRAINT t_servico_assistencia_pk PRIMARY KEY ( cd_servico_assistencia );
 
 CREATE TABLE t_sinistro (
     cd_sinistro NUMBER(5),
@@ -449,15 +436,24 @@ BEGIN
 END;
 /
 
--- Sequence e Trigger para t_seguro
-CREATE SEQUENCE SEQ_ID_SEGURO START WITH 1 INCREMENT BY 1;
 
+CREATE SEQUENCE SEQ_ID_SEGURO 
+START WITH 1 
+INCREMENT BY 1 
+NOCACHE 
+NOCYCLE;
+
+-- Recria a trigger para associar a sequence ao campo `cd_seguro`
 CREATE OR REPLACE TRIGGER TR_INSERT_SEGURO
-BEFORE INSERT ON t_seguro FOR EACH ROW
+BEFORE INSERT ON t_seguro
+FOR EACH ROW
 BEGIN
-    SELECT SEQ_ID_SEGURO.NEXTVAL INTO :NEW.cd_seguro FROM DUAL;
+    IF :NEW.cd_seguro IS NULL THEN
+        SELECT SEQ_ID_SEGURO.NEXTVAL INTO :NEW.cd_seguro FROM DUAL;
+    END IF;
 END;
 /
+
 
 -- Sequence e Trigger para t_servico
 CREATE SEQUENCE SEQ_ID_SERVICO START WITH 1 INCREMENT BY 1;
@@ -476,5 +472,27 @@ CREATE OR REPLACE TRIGGER TR_INSERT_SINISTRO
 BEFORE INSERT ON t_sinistro FOR EACH ROW
 BEGIN
     SELECT SEQ_ID_SINISTRO.NEXTVAL INTO :NEW.cd_sinistro FROM DUAL;
+END;
+/
+
+-- Criando a Sequence para t_servico_assistencia
+CREATE SEQUENCE SEQ_ID_SERVICO_ASSISTENCIA START WITH 1 INCREMENT BY 1;
+
+-- Criando o Trigger para t_servico_assistencia
+CREATE OR REPLACE TRIGGER TR_INSERT_SERVICO_ASSISTENCIA
+BEFORE INSERT ON t_servico_assistencia FOR EACH ROW
+BEGIN
+    SELECT SEQ_ID_SERVICO_ASSISTENCIA.NEXTVAL INTO :NEW.cd_servico_assistencia FROM DUAL;
+END;
+/
+
+-- Criando a Sequence para t_evento_cobertura
+CREATE SEQUENCE SEQ_ID_EVENTO_COBERTURA START WITH 1 INCREMENT BY 1;
+
+-- Criando o Trigger para t_evento_cobertura
+CREATE OR REPLACE TRIGGER TR_INSERT_EVENTO_COBERTURA
+BEFORE INSERT ON t_evento_cobertura FOR EACH ROW
+BEGIN
+    SELECT SEQ_ID_EVENTO_COBERTURA.NEXTVAL INTO :NEW.cd_evento_cobertura FROM DUAL;
 END;
 /

@@ -19,16 +19,17 @@ public class SeguroDAO {
 
     // insert
     public void insert(Seguro seguro) {
-        String sql = "insert into T_SEGURO (vl_premio, dt_inicio, dt_fim, cd_cobertura, cd_assistencia, cd_cliente) values (?, ?, ?, ?, ?, ?)";
-
+        String sql = "INSERT INTO t_seguro (vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        	
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setDouble(1, seguro.getValorPremio());
             stmt.setDate(2, seguro.getDataInicio());
             stmt.setDate(3, seguro.getDataFim());
-            stmt.setInt(4, seguro.getIdCobertura());
-            stmt.setInt(5, seguro.getIdAssistencia());
-            stmt.setInt(6, seguro.getIdCliente());
+            stmt.setInt(4, seguro.getIdCliente());
+            stmt.setInt(5, seguro.getIdCobertura());
+            stmt.setInt(6, seguro.getIdAssistencia());
+            stmt.setInt(7, seguro.getIdCorretora());
 
             stmt.execute();
             stmt.close();
@@ -98,6 +99,7 @@ public class SeguroDAO {
                 seguro.setIdCobertura(rs.getInt("cd_cobertura"));
                 seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
                 seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
 
                 listSeguros.add(seguro);
             }
@@ -130,6 +132,7 @@ public class SeguroDAO {
                 seguro.setIdCobertura(rs.getInt("cd_cobertura"));
                 seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
                 seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
             }
 
             stmt.close();

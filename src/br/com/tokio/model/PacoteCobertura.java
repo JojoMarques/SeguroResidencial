@@ -1,6 +1,7 @@
 package br.com.tokio.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PacoteCobertura {
 
@@ -8,9 +9,9 @@ public class PacoteCobertura {
 	private String tipo;
 	private String descricao;
 	private double preco;
-	private ArrayList<Evento> eventos; // tem que pensar nesse, em como as coisas são passadas
+	private List<Evento> eventos; // tem que pensar nesse, em como as coisas são passadas
 
-	public PacoteCobertura(String tipo, String descricao, double preco, ArrayList<Evento> eventos) {
+	public PacoteCobertura(String tipo, String descricao, double preco, List<Evento> eventos) {
 		this.tipo = tipo;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -52,7 +53,7 @@ public class PacoteCobertura {
 		this.preco = preco;
 	}
 
-	public ArrayList<Evento> getCoberturas() {
+	public List<Evento> getCoberturas() {
 		return eventos;
 	}
 
@@ -60,4 +61,5 @@ public class PacoteCobertura {
 		this.eventos = eventos;
 	}
 
+	
 }

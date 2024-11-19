@@ -1,5 +1,6 @@
 package br.com.tokio.dao;
 
+import br.com.tokio.model.Evento;
 import br.com.tokio.model.PacoteCobertura;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,21 +17,64 @@ public class PacoteCoberturaDAO {
         this.connection = connection;
     }
 
-    // Método para inserir
+
+    
     public void insert(PacoteCobertura pacoteCobertura) {
+    	PacoteCoberturaEventoDAO pacoteCoberturaEventoDAO = new PacoteCoberturaEventoDAO(connection);
+    	
         String sql = "INSERT INTO t_pct_cobertura (tp_cobertura, ds_cobertura, vl_pct_cobertura) VALUES (?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, pacoteCobertura.getTipo());
             stmt.setString(2, pacoteCobertura.getDescricao());
             stmt.setDouble(3, pacoteCobertura.getPreco());
+            
             stmt.execute();
+           
+            insertEventos(pacoteCobertura.getCoberturas());
+            
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public void insertEventos(List<Evento> eventos) {
+    	PacoteCoberturaDAO pacoteCoberturaDAO = new PacoteCoberturaDAO(connection);
+    	PacoteCoberturaEventoDAO pacoteCoberturaEventoDAO = new PacoteCoberturaEventoDAO(connection);
+    	
+    	PacoteCobertura pacoteCobertura = pacoteCoberturaDAO.getLastPacoteCobertura();
+    	
+        for (Evento evento : eventos) {
+        	System.out.println(pacoteCobertura.getIdCobertura() +" " + evento.getIdEvento());
+            pacoteCoberturaEventoDAO.insert(pacoteCobertura, evento);
+        }
+    }
+    
+    public PacoteCobertura getLastPacoteCobertura() {
+        String sql = "SELECT * FROM t_pct_cobertura WHERE cd_cobertura = (SELECT MAX(cd_cobertura) FROM t_pct_cobertura)";
+        PacoteCobertura pacote = new PacoteCobertura();
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                pacote.setIdCobertura(rs.getInt("cd_cobertura"));
+                pacote.setTipo(rs.getString("tp_cobertura"));
+                pacote.setDescricao(rs.getString("ds_cobertura"));
+                pacote.setPreco(rs.getDouble("vl_pct_cobertura"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return pacote;
+    }
+
+    
     // Método para deletar
     public void delete(int idCobertura) {
         String sql = "DELETE FROM t_pct_cobertura WHERE cd_cobertura = ?";

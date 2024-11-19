@@ -1,0 +1,8 @@
+INSERT INTO t_corretora (nm_corretora, ds_endereco_corretora)
+VALUES ('Segura Tudo Ltda', 'Avenida Brasil, 1234, Centro, São Paulo, SP');
+
+INSERT INTO t_corretora (nm_corretora, ds_endereco_corretora)
+VALUES ('Protege Bem Corretora', 'Rua das Flores, 456, Jardim das Rosas, Rio de Janeiro, RJ');
+
+
+select * from t_corretora;
