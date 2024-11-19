@@ -41,12 +41,11 @@ public class SeguroDAO {
 
     // delete
     public void delete(int idSeguro, int idCliente) {
-        String sql = "delete from T_SEGURO where cd_seguro = ? and cd_cliente = ?";
+        String sql = "delete from T_SEGURO where cd_seguro =?";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, idSeguro);
-            stmt.setInt(2, idCliente);
 
             stmt.execute();
             stmt.close();
@@ -58,7 +57,7 @@ public class SeguroDAO {
 
     // update
     public void update(Seguro seguro) {
-        String sql = "update T_SEGURO set vl_premio = ?, dt_inicio = ?, dt_fim = ?, cd_cobertura = ?, cd_assistencia = ? where cd_seguro = ? and cd_cliente = ?";
+        String sql = "update T_SEGURO set vl_premio = ?, dt_inicio = ?, dt_fim = ?, cd_cobertura = ?, cd_assistencia = ? where cd_seguro = ?";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -69,7 +68,7 @@ public class SeguroDAO {
             stmt.setInt(4, seguro.getIdCobertura());
             stmt.setInt(5, seguro.getIdAssistencia());
             stmt.setInt(6, seguro.getIdSeguro());
-            stmt.setInt(7, seguro.getIdCliente());
+            
 
             stmt.execute();
             stmt.close();
@@ -81,7 +80,7 @@ public class SeguroDAO {
 
     // select all
     public List<Seguro> selectAll() {
-        String sql = "select * from T_SEGURO order by cd_seguro";
+        String sql = "select * from T_SEGURO";
         List<Seguro> listSeguros = new ArrayList<>();
 
         try {
@@ -114,13 +113,12 @@ public class SeguroDAO {
 
     // select by id
     public Seguro selectById(int idSeguro, int idCliente) {
-        String sql = "select * from T_SEGURO where cd_seguro = ? and cd_cliente = ?";
+        String sql = "select * from T_SEGURO where cd_seguro = ? ";
         Seguro seguro = new Seguro();
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, idSeguro);
-            stmt.setInt(2, idCliente);
 
             ResultSet rs = stmt.executeQuery();
 

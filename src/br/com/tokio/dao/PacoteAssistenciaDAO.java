@@ -45,7 +45,6 @@ public class PacoteAssistenciaDAO {
         PacoteAssistencia pacoteAssistencia = pacoteAssistenciaDAO.getLastPacoteAssistencia();
         
         for (Servico servico : servicos) {
-        	System.out.println(pacoteAssistencia.getIdAssistencia() +" " + servico.getIdServico());
             pacoteAssistenciaServicoDAO.insert(pacoteAssistencia, servico);
         }
     }

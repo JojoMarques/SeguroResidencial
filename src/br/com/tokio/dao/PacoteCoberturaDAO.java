@@ -46,7 +46,6 @@ public class PacoteCoberturaDAO {
     	PacoteCobertura pacoteCobertura = pacoteCoberturaDAO.getLastPacoteCobertura();
     	
         for (Evento evento : eventos) {
-        	System.out.println(pacoteCobertura.getIdCobertura() +" " + evento.getIdEvento());
             pacoteCoberturaEventoDAO.insert(pacoteCobertura, evento);
         }
     }
