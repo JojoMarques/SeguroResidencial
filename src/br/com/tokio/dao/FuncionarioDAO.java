@@ -8,10 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.tokio.model.Funcionario;
+import br.com.tokio.connection.ConnectionFactory;
 
 public class FuncionarioDAO {
 
 	private Connection connection;
+
+	public FuncionarioDAO() {
+		super();
+		this.connection = new ConnectionFactory().conectar(); // criando a conexão e chamando o método conectar
+	}
 
 	public FuncionarioDAO(Connection connection) {
 		this.connection = connection;
@@ -19,7 +25,7 @@ public class FuncionarioDAO {
 
 	// Insert
 	public void insert(Funcionario funcionario) {
-		String sql = "insert into t_funcinario (nm_usuario, cpf, telefone, email, ds_acesso_func, dt_admissao, senha) values (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into t_funcionario (nm_func, cpf_func, telefone_func, email_func, ds_acesso_func, dt_admissao, senha) values (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -57,7 +63,7 @@ public class FuncionarioDAO {
 
 	// Update
 	public void update(Funcionario funcionario) {
-		String sql = "update t_funcionario set nm_usuario = ?, cpf = ?, telefone = ?, email = ?, ds_acesso_func = ?, dt_admissao = ?, senha = ? where cd_funcionario";
+		String sql = "update t_funcionario set nm_func = ?, cpf_func = ?, telefone_func = ?, email_func = ?, ds_acesso_func = ?, dt_admissao = ?, senha = ? where cd_funcionario";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -91,10 +97,10 @@ public class FuncionarioDAO {
 				Funcionario funcionario = new Funcionario();
 
 				funcionario.setIdFuncionario(rs.getInt("cd_funcionario"));
-				funcionario.setNome(rs.getString("nm_usuario"));
-				funcionario.setCpf(rs.getString("cpf"));
-				funcionario.setTelefone(rs.getString("telefone"));
-				funcionario.setEmail(rs.getString("email"));
+				funcionario.setNome(rs.getString("nm_func"));
+				funcionario.setCpf(rs.getString("cpf_func"));
+				funcionario.setTelefone(rs.getString("telefone_func"));
+				funcionario.setEmail(rs.getString("email_func"));
 				funcionario.setAcessoFunc(rs.getString("ds_acesso_func"));
 				funcionario.setDataAdmissao(rs.getDate("dt_admissao"));
 				funcionario.setSenhaFunc(rs.getString("senha"));
@@ -120,10 +126,10 @@ public class FuncionarioDAO {
 				while (rs.next()) {
 
 					funcionario.setIdFuncionario(rs.getInt("cd_funcionario"));
-					funcionario.setNome(rs.getString("nm_usuario"));
-					funcionario.setCpf(rs.getString("cpf"));
+					funcionario.setNome(rs.getString("nm_func"));
+					funcionario.setCpf(rs.getString("cpf_func"));
 					funcionario.setTelefone(rs.getString("telefone"));
-					funcionario.setEmail(rs.getString("email"));
+					funcionario.setEmail(rs.getString("email_func"));
 					funcionario.setAcessoFunc(rs.getString("ds_acesso_func"));
 					funcionario.setDataAdmissao(rs.getDate("dt_admissao"));
 					funcionario.setSenhaFunc(rs.getString("senha"));
