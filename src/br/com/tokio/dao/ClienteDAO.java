@@ -15,10 +15,6 @@ public class ClienteDAO implements Autenticar {
 
 	private Connection connection;
 
-	public ClienteDAO() {
-		this.connection = new ConnectionFactory().conectar(); // criando a conexão e chamando o método conectar
-	}
-
 	public ClienteDAO(Connection connection) {
 		this.connection = connection;
 	}

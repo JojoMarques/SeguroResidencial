@@ -1,6 +1,7 @@
 package br.com.tokio.telas.cliente;
 
 import java.awt.EventQueue;
+import java.sql.Connection;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ClienteDAO;
 import br.com.tokio.telas.TelaInicial;
 
@@ -93,8 +95,11 @@ public class LoginCliente {
 			String cpf = txtCpf.getText();
 			String senha = new String(txtSenha.getPassword());
 
+			// Instanciando a conexão
+			Connection connection = new ConnectionFactory().conectar();
+			
 			// Instanciar o ClienteDAO e verificar a autenticação
-			ClienteDAO clienteDAO = new ClienteDAO();
+			ClienteDAO clienteDAO = new ClienteDAO(connection);
 			int resultadoAutenticacao = clienteDAO.autenticacao(cpf, senha);
 
 			if (resultadoAutenticacao == 1) {

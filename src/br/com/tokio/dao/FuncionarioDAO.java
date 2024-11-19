@@ -15,10 +15,6 @@ public class FuncionarioDAO implements Autenticar {
 
 	private Connection connection;
 
-	public FuncionarioDAO() {
-		this.connection = new ConnectionFactory().conectar(); // criando a conexão e chamando o método conectar
-	}
-
 	public FuncionarioDAO(Connection connection) {
 		this.connection = connection;
 	}
