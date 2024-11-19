@@ -19,13 +19,14 @@ public class SeguroDAO {
 
     // insert
     public void insert(Seguro seguro) {
-        String sql = "INSERT INTO t_seguro (vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    	String sql = "INSERT INTO t_seguro (vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora) "
+    	           + "VALUES (?, TO_DATE(?, 'YYYY-MM-DD'), TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?)";
         	
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setDouble(1, seguro.getValorPremio());
-            stmt.setDate(2, seguro.getDataInicio());
-            stmt.setDate(3, seguro.getDataFim());
+            stmt.setString(2, seguro.getDataInicio().toString());
+            stmt.setString(3, seguro.getDataFim().toString());
             stmt.setInt(4, seguro.getIdCliente());
             stmt.setInt(5, seguro.getIdCobertura());
             stmt.setInt(6, seguro.getIdAssistencia());
@@ -57,17 +58,15 @@ public class SeguroDAO {
 
     // update
     public void update(Seguro seguro) {
-        String sql = "update T_SEGURO set vl_premio = ?, dt_inicio = ?, dt_fim = ?, cd_cobertura = ?, cd_assistencia = ? where cd_seguro = ?";
+        String sql = "update T_SEGURO set vl_premio = ?, cd_cobertura = ?, cd_assistencia = ? where cd_seguro = ?";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setDouble(1, seguro.getValorPremio());
-            stmt.setDate(2, seguro.getDataInicio());
-            stmt.setDate(3, seguro.getDataFim());
-            stmt.setInt(4, seguro.getIdCobertura());
-            stmt.setInt(5, seguro.getIdAssistencia());
-            stmt.setInt(6, seguro.getIdSeguro());
+            stmt.setInt(2, seguro.getIdCobertura());
+            stmt.setInt(3, seguro.getIdAssistencia());
+            stmt.setInt(4, seguro.getIdSeguro());
             
 
             stmt.execute();

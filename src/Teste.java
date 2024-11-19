@@ -109,15 +109,15 @@ public class Teste {
         System.out.println("Pacotes de Cobertura e Assistência inseridos com sucesso!");
 
         // Criação e inserção do Seguro (temos que pegar o idCliente previamente inserido, ex: idCliente = 1, 2)
-        Seguro seguro1 = new Seguro(2000.00, 1, 1, Date.valueOf(LocalDate.parse("2023-05-10")), Date.valueOf(LocalDate.parse("2023-05-10")), 1, 1);
-        Seguro seguro2 = new Seguro(3000.00, 1, 2,  Date.valueOf(LocalDate.parse("2023-05-10")),  Date.valueOf(LocalDate.parse("2023-05-10")), 2, 2);
+        Seguro seguro1 = new Seguro(2000.00, 1, 1, Date.valueOf("2023-05-10"), Date.valueOf("2023-05-10"), 1, 1);
+        Seguro seguro2 = new Seguro(3000.00, 1, 2,  Date.valueOf("2023-05-10"),  Date.valueOf("2023-05-10"), 2, 2);
         seguroDAO.insert(seguro1);
         seguroDAO.insert(seguro2);
         System.out.println("Seguros inseridos com sucesso.");
 
         // Criação e inserção do Sinistro
-        Sinistro sinistro1 = new Sinistro("Furto", Date.valueOf(LocalDate.parse("2023-05-10")), "Furto de veículo", true, 1, 1);
-        Sinistro sinistro2 = new Sinistro("Acidente", Date.valueOf(LocalDate.parse("2023-06-15")), "Acidente de carro", false, 2, 2);
+        Sinistro sinistro1 = new Sinistro("Furto", Date.valueOf("2023-05-10"), "Furto de veículo", true, 1, 1);
+        Sinistro sinistro2 = new Sinistro("Acidente", Date.valueOf("2023-06-15"), "Acidente de carro", false, 2, 2);
         sinistroDAO.insert(sinistro1);
         sinistroDAO.insert(sinistro2);
         System.out.println("Sinistros inseridos com sucesso.");

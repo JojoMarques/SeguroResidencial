@@ -20,12 +20,12 @@ public class SinistroDAO {
 
     // insert
     public void insert(Sinistro sinistro) {
-        String sql = "insert into T_SINISTRO (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente) values (?, ?, ?, ?, ?, ?)";
+    	String sql = "insert into T_SINISTRO (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente) values (?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?)";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, sinistro.getTipoSinistro());
-            stmt.setDate(2, sinistro.getDataSinistro());
+            stmt.setString(2, sinistro.getDataSinistro().toString());
             stmt.setString(3, sinistro.getDescricao());
             stmt.setBoolean(4, sinistro.isStatus());
             stmt.setInt(5, sinistro.getIdSeguro());
