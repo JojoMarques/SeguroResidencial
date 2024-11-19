@@ -19,7 +19,7 @@ public class ServicoDAO {
 
 	// Inserir um novo serviço
 	public void insert(Servico servico) {
-		String sql = "INSERT INTO t_servico (nome, descricao) VALUES (?, ?)";
+		String sql = "INSERT INTO t_servico (nm_servico, ds_servico) VALUES (?, ?)";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class ServicoDAO {
 
 	// Atualizar um serviço existente
 	public void update(Servico servico) {
-		String sql = "UPDATE t_servico SET nome = ?, descricao = ? WHERE cd_servico = ?";
+		String sql = "UPDATE t_servico SET nm_servico = ?, ds_servico = ? WHERE cd_servico = ?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, servico.getNome());
@@ -63,7 +63,7 @@ public class ServicoDAO {
 	// Listar todos os serviços
 	public List<Servico> selectAll() {
 		List<Servico> listaServicos = new ArrayList<>();
-		String sql = "SELECT * FROM t_servico ORDER BY nome";
+		String sql = "SELECT * FROM t_servico ORDER BY nm_servico";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -72,8 +72,8 @@ public class ServicoDAO {
 			while (rs.next()) {
 				Servico servico = new Servico();
 				servico.setIdServico(rs.getInt("cd_servico"));
-				servico.setNome(rs.getString("nome"));
-				servico.setDescricao(rs.getString("descricao"));
+				servico.setNome(rs.getString("nm_servico"));
+				servico.setDescricao(rs.getString("ds_servico"));
 				listaServicos.add(servico);
 			}
 
@@ -98,9 +98,9 @@ public class ServicoDAO {
 
 			if (rs.next()) {
 				servico = new Servico();
-				servico.setIdServico(rs.getInt("cd_Servico"));
-				servico.setNome(rs.getString("nome"));
-				servico.setDescricao(rs.getString("descricao"));
+				servico.setIdServico(rs.getInt("cd_servico"));
+				servico.setNome(rs.getString("nm_servico"));
+				servico.setDescricao(rs.getString("ds_servico"));
 			}
 
 			stmt.close();
