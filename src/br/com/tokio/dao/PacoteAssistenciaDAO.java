@@ -16,7 +16,7 @@ public class PacoteAssistenciaDAO {
 	}
 
 	public void insert(PacoteAssistencia pacote) {
-		String sql = "INSERT INTO  t_pct_assistencia ( tp_assistencia,   ds_assistencia , vl_pct_assistencia) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO  t_pct_assistencia (tp_assistencia, ds_assistencia, vl_pct_assistencia) VALUES (?, ?, ?)";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
