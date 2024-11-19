@@ -260,8 +260,7 @@ COMMENT ON COLUMN t_seguro.dt_fim IS
 
 
 
-ALTER TABLE t_seguro ADD CONSTRAINT t_seguro_pk PRIMARY KEY ( cd_seguro,
-                                                              cd_cliente );
+ALTER TABLE t_seguro ADD CONSTRAINT t_seguro_pk PRIMARY KEY ( cd_seguro);
 
 CREATE TABLE t_servico (
     cd_servico NUMBER(5) NOT NULL,
@@ -294,7 +293,7 @@ CREATE TABLE t_sinistro (
     cd_cliente  NUMBER(5) NOT NULL
 );
 
-
+ALTER TABLE t_sinistro ADD CONSTRAINT t_sinistro_pk PRIMARY KEY ( cd_sinistro );
 
 COMMENT ON COLUMN t_sinistro.cd_sinistro IS
     'identificador do sinistro';
@@ -311,8 +310,6 @@ COMMENT ON COLUMN t_sinistro.ds_sinistro IS
 COMMENT ON COLUMN t_sinistro.status IS
     'estado do sinistro ';
 
-ALTER TABLE t_sinistro ADD CONSTRAINT t_sinistro_pk PRIMARY KEY ( cd_seguro,
-                                                                  cd_cliente );
 
 --  ERROR: FK name length exceeds maximum allowed length(30) 
 ALTER TABLE t_servico_assistencia
@@ -348,10 +345,8 @@ ALTER TABLE t_seguro
         REFERENCES t_corretora ( cd_corretora );
 
 ALTER TABLE t_sinistro
-    ADD CONSTRAINT fk_seguro_sinistro FOREIGN KEY ( cd_seguro,
-                                                    cd_cliente )
-        REFERENCES t_seguro ( cd_seguro,
-                              cd_cliente );
+    ADD CONSTRAINT fk_seguro_sinistro FOREIGN KEY ( cd_seguro)
+        REFERENCES t_seguro (cd_seguro);
 
 ALTER TABLE t_servico_assistencia
     ADD CONSTRAINT fk_servico_servico_assistencia FOREIGN KEY ( cd_servico )
@@ -487,3 +482,5 @@ BEGIN
     SELECT SEQ_ID_EVENTO_COBERTURA.NEXTVAL INTO :NEW.cd_evento_cobertura FROM DUAL;
 END;
 /
+
+commit;
