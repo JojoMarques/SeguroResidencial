@@ -21,3 +21,31 @@ SELECT * FROM T_SERVICO;
 SELECT * FROM T_SERVICO_ASSISTENCIA;
 
 SELECT * FROM T_SINISTRO;
+
+--select pct_cobertura e evento
+SELECT 
+    c.cd_cobertura,
+    c.tp_cobertura,
+    LISTAGG(e.nm_evento, ', ') WITHIN GROUP (ORDER BY e.nm_evento) AS eventos
+FROM 
+    t_pct_cobertura c
+JOIN 
+    t_evento_cobertura ec ON c.cd_cobertura = ec.cd_cobertura
+JOIN 
+    t_evento e ON ec.cd_evento = e.cd_evento
+GROUP BY 
+    c.cd_cobertura, c.tp_cobertura;
+    
+--select pct_assistencia e servico
+SELECT 
+    a.cd_assistencia,
+    a.tp_assistencia,
+    LISTAGG(s.nm_servico, ', ') WITHIN GROUP (ORDER BY s.nm_servico) AS servicos
+FROM 
+    t_pct_assistencia a
+JOIN 
+    t_servico_assistencia sa ON a.cd_assistencia = sa.cd_assistencia
+JOIN 
+    t_servico s ON sa.cd_servico = s.cd_servico
+GROUP BY 
+    a.cd_assistencia, a.tp_assistencia;

@@ -1,0 +1,36 @@
+INSERT INTO t_pct_cobertura (tp_cobertura, ds_cobertura, vl_pct_cobertura) VALUES ('Básico', 'Cobertura essencial para proteção básica da residência.', 43.96);
+INSERT INTO t_pct_cobertura (tp_cobertura, ds_cobertura, vl_pct_cobertura) VALUES ('Intermediário', 'Cobertura ampliada com proteção adicional para vazamentos.', 61.27);
+INSERT INTO t_pct_cobertura (tp_cobertura, ds_cobertura, vl_pct_cobertura) VALUES ('Completo', 'Cobertura completa para proteção máxima da residência.', 90.59);
+
+INSERT INTO t_evento (nm_evento, ds_evento) VALUES ('Incêndio e Raio', 'Cobertura contra incêndio e raio');
+INSERT INTO t_evento (nm_evento, ds_evento) VALUES ('Danos Elétricos', 'Cobertura contra danos elétricos');
+INSERT INTO t_evento (nm_evento, ds_evento) VALUES ('Roubo e Subtração', 'Cobertura contra roubo e subtração');
+INSERT INTO t_evento (nm_evento, ds_evento) VALUES ('Responsabilidade Civil Familiar', 'Cobertura para responsabilidade civil familiar');
+INSERT INTO t_evento (nm_evento, ds_evento) VALUES ('Assistência 24h', 'Cobertura de assistência 24 horas');
+INSERT INTO t_evento (nm_evento, ds_evento) VALUES ('Vazamentos', 'Cobertura contra vazamentos');
+INSERT INTO t_evento (nm_evento, ds_evento) VALUES ('Quebra de Vidros', 'Cobertura contra quebra de vidros');
+INSERT INTO t_evento (nm_evento, ds_evento) VALUES ('Vendaval e Granizo', 'Cobertura contra vendaval e granizo');
+
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (1, 1);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (1, 2);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (1, 3);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (1, 4);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (1, 5);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (2, 1);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (2, 2);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (2, 3);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (2, 4);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (2, 5);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (2, 6);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (3, 1);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (3, 2);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (3, 3);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (3, 4);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (3, 5);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (3, 6);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (3, 7);
+INSERT INTO t_evento_cobertura (cd_cobertura, cd_evento) VALUES (3, 8);
+
+COMMIT;
+
+select * from t_pct_cobertura
