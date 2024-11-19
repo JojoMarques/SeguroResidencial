@@ -6,8 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import br.com.tokio.telas.TelaInicial;
-import javax.swing.JScrollPane;
-import javax.swing.JMenuBar;
 
 public class AreaFuncionario {
 
@@ -50,10 +48,21 @@ public class AreaFuncionario {
         btnTelaInicial.setBounds(620, 500, 139, 40);
         frame.getContentPane().add(btnTelaInicial);
 
+        // Botão para gerar Relatório
+        JButton btnGerarRelatorio = new JButton("Gerar Relatório");
+        btnGerarRelatorio.setBounds(328, 253, 139, 40);
+        frame.getContentPane().add(btnGerarRelatorio);
+        
         // Evento para voltar à tela inicial
         btnTelaInicial.addActionListener(e -> {
             TelaInicial telaInicial = new TelaInicial();
             telaInicial.show(); // Mostra a nova tela
+            frame.dispose(); // Fecha a tela atual
+        });
+        
+        btnGerarRelatorio.addActionListener(e -> {
+            Relatorio relatorio = new Relatorio();
+            relatorio.show(); // Mostra a nova tela
             frame.dispose(); // Fecha a tela atual
         });
 	}

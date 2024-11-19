@@ -11,7 +11,6 @@ import javax.swing.JTextField;
 
 import br.com.tokio.dao.FuncionarioDAO;
 import br.com.tokio.telas.TelaInicial;
-import br.com.tokio.telas.cliente.AreaCliente;
 
 public class LoginFuncionario {
 
@@ -84,15 +83,6 @@ public class LoginFuncionario {
         btnTelaInicial.setBounds(620, 500, 139, 40); // Posição e tamanho
         frame.getContentPane().add(btnTelaInicial);
 
-        // Evento de clique no botão de login
-        btnLogin.addActionListener(e -> {
-            String acesso = txtAcesso.getText();
-            String senha = new String(txtSenha.getPassword());
-
-            // logica do select do banco (se conseguir encontrar ele no banco, direciona pra outra pagina, se não, mostra errinho)
-            
-        });
-
         // Evento para voltar à tela inicial
         btnTelaInicial.addActionListener(e -> {
             TelaInicial telaInicial = new TelaInicial();
@@ -100,25 +90,29 @@ public class LoginFuncionario {
             frame.dispose(); // Fecha a tela atual
         });
        
-     // Evento de clique no botão de login
         btnLogin.addActionListener(e -> {
-            String cpf = txtAcesso.getText();
-            String senha = new String(txtSenha.getPassword());
+			String acesso = txtAcesso.getText();
+			String senha = new String(txtSenha.getPassword());
 
-            // Instanciar o ClienteDAO e verificar a autenticação
-            FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-            int resultadoAutenticacao = funcionarioDAO.autenticacao(cpf, senha); 
+			// Instanciar o ClienteDAO e verificar a autenticação
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			int resultadoAutenticacao = funcionarioDAO.autenticacao(acesso, senha);
 
-            if (resultadoAutenticacao == 1) {
-                // Se CPF e Senha estiverem corretos, direciona para a próxima tela
-                AreaFuncionario areaFuncionario = new AreaFuncionario();
-                areaFuncionario.show(); // Mostra a nova tela
-                frame.dispose(); // Fecha a tela atual
-            } else {
-                // Exibe mensagem de erro caso o CPF ou senha estejam incorretos
-                JOptionPane.showMessageDialog(frame, "Acesso ou Senha incorretos!", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+			if (resultadoAutenticacao == 1) {
+				// Se CPF e Senha estiverem corretos, direciona para a próxima tela
+				AreaFuncionario areaFuncionario = new AreaFuncionario();
+				areaFuncionario.show(); // Mostra a nova tela
+				frame.dispose(); // Fecha a tela atual
+			} else if (resultadoAutenticacao == 2)
+				JOptionPane.showMessageDialog(frame, "Senha incorreta!", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+			else if (resultadoAutenticacao == 3)
+				JOptionPane.showMessageDialog(frame, "Acesso incorreto!", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+			else
+				JOptionPane.showMessageDialog(frame, "Acesso e Senha incorretos!", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+		});
     }
 
   
