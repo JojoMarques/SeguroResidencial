@@ -398,7 +398,7 @@ BEGIN
 END;
 /
 
--- Sequence e Trigger para t_servicos
+-- Sequence e Trigger para t_servico
 CREATE SEQUENCE SEQ_ID_SERVICO START WITH 1 INCREMENT BY 1;
 
 CREATE OR REPLACE TRIGGER TR_INSERT_SERVICO
