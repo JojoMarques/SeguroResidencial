@@ -16,7 +16,7 @@ public class PacoteAssistenciaDAO {
 	}
 
 	public void insert(PacoteAssistencia pacote) {
-		String sql = "INSERT INTO t_pacote_assistencia (tipo, descricao, preco) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO  t_pct_assistencia ( tp_assistencia,   ds_assistencia , vl_pct_assistencia) VALUES (?, ?, ?)";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -32,7 +32,7 @@ public class PacoteAssistenciaDAO {
 
 	// Deletar um serviço por ID
 	public void delete(int idAssistencia) {
-		String sql = "DELETE FROM t_pacote_assistencia WHERE cd_assistencia = ?";
+		String sql = "DELETE FROM  t_pct_assistencia WHERE cd_assistencia = ?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, idAssistencia);
@@ -45,7 +45,7 @@ public class PacoteAssistenciaDAO {
 
 	// Atualizar um serviço existente
 	public void update(PacoteAssistencia pacote) {
-		String sql = "UPDATE t_pacote_assistencia SET tipo = ?, descricao = ?,  preco = ? WHERE cd_assistencia = ?";
+		String sql = "UPDATE t_pct_assistencia SET   tp_assistencia  = ?,  ds_assistencia    = ?,   vl_pct_assistencia = ? WHERE cd_assistencia = ?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, pacote.getTipo());
@@ -56,12 +56,12 @@ public class PacoteAssistenciaDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-}
+	}
 
 	// Listar todos os serviços
 	public List<PacoteAssistencia> selectAll() {
 		List<PacoteAssistencia> listaPacotes = new ArrayList<>();
-		String sql = "SELECT * FROM t_pacote_assistencia ORDER BY tipo ";
+		String sql = "SELECT * FROM  t_pct_assistencia ORDER BY  tp_assistencia   ";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -70,9 +70,9 @@ public class PacoteAssistenciaDAO {
 			while (rs.next()) {
 				PacoteAssistencia pacote = new PacoteAssistencia();
 				pacote.setIdAssistencia(rs.getInt("cd_assistencia"));
-				pacote.setTipo(rs.getString("tipo"));
-				pacote.setPreco((rs.getDouble("preco")));
-				pacote.setDescricao(rs.getString("descricao"));
+				pacote.setTipo(rs.getString(" tp_assistencia "));
+				pacote.setPreco((rs.getDouble("vl_pct_assistencia")));
+				pacote.setDescricao(rs.getString(" ds_assistencia  "));
 				listaPacotes.add(pacote);
 			}
 
@@ -88,7 +88,7 @@ public class PacoteAssistenciaDAO {
 	// Buscar um serviço por ID
 	public PacoteAssistencia selectById(int idAssistencia) {
 		PacoteAssistencia pacote = new PacoteAssistencia();
-		String sql = "SELECT * FROM t_pacote_assistencia where cd_assistencia = ? ";
+		String sql = "SELECT * FROM  t_pct_assistencia where cd_assistencia = ? ";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -98,9 +98,9 @@ public class PacoteAssistenciaDAO {
 			if (rs.next()) {
 
 				pacote.setIdAssistencia(rs.getInt("cd_assistencia"));
-				pacote.setTipo(rs.getString("tipo"));
-				pacote.setPreco((rs.getDouble("preco")));
-				pacote.setDescricao(rs.getString("descricao"));
+				pacote.setTipo(rs.getString(" tp_assistencia "));
+				pacote.setPreco((rs.getDouble("vl_pct_assistencia")));
+				pacote.setDescricao(rs.getString(" ds_assistencia  "));
 
 			}
 
