@@ -1,6 +1,6 @@
 package br.com.tokio.model;
 
-public class Cliente extends Usuario {
+public class Cliente extends Usuario{
 
 	private int idCliente;
 	private String senhaCliente;

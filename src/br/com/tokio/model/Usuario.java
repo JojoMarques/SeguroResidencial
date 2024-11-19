@@ -1,6 +1,6 @@
 package br.com.tokio.model;
 
-public class Usuario {
+public abstract class Usuario {
 
 	private int idUsuario;
 	private String nome;

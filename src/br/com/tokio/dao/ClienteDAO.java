@@ -7,17 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.tokio.model.Cliente;
 import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.model.Autenticar;
+import br.com.tokio.model.Cliente;
 
-public class ClienteDAO {
+public class ClienteDAO implements Autenticar {
 
 	private Connection connection;
 
 	public ClienteDAO() {
-		super();
 		this.connection = new ConnectionFactory().conectar(); // criando a conexão e chamando o método conectar
 	}
+
 	public ClienteDAO(Connection connection) {
 		this.connection = connection;
 	}
@@ -58,7 +59,7 @@ public class ClienteDAO {
 		}
 	}
 
-	// Update 
+	// Update
 	public void update(Cliente cliente) {
 		String sql = "update t_cliente set nm_cliente = ?, cpf_cliente = ?, telefone_cliente = ?, email_cliente = ?, ds_senha_cliente = ?";
 
@@ -130,4 +131,24 @@ public class ClienteDAO {
 		}
 		return cliente;
 	}
+
+	@Override
+	public int autenticacao(String cpf, String senha) {
+	    // Aqui, vamos buscar todos os clientes
+	    List<Cliente> listaClientes = selectAll();
+
+	    // Percorrer todos os clientes e comparar o CPF e a senha
+	    for (Cliente cliente : listaClientes) {
+	        if (cliente.getCpf().equals(cpf) && cliente.getSenhaCliente().equals(senha)) {
+	            return 1; // CPF e Senha corretos
+	        } else if (cliente.getCpf().equals(cpf)) {
+	            return 2; // CPF correto, mas senha incorreta
+	        } else if (cliente.getSenhaCliente().equals(senha)) {
+	            return 3; // Senha correta, mas CPF incorreto
+	        }
+	    }
+
+	    return 0; // CPF e Senha incorretos
+	}
+
 }
