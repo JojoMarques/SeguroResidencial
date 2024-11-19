@@ -136,19 +136,20 @@ public class ClienteDAO implements Autenticar {
 	public int autenticacao(String cpf, String senha) {
 	    // Aqui, vamos buscar todos os clientes
 	    List<Cliente> listaClientes = selectAll();
+	    int num = 0 ;
 
 	    // Percorrer todos os clientes e comparar o CPF e a senha
 	    for (Cliente cliente : listaClientes) {
 	        if (cliente.getCpf().equals(cpf) && cliente.getSenhaCliente().equals(senha)) {
-	            return 1; // CPF e Senha corretos
+	            num = 1; // CPF e Senha corretos
 	        } else if (cliente.getCpf().equals(cpf)) {
-	            return 2; // CPF correto, mas senha incorreta
+	            num = 2; // CPF correto, mas senha incorreta
 	        } else if (cliente.getSenhaCliente().equals(senha)) {
-	            return 3; // Senha correta, mas CPF incorreto
+	            num = 3; // Senha correta, mas CPF incorreto
 	        }
 	    }
 
-	    return 0; // CPF e Senha incorretos
+	    return num; // CPF e Senha incorretos
 	}
 
 }
