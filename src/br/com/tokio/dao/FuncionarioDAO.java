@@ -7,15 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.tokio.model.Funcionario;
 import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.model.Autenticar;
+import br.com.tokio.model.Funcionario;
 
-public class FuncionarioDAO {
+public class FuncionarioDAO implements Autenticar {
 
 	private Connection connection;
 
 	public FuncionarioDAO() {
-		super();
 		this.connection = new ConnectionFactory().conectar(); // criando a conexão e chamando o método conectar
 	}
 
@@ -114,31 +114,52 @@ public class FuncionarioDAO {
 		}
 		return listaFuncionarios;
 	}
-	
-	// Select by id:
-		public Funcionario selectById(int idFuncionario) {
-			Funcionario funcionario = new Funcionario();
-			String sql = "select * from t_funcionario where cd_funcionario = ?";
-			try {
-				PreparedStatement stmt = connection.prepareStatement(sql);
-				stmt.setLong(1, idFuncionario);
-				ResultSet rs = stmt.executeQuery();
-				while (rs.next()) {
 
-					funcionario.setIdFuncionario(rs.getInt("cd_funcionario"));
-					funcionario.setNome(rs.getString("nm_func"));
-					funcionario.setCpf(rs.getString("cpf_func"));
-					funcionario.setTelefone(rs.getString("telefone"));
-					funcionario.setEmail(rs.getString("email_func"));
-					funcionario.setAcessoFunc(rs.getString("ds_acesso_func"));
-					funcionario.setDataAdmissao(rs.getDate("dt_admissao"));
-					funcionario.setSenhaFunc(rs.getString("senha"));
-				}
-				stmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+	// Select by id:
+	public Funcionario selectById(int idFuncionario) {
+		Funcionario funcionario = new Funcionario();
+		String sql = "select * from t_funcionario where cd_funcionario = ?";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, idFuncionario);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+
+				funcionario.setIdFuncionario(rs.getInt("cd_funcionario"));
+				funcionario.setNome(rs.getString("nm_func"));
+				funcionario.setCpf(rs.getString("cpf_func"));
+				funcionario.setTelefone(rs.getString("telefone"));
+				funcionario.setEmail(rs.getString("email_func"));
+				funcionario.setAcessoFunc(rs.getString("ds_acesso_func"));
+				funcionario.setDataAdmissao(rs.getDate("dt_admissao"));
+				funcionario.setSenhaFunc(rs.getString("senha"));
 			}
-			return funcionario;
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		return funcionario;
+	}
+
+	@Override
+	public int autenticacao(String acesso, String senha) {
+	    // Aqui, vamos buscar todos os clientes
+	    List<Funcionario> listaFuncionarios = selectAll();
+
+	    // Percorrer todos os clientes e comparar o CPF e a senha
+	    for (Funcionario funcionario : listaFuncionarios) {
+	        if (funcionario.getAcessoFunc().equals(acesso) && funcionario.getSenhaFunc().equals(senha)) {
+	            return 1; // acesso e Senha corretos
+	        } else if (funcionario.getAcessoFunc().equals(acesso)) {
+	            return 2; // acesso correto, mas senha incorreta
+	        } else if (funcionario.getSenhaFunc().equals(senha)) {
+	            return 3; // Senha correta, mas acesso incorreto
+	        }
+	    }
+
+	    return 0; // acesso e Senha incorretos
+	}
+
+
 
 }

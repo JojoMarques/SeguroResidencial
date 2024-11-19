@@ -3,6 +3,7 @@ package br.com.tokio.model;
 import java.sql.Date;
 
 public class Funcionario extends Usuario {
+	
 	private int idFuncionario;
 	private String acessoFunc;
 	private String senhaFunc;
