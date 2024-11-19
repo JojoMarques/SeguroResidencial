@@ -20,7 +20,7 @@ public class ClienteDAO {
 
 	// Insert
 	public void insert(Cliente cliente) {
-		String sql = "insert into t_cliente (nm_usuario, cpf, telefone, email, ds_senha_cliente) values (?, ?, ?, ?, ?)";
+		String sql = "insert into t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) values (?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -56,7 +56,7 @@ public class ClienteDAO {
 
 	// Update
 	public void update(Cliente cliente) {
-		String sql = "update t_cliente set nm_usuario = ?, cpf = ?, telefone = ?, email = ?, ds_senha_cliente = ? where cd_cliente = ?";
+		String sql = "update t_cliente set nm_cliente = ?, cpf_cliente = ?, telefone_cliente = ?, email_cliente = ?, ds_senha_cliente = ? where cd_cliente = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -88,10 +88,10 @@ public class ClienteDAO {
 				Cliente cliente = new Cliente();
 
 				cliente.setIdCliente(rs.getInt("cd_cliente"));
-				cliente.setNome(rs.getString("nm_usuario"));
-				cliente.setCpf(rs.getString("cpf"));
-				cliente.setTelefone(rs.getString("telefone"));
-				cliente.setEmail(rs.getString("email"));
+				cliente.setNome(rs.getString("nm_cliente"));
+				cliente.setCpf(rs.getString("cpf_cliente"));
+				cliente.setTelefone(rs.getString("telefone_cliente"));
+				cliente.setEmail(rs.getString("email_cliente"));
 				cliente.setSenhaCliente(rs.getString("ds_senha_cliente"));
 				
 				listaClientes.add(cliente);
@@ -115,10 +115,10 @@ public class ClienteDAO {
 			while (rs.next()) {
 
 				cliente.setIdCliente(rs.getInt("cd_cliente"));
-				cliente.setNome(rs.getString("nm_usuario"));
-				cliente.setCpf(rs.getString("cpf"));
-				cliente.setTelefone(rs.getString("telefone"));
-				cliente.setEmail(rs.getString("email"));
+				cliente.setNome(rs.getString("nm_cliente"));
+				cliente.setCpf(rs.getString("cpf_cliente"));
+				cliente.setTelefone(rs.getString("telefone_cliente"));
+				cliente.setEmail(rs.getString("email_cliente"));
 				cliente.setSenhaCliente(rs.getString("ds_senha_cliente"));
 			}
 			stmt.close();
