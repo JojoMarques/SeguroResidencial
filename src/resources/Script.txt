@@ -1,3 +1,39 @@
+DROP TABLE t_cliente CASCADE CONSTRAINTS;
+
+DROP TABLE t_corretora CASCADE CONSTRAINTS;
+
+DROP TABLE t_evento_cobertura CASCADE CONSTRAINTS;
+
+DROP TABLE t_eventos CASCADE CONSTRAINTS;
+
+DROP TABLE t_funcionario CASCADE CONSTRAINTS;
+
+DROP TABLE t_imovel CASCADE CONSTRAINTS;
+
+DROP TABLE t_pct_assistencia CASCADE CONSTRAINTS;
+
+DROP TABLE t_pct_cobertura CASCADE CONSTRAINTS;
+
+DROP TABLE t_seguro CASCADE CONSTRAINTS;
+
+DROP TABLE t_servico CASCADE CONSTRAINTS;
+
+DROP TABLE t_servico_assistencia CASCADE CONSTRAINTS;
+
+DROP TABLE t_sinistro CASCADE CONSTRAINTS;
+
+
+DROP SEQUENCE SEQ_ID_CLIENTE;
+DROP SEQUENCE SEQ_ID_CORRETORA;
+DROP SEQUENCE SEQ_ID_EVENTOS;
+DROP SEQUENCE SEQ_ID_FUNCIONARIO;
+DROP SEQUENCE SEQ_ID_IMOVEL;
+DROP SEQUENCE SEQ_ID_ASSISTENCIA;
+DROP SEQUENCE SEQ_ID_COBERTURA;
+
+
+---------------------------------------------------------------------------
+
 CREATE TABLE t_cliente (
     cd_cliente       NUMBER(5) NOT NULL,
     ds_senha_cliente CHAR(8),
@@ -59,19 +95,19 @@ CREATE UNIQUE INDEX t_evento_cobertura__idxv1 ON
         cd_cobertura
     ASC );
 
-CREATE TABLE t_eventos (
+CREATE TABLE t_evento (
     cd_evento NUMBER(5) NOT NULL,
     nm_evento VARCHAR2(50),
     ds_evento VARCHAR2(100)
 );
 
-COMMENT ON COLUMN t_eventos.cd_evento IS
+COMMENT ON COLUMN t_evento.cd_evento IS
     'identificador do evento das coberturas';
 
-COMMENT ON COLUMN t_eventos.nm_evento IS
+COMMENT ON COLUMN t_evento.nm_evento IS
     'nome do evento';
 
-ALTER TABLE t_eventos ADD CONSTRAINT t_eventos_pk PRIMARY KEY ( cd_evento );
+ALTER TABLE t_evento ADD CONSTRAINT t_evento_pk PRIMARY KEY ( cd_evento );
 
 CREATE TABLE t_funcionario (
     cd_funcionario NUMBER(5) NOT NULL,
