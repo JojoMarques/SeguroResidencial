@@ -7,66 +7,67 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.model.Corretora;
 
 public class CorretoraDAO {
 
-    private Connection connection;
+	private Connection connection;
 
-    public CorretoraDAO(Connection connection) {
-        this.connection = connection;
-    }
+	public CorretoraDAO(Connection connection) {
+		this.connection = connection;
+	}
 
-    // select all
-    public List<Corretora> selectAll() {
-        String sql = "select * from t_corretora";
-        List<Corretora> listCorretoras = new ArrayList<>();
+	// select all
+	public List<Corretora> selectAll() {
+		String sql = "select * from t_corretora";
+		List<Corretora> listCorretoras = new ArrayList<>();
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
 
-            ResultSet rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                Corretora corretora = new Corretora();
+			while (rs.next()) {
+				Corretora corretora = new Corretora();
 
-                corretora.setIdCorretora(rs.getInt("cd_corretora"));
-                corretora.setNomeCorretora(rs.getString("nm_corretora"));
-                corretora.setEndereco(rs.getString("endereco"));
+				corretora.setIdCorretora(rs.getInt("cd_corretora"));
+				corretora.setNomeCorretora(rs.getString("nm_corretora"));
+				corretora.setEndereco(rs.getString("ds_endereco_corretora"));
 
-                listCorretoras.add(corretora);
-            }
+				listCorretoras.add(corretora);
+			}
 
-            stmt.close();
+			stmt.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listCorretoras;
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listCorretoras;
+	}
 
-    // select by id
-    public Corretora selectById(int idCorretora) {
-        String sql = "select * from t_corretora where cd_corretora = ?";
-        Corretora corretora = new Corretora();
+	// select by id
+	public Corretora selectById(int idCorretora) {
+		String sql = "select * from t_corretora where cd_corretora = ?";
+		Corretora corretora = new Corretora();
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idCorretora);
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, idCorretora);
 
-            ResultSet rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                corretora.setIdCorretora(rs.getInt("cd_corretora"));
-                corretora.setNomeCorretora(rs.getString("nm_corretora"));
-                corretora.setEndereco(rs.getString("endereco"));
-            }
+			if (rs.next()) {
+				corretora.setIdCorretora(rs.getInt("cd_corretora"));
+				corretora.setNomeCorretora(rs.getString("nm_corretora"));
+				corretora.setEndereco(rs.getString("ds_endereco_corretora"));
+			}
 
-            stmt.close();
+			stmt.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return corretora;
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return corretora;
+	}
 }
