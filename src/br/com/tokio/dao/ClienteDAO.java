@@ -8,19 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.tokio.model.Cliente;
-import br.com.tokio.model.Funcionario;
+import br.com.tokio.connection.ConnectionFactory;
 
 public class ClienteDAO {
 
 	private Connection connection;
 
+	public ClienteDAO() {
+		super();
+		this.connection = new ConnectionFactory().conectar(); // criando a conexão e chamando o método conectar
+	}
 	public ClienteDAO(Connection connection) {
 		this.connection = connection;
 	}
 
 	// Insert
 	public void insert(Cliente cliente) {
-		String sql = "insert into t_cliente (nm_usuario, cpf, telefone, email, ds_senha_cliente) values (?, ?, ?, ?, ?)";
+		String sql = "insert into t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) values (?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -54,9 +58,9 @@ public class ClienteDAO {
 		}
 	}
 
-	// Update
+	// Update 
 	public void update(Cliente cliente) {
-		String sql = "update t_cliente set nm_usuario = ?, cpf = ?, telefone = ?, email = ?, ds_senha_cliente = ? where cd_cliente = ?";
+		String sql = "update t_cliente set nm_cliente = ?, cpf_cliente = ?, telefone_cliente = ?, email_cliente = ?, ds_senha_cliente = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -75,7 +79,7 @@ public class ClienteDAO {
 		}
 	}
 
-	/// Select all:
+	// Select all
 	public List<Cliente> selectAll() {
 		List<Cliente> listaClientes = new ArrayList<Cliente>();
 		String sql = "select * from t_cliente order by cd_cliente";
@@ -88,14 +92,13 @@ public class ClienteDAO {
 				Cliente cliente = new Cliente();
 
 				cliente.setIdCliente(rs.getInt("cd_cliente"));
-				cliente.setNome(rs.getString("nm_usuario"));
-				cliente.setCpf(rs.getString("cpf"));
-				cliente.setTelefone(rs.getString("telefone"));
-				cliente.setEmail(rs.getString("email"));
+				cliente.setNome(rs.getString("nm_cliente"));
+				cliente.setCpf(rs.getString("cpf_cliente"));
+				cliente.setTelefone(rs.getString("telefone_cliente"));
+				cliente.setEmail(rs.getString("email_cliente"));
 				cliente.setSenhaCliente(rs.getString("ds_senha_cliente"));
-				
-				listaClientes.add(cliente);
 
+				listaClientes.add(cliente);
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -104,21 +107,21 @@ public class ClienteDAO {
 		return listaClientes;
 	}
 
-	// Select by id:
+	// Select by id
 	public Cliente selectById(int idCliente) {
 		Cliente cliente = new Cliente();
 		String sql = "select * from t_cliente where cd_cliente = ?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setLong(1, idCliente);
+			stmt.setInt(1, idCliente);
 			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
 
+			if (rs.next()) {
 				cliente.setIdCliente(rs.getInt("cd_cliente"));
-				cliente.setNome(rs.getString("nm_usuario"));
-				cliente.setCpf(rs.getString("cpf"));
-				cliente.setTelefone(rs.getString("telefone"));
-				cliente.setEmail(rs.getString("email"));
+				cliente.setNome(rs.getString("nm_cliente"));
+				cliente.setCpf(rs.getString("cpf_cliente"));
+				cliente.setTelefone(rs.getString("telefone_cliente"));
+				cliente.setEmail(rs.getString("email_cliente"));
 				cliente.setSenhaCliente(rs.getString("ds_senha_cliente"));
 			}
 			stmt.close();
@@ -127,5 +130,4 @@ public class ClienteDAO {
 		}
 		return cliente;
 	}
-
 }
