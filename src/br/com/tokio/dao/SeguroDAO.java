@@ -19,8 +19,7 @@ public class SeguroDAO {
 
     // insert
     public void insert(Seguro seguro) {
-    	String sql = "INSERT INTO t_seguro (vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora) "
-    	           + "VALUES (?, TO_DATE(?, 'YYYY-MM-DD'), TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?)";
+    	String sql = "INSERT INTO t_seguro (vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora) VALUES (?, TO_DATE(?, 'YYYY-MM-DD'), TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?)";
         	
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -31,8 +30,10 @@ public class SeguroDAO {
             stmt.setInt(5, seguro.getIdCobertura());
             stmt.setInt(6, seguro.getIdAssistencia());
             stmt.setInt(7, seguro.getIdCorretora());
-
+            
+            System.out.println("TESTE");
             stmt.execute();
+            System.out.println("TESTE");
             stmt.close();
 
         } catch (SQLException e) {

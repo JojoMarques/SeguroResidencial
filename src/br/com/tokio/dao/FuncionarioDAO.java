@@ -21,7 +21,7 @@ public class FuncionarioDAO implements Autenticar {
 
 	// Insert
 	public void insert(Funcionario funcionario) {
-		String sql = "insert into t_funcionario (nm_func, cpf_func, telefone_func, email_func, ds_acesso_func, dt_admissao, senha) values (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into t_funcionario (nm_func, cpf_func, telefone_func, email_func, ds_acesso_func, dt_admissao, senha) values (?, ?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?)";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -30,7 +30,7 @@ public class FuncionarioDAO implements Autenticar {
 			stmt.setString(3, funcionario.getTelefone());
 			stmt.setString(4, funcionario.getEmail());
 			stmt.setString(5, funcionario.getAcessoFunc());
-			stmt.setDate(6, funcionario.getDataAdmissao());
+			stmt.setString(6, funcionario.getDataAdmissao().toString());
 			stmt.setString(7, funcionario.getSenhaFunc());
 
 			stmt.execute();
