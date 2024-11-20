@@ -1,10 +1,21 @@
 package br.com.tokio.telas.cliente;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import br.com.tokio.telas.TelaInicial;
+
 import javax.swing.JPasswordField;
 
 public class EditarCliente {
@@ -27,6 +38,7 @@ public class EditarCliente {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                
             }
         });
     }
@@ -43,55 +55,107 @@ public class EditarCliente {
      */
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 800, 600);
+        frame.setBounds(400, 200, 800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
+        
+        JPanel panelHeader = new JPanel();
+		panelHeader.setLayout(null);
+		panelHeader.setBackground(new Color(51, 153, 102));
+		panelHeader.setBounds(0, 0, 784, 100);
+		frame.getContentPane().add(panelHeader);
+		panelHeader.setLayout(null);
 
-        // Título da tela
-        JLabel lblTitulo = new JLabel("Editar Informações do Cliente");
-        lblTitulo.setBounds(300, 50, 200, 30); // Posição na janela
-        frame.getContentPane().add(lblTitulo);
+		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/images/logo-tokio-marine.png"));
+		Image img = icon.getImage().getScaledInstance(220, 60, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(img);
+
+		JButton btnLogoTelaInicial = new JButton(icon);
+		btnLogoTelaInicial.setBorder(BorderFactory.createEmptyBorder());
+		btnLogoTelaInicial.setFocusPainted(false);
+		btnLogoTelaInicial.setBackground(new Color(0, 153, 102));
+		btnLogoTelaInicial.setBounds(5, 15, 243, 69);
+		panelHeader.add(btnLogoTelaInicial);
+
+		JLabel lblRelatorio = new JLabel("Editar");
+		lblRelatorio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRelatorio.setForeground(Color.WHITE);
+		lblRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 29));
+		lblRelatorio.setBackground(Color.WHITE);
+		lblRelatorio.setBounds(266, 18, 251, 63);
+		panelHeader.add(lblRelatorio);
+
+		// --------------------------------------------
+		
+		JPanel panel = new JPanel();
+        panel.setBounds(130, 111, 523, 418);
+        frame.getContentPane().add(panel);
+        panel.setLayout(null);
+
+        JLabel lblTitulo = new JLabel("Editar Informações:");
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblTitulo.setBounds(161, 36, 200, 30); // Posição na janela
+        panel.add(lblTitulo);
 
         // Campo para editar Nome
         JLabel lblNome = new JLabel("Nome:");
-        lblNome.setBounds(200, 120, 80, 25); // Posição na janela
-        frame.getContentPane().add(lblNome);
+        lblNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblNome.setBounds(82, 106, 80, 25); // Posição na janela
+        panel.add(lblNome);
 
         txtNome = new JTextField();
-        txtNome.setBounds(300, 120, 200, 25); // Posição na janela
-        frame.getContentPane().add(txtNome);
+        txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        txtNome.setBounds(161, 106, 200, 25); // Posição na janela
+        panel.add(txtNome);
 
         // Campo para editar E-mail
         JLabel lblEmail = new JLabel("E-mail:");
-        lblEmail.setBounds(200, 170, 80, 25); // Posição na janela
-        frame.getContentPane().add(lblEmail);
+        lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblEmail.setBounds(82, 156, 80, 25); // Posição na janela
+        panel.add(lblEmail);
 
         txtEmail = new JTextField();
-        txtEmail.setBounds(300, 170, 200, 25); // Posição na janela
-        frame.getContentPane().add(txtEmail);
+        txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        txtEmail.setBounds(161, 156, 200, 25); // Posição na janela
+        panel.add(txtEmail);
 
         // Campo para editar Senha
         JLabel lblSenha = new JLabel("Senha:");
-        lblSenha.setBounds(200, 220, 80, 25); // Posição na janela
-        frame.getContentPane().add(lblSenha);
+        lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblSenha.setBounds(82, 206, 80, 25); // Posição na janela
+        panel.add(lblSenha);
 
         txtSenha = new JPasswordField();
-        txtSenha.setBounds(300, 220, 200, 25); // Posição na janela
-        frame.getContentPane().add(txtSenha);
+        txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        txtSenha.setBounds(161, 206, 200, 25); // Posição na janela
+        panel.add(txtSenha);
 
         // Campo para editar Telefone
         JLabel lblTelefone = new JLabel("Telefone:");
-        lblTelefone.setBounds(200, 270, 80, 25); // Posição na janela
-        frame.getContentPane().add(lblTelefone);
+        lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblTelefone.setBounds(82, 256, 80, 25); // Posição na janela
+        panel.add(lblTelefone);
 
         txtTelefone = new JTextField();
-        txtTelefone.setBounds(300, 270, 200, 25); // Posição na janela
-        frame.getContentPane().add(txtTelefone);
+        txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        txtTelefone.setBounds(161, 256, 200, 25); // Posição na janela
+        panel.add(txtTelefone);
 
         // Botão para salvar alterações
         JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.setBounds(300, 350, 100, 30); // Posição na janela
-        frame.getContentPane().add(btnSalvar);
+        btnSalvar.setBackground(new Color(225, 193, 85));
+        btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        btnSalvar.setBounds(161, 327, 200, 30); // Posição na janela
+        panel.add(btnSalvar);
+        
+        
+     // Evento para voltar à tela inicial
+		btnLogoTelaInicial.addActionListener(e -> {
+			TelaInicial telaInicial = new TelaInicial();
+			telaInicial.show(); // Mostra a nova tela
+			frame.dispose(); // Fecha a tela atual
+		});
 
         // Evento do botão "Salvar"
         btnSalvar.addActionListener(e -> {
@@ -103,18 +167,6 @@ public class EditarCliente {
             
             // dar um update no banco.
 
-        });
-
-        // Botão para retornar à Área do Cliente
-        JButton btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(620, 500, 139, 40); // Posição na janela
-        frame.getContentPane().add(btnVoltar);
-
-        // Evento para voltar à Área do Cliente
-        btnVoltar.addActionListener(e -> {
-            AreaCliente areaCliente = new AreaCliente();
-            areaCliente.show(); // Mostra a tela da Área do Cliente
-            frame.dispose(); // Fecha a tela atual
         });
     }
 

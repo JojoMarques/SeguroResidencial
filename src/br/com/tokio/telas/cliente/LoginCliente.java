@@ -13,6 +13,17 @@ import javax.swing.JTextField;
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ClienteDAO;
 import br.com.tokio.telas.TelaInicial;
+import javax.swing.JPanel;
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.SwingConstants;
 
 public class LoginCliente {
 
@@ -48,43 +59,78 @@ public class LoginCliente {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 600);
+		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		// Label para CPF
+		JPanel panelHeader = new JPanel();
+		panelHeader.setLayout(null);
+		panelHeader.setBackground(new Color(51, 153, 102));
+		panelHeader.setBounds(0, 0, 784, 100);
+		frame.getContentPane().add(panelHeader);
+
+		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/images/logo-tokio-marine.png"));
+		Image img = icon.getImage().getScaledInstance(220, 60, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(img);
+		panelHeader.setLayout(null);
+
+		JButton btnLogoTelaInicial = new JButton(icon);
+		btnLogoTelaInicial.setBorder(BorderFactory.createEmptyBorder());
+        btnLogoTelaInicial.setFocusPainted(false);
+		btnLogoTelaInicial.setBackground(new Color(0, 153, 102));
+		btnLogoTelaInicial.setBounds(5, 15, 243, 69);
+		panelHeader.add(btnLogoTelaInicial);
+
+		JLabel lblAreaDoCliente = new JLabel("Acesso a área");
+		lblAreaDoCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAreaDoCliente.setForeground(Color.WHITE);
+		lblAreaDoCliente.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblAreaDoCliente.setBackground(Color.WHITE);
+		lblAreaDoCliente.setBounds(280, 21, 224, 31);
+		panelHeader.add(lblAreaDoCliente);
+
+		JLabel lblAreaDoCliente2 = new JLabel("dos clientes");
+		lblAreaDoCliente2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAreaDoCliente2.setForeground(Color.WHITE);
+		lblAreaDoCliente2.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblAreaDoCliente2.setBackground(Color.WHITE);
+		lblAreaDoCliente2.setBounds(283, 52, 218, 32);
+		panelHeader.add(lblAreaDoCliente2);
+
+		JPanel panel = new JPanel();
+		panel.setBounds(130, 136, 498, 335);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+
 		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setBounds(200, 200, 80, 25); // Posição e tamanho (x, y, largura, altura)
-		frame.getContentPane().add(lblCpf);
+		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblCpf.setBounds(70, 86, 80, 25);
+		panel.add(lblCpf);
 
-		// Campo de texto para CPF
 		txtCpf = new JTextField();
-		txtCpf.setBounds(300, 200, 200, 25); // Posição e tamanho (x, y, largura, altura)
-		frame.getContentPane().add(txtCpf);
+		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCpf.setColumns(10);
+		txtCpf.setBounds(149, 86, 200, 25);
+		panel.add(txtCpf);
 
-		// Label para Senha
 		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setBounds(200, 250, 80, 25);
-		frame.getContentPane().add(lblSenha);
+		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblSenha.setBounds(70, 136, 80, 25);
+		panel.add(lblSenha);
 
-		// Campo de texto para Senha
 		txtSenha = new JPasswordField();
-		txtSenha.setBounds(300, 250, 200, 25);
-		frame.getContentPane().add(txtSenha);
+		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtSenha.setBounds(149, 136, 200, 25);
+		panel.add(txtSenha);
 
-		// Botão de Login
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(300, 300, 200, 30);
-		frame.getContentPane().add(btnLogin);
-
-		// Botão para retornar à tela inicial
-		JButton btnTelaInicial = new JButton("Tela inicial");
-		btnTelaInicial.setBounds(620, 500, 139, 40);
-		frame.getContentPane().add(btnTelaInicial);
+		btnLogin.setBackground(new Color(225, 193, 85));
+		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnLogin.setBounds(149, 186, 200, 30);
+		panel.add(btnLogin);
 
 		// Evento para voltar à tela inicial
-		btnTelaInicial.addActionListener(e -> {
+		btnLogoTelaInicial.addActionListener(e -> {
 			TelaInicial telaInicial = new TelaInicial();
 			telaInicial.show(); // Mostra a nova tela
 			frame.dispose(); // Fecha a tela atual
@@ -97,13 +143,13 @@ public class LoginCliente {
 
 			// Instanciando a conexão
 			Connection connection = new ConnectionFactory().conectar();
-			
+
 			// Instanciar o ClienteDAO e verificar a autenticação
 			ClienteDAO clienteDAO = new ClienteDAO(connection);
 			int resultadoAutenticacao = clienteDAO.autenticacao(cpf, senha);
 
 			if (resultadoAutenticacao == 1) {
-				//Se CPF e Senha estiverem corretos, direciona para a próxima tela
+				// Se CPF e Senha estiverem corretos, direciona para a próxima tela
 				AreaCliente areaCliente = new AreaCliente();
 				areaCliente.show(); // Mostra a nova tela
 				frame.dispose(); // Fecha a tela atual
@@ -117,9 +163,11 @@ public class LoginCliente {
 				JOptionPane.showMessageDialog(frame, "CPF e Senha incorretos!", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);
 		});
+		
 	}
 
 	public void show() {
 		frame.setVisible(true);
 	}
+	
 }

@@ -7,88 +7,149 @@ import javax.swing.JFrame;
 
 import br.com.tokio.telas.cliente.LoginCliente;
 import br.com.tokio.telas.funcionario.LoginFuncionario;
+import javax.swing.JPanel;
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.SwingConstants;
 
 public class TelaInicial {
 
-    private JFrame frame;
+	private JFrame frame;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    TelaInicial window = new TelaInicial();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaInicial window = new TelaInicial();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-    /**
-     * Create the application.
-     */
-    public TelaInicial() {
-        initialize();
-    }
+	/**
+	 * Create the application.
+	 */
+	public TelaInicial() {
+		initialize();
+	}
 
-    /**
-     * Initialize the contents of the frame.
-     */
-    private void initialize() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 800, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(400, 200, 800, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 
-        // Botão "Área do Cliente"
-        JButton btnCliente = new JButton("Área do Cliente");
-        btnCliente.setBounds(437, 43, 139, 40); // Posição e tamanho (x, y, largura, altura)
-        frame.getContentPane().add(btnCliente);
+		// Botão "Contrate Aqui"
+		JButton btnContrate = new JButton("Contrate Aqui");
+		btnContrate.setBackground(new Color(225, 193, 85));
+		btnContrate.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnContrate.setBounds(303, 448, 178, 50); // Posição e tamanho (x, y, largura, altura)
+		frame.getContentPane().add(btnContrate);
 
-        // Botão "Área do Funcionário"
-        JButton btnFuncionario = new JButton("Área do Funcionário");
-        btnFuncionario.setBounds(609, 43, 139, 40); // Posição e tamanho (x, y, largura, altura)
-        frame.getContentPane().add(btnFuncionario);
+		JPanel panelHeader = new JPanel();
+		panelHeader.setLayout(null);
+		panelHeader.setBackground(new Color(51, 153, 102));
+		panelHeader.setBounds(0, 0, 784, 100);
+		frame.getContentPane().add(panelHeader);
 
-        // Botão "Contrate Aqui"
-        JButton btnContrate = new JButton("Contrate Aqui");
-        btnContrate.setBounds(301, 267, 178, 50); // Posição e tamanho (x, y, largura, altura)
-        frame.getContentPane().add(btnContrate);
-        
-        // Evento que direciona para o login do cliente
-        btnCliente.addActionListener(e -> {
-            // Abre a tela AreaCliente
-            LoginCliente loginCliente = new LoginCliente();
-            loginCliente.show(); // Mostra a nova tela
-            // Fecha a tela atual (opcional)
-            frame.dispose();
-        });
-             
-        // Evento que direciona para o login do funcionário
-        btnFuncionario.addActionListener(e -> {
-            // Abre a tela AreaCliente
-            LoginFuncionario areaFuncionario = new LoginFuncionario();
-            areaFuncionario.show(); // Mostra a nova tela
-            // Fecha a tela atual (opcional)
-            frame.dispose();
-        });
-        
-        // Evento que direciona para o contrate aqui
-        btnContrate.addActionListener(e -> {
-            // Abre a tela AreaCliente
-        	ContrateAqui areaContrateAqui = new ContrateAqui();
-            areaContrateAqui.show(); // Mostra a nova tela
-            // Fecha a tela atual (opcional)
-            frame.dispose();
-        });
-    }
-    
-    // vai exibir a tela (é chamado no click da tela inicial) 
-		public void show() {
-			frame.setVisible(true);
-		}
+		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/images/logo-tokio-marine.png"));
+		Image img = icon.getImage().getScaledInstance(220, 60, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(img);
+		panelHeader.setLayout(null);
+
+		JButton btnLogoTelaInicial = new JButton(icon);
+		btnLogoTelaInicial.setBorder(BorderFactory.createEmptyBorder());
+        btnLogoTelaInicial.setFocusPainted(false);
+		btnLogoTelaInicial.setBackground(new Color(0, 153, 102));
+		btnLogoTelaInicial.setBounds(5, 15, 243, 69);
+		panelHeader.add(btnLogoTelaInicial);
+
+		// Botão "Área do Cliente"
+		JButton btnCliente = new JButton("Área do Cliente");
+		btnCliente.setBackground(new Color(225, 193, 85));
+		btnCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnCliente.setBounds(462, 30, 151, 40);
+		panelHeader.add(btnCliente);
+
+		// Botão "Área do Funcionário"
+		JButton btnFuncionario = new JButton("Área do Funcionário");
+		btnFuncionario.setBackground(new Color(225, 193, 85));
+		btnFuncionario.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnFuncionario.setBounds(623, 30, 151, 40);
+		panelHeader.add(btnFuncionario);
+
+		JLabel lblSeguro = new JLabel("Seguro Residencial Tokio Marine");
+		lblSeguro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSeguro.setBounds(180, 391, 427, 40);
+		frame.getContentPane().add(lblSeguro);
+		lblSeguro.setForeground(Color.BLACK);
+		lblSeguro.setFont(new Font("Tahoma", Font.PLAIN, 29));
+		lblSeguro.setBackground(Color.WHITE);
+
+		JLabel lblSlogan = new JLabel("Proteja seu lar, viva tranquilo");
+		lblSlogan.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		lblSlogan.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSlogan.setBounds(188, 341, 412, 50);
+		frame.getContentPane().add(lblSlogan);
+
+		ImageIcon heroIcon = new ImageIcon(getClass().getResource("/resources/images/residencia.png"));
+		Image heroImage = heroIcon.getImage().getScaledInstance( 637, 219, Image.SCALE_SMOOTH);
+		heroIcon = new ImageIcon(heroImage);
+		panelHeader.setLayout(null);
+		
+		JPanel panelImageHero = new JPanel();
+		panelImageHero.setBounds(73, 111, 637, 219);
+		frame.getContentPane().add(panelImageHero);
+		
+		JLabel lblImagemPrincipal = new JLabel(heroIcon);
+		panelImageHero.add(lblImagemPrincipal);
+
+		// Evento que direciona para o login do funcionário
+		btnFuncionario.addActionListener(e -> {
+			// Abre a tela AreaCliente
+			LoginFuncionario areaFuncionario = new LoginFuncionario();
+			areaFuncionario.show(); // Mostra a nova tela
+			// Fecha a tela atual (opcional)
+			frame.dispose();
+		});
+
+		// Evento que direciona para o login do cliente
+		btnCliente.addActionListener(e -> {
+			// Abre a tela AreaCliente
+			LoginCliente loginCliente = new LoginCliente();
+			loginCliente.show(); // Mostra a nova tela
+			// Fecha a tela atual (opcional)
+			frame.dispose();
+		});
+
+		// Evento que direciona para o contrate aqui
+		btnContrate.addActionListener(e -> {
+			// Abre a tela AreaCliente
+			Simulacao simulacao = new Simulacao();
+			simulacao.show(); // Mostra a nova tela
+
+			// Fecha a tela atual (opcional)
+			frame.dispose();
+		});
+	}
+
+	// vai exibir a tela (é chamado no click da tela inicial)
+	public void show() {
+		frame.setVisible(true);
+	}
 }
