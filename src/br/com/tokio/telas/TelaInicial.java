@@ -53,6 +53,18 @@ public class TelaInicial {
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		
+        // Criando o botão
+        JButton btnDuvidas = new JButton();
+        btnDuvidas.setBackground(new Color(50, 171, 159));
+        btnDuvidas.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        btnDuvidas.setText("Dúvidas frequentes");
+        btnDuvidas.setBounds(621, 520, 153, 30); 
+
+        // Adiciona o botão ao JFrame
+        frame.getContentPane().add(btnDuvidas);
+
 
 		// Botão "Contrate Aqui"
 		JButton btnContrate = new JButton("Contrate Aqui");
@@ -143,6 +155,15 @@ public class TelaInicial {
 			Simulacao simulacao = new Simulacao();
 			simulacao.show(); // Mostra a nova tela
 
+			// Fecha a tela atual (opcional)
+			frame.dispose();
+		});
+		
+		// Evento que direciona para as duvidas frequentes o login do funcionário
+		btnDuvidas.addActionListener(e -> {
+			// Abre a tela AreaCliente
+			DuvidasFrequentes duvidasFrequentes = new DuvidasFrequentes();
+			duvidasFrequentes.show(); // Mostra a nova tela
 			// Fecha a tela atual (opcional)
 			frame.dispose();
 		});
