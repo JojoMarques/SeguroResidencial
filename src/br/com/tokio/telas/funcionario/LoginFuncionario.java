@@ -136,7 +136,7 @@ public class LoginFuncionario {
 		
 		JTextPane txtpnRestritoAosCorretores = new JTextPane();
 		txtpnRestritoAosCorretores.setBackground(UIManager.getColor("Button.background"));
-		txtpnRestritoAosCorretores.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnRestritoAosCorretores.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtpnRestritoAosCorretores.setText("Restrito aos corretores / colaboradores e parceiros.");
 		txtpnRestritoAosCorretores.setBounds(10, 24, 383, 20);
 		panel.add(txtpnRestritoAosCorretores);
