@@ -130,9 +130,7 @@ CREATE TABLE t_funcionario (
     cd_funcionario NUMBER(5) NOT NULL,
     ds_acesso_func CHAR(5),
     dt_admissao    DATE,
-    senha          CHAR 
---  WARNING: CHAR size not specified 
-    ,
+    senha          CHAR(50),
     nm_func        VARCHAR2(50),
     cpf_func       CHAR(11),
     telefone_func  CHAR(11),
