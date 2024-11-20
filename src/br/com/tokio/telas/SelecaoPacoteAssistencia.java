@@ -98,6 +98,15 @@ public class SelecaoPacoteAssistencia {
 		JButton btnVoltar = new JButton(iconLeft);
 		btnVoltar.setBackground(new Color(225, 193, 85));
 		panelNav.add(btnVoltar);
+		
+		ImageIcon iconRight = new ImageIcon(getClass().getResource("/resources/images/chevron_right.png"));
+		Image imgRight = iconRight.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
+		iconRight = new ImageIcon(imgRight);
+
+		// vai para a proxima pagina
+		JButton btnAvancar = new JButton(iconRight);
+		btnAvancar.setBackground(new Color(225, 193, 85));
+		panelNav.add(btnAvancar);
 
 		// -----------------------------------------------------------------------------------
 		JPanel panel = new JPanel();
@@ -230,6 +239,12 @@ public class SelecaoPacoteAssistencia {
 		btnVoltar.addActionListener(e -> {
 			SelecaoPacoteCobertura selecaoPacoteCobertura = new SelecaoPacoteCobertura();
 			selecaoPacoteCobertura.show();
+			frame.dispose();
+		});
+		
+		btnAvancar.addActionListener(e -> {
+			ConfirmarDados confirmarDados = new ConfirmarDados();
+			confirmarDados.show();
 			frame.dispose();
 		});
 
