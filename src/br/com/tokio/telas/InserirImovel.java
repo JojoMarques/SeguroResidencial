@@ -19,14 +19,15 @@ import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ImovelDAO;
+import br.com.tokio.model.Estado;
 import br.com.tokio.model.Imovel;
 import br.com.tokio.telas.cliente.AreaCliente;
 import br.com.tokio.telas.cliente.LoginCliente;
+import javax.swing.JComboBox;
 
 public class InserirImovel {
 
 	private JFrame frame;
-	private JTextField txtEstado;
 	private JTextField txtArea;
 	private JTextField txtValorImovel;
 	private JTextField txtCEP;
@@ -166,11 +167,6 @@ public class InserirImovel {
 		lblArea.setBounds(63, 282, 100, 25);
 		panel.add(lblArea);
 
-		txtEstado = new JTextField();
-		txtEstado.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtEstado.setBounds(173, 243, 200, 25);
-		panel.add(txtEstado);
-
 		txtArea = new JTextField();
 		txtArea.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtArea.setBounds(173, 282, 200, 25);
@@ -195,14 +191,23 @@ public class InserirImovel {
 		txtBairro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtBairro.setBounds(173, 169, 200, 25);
 		panel.add(txtBairro);
-
+		
+		JComboBox comboBoxEstado = new JComboBox();
+		comboBoxEstado.setBounds(173, 246, 200, 22);
+		panel.add(comboBoxEstado);
+		
+		for (Estado estado : Estado.values()) {
+		    comboBoxEstado.addItem(estado.getSigla()); // Adiciona a sigla de cada estado no ComboBox
+		}
+		
+		
+		
 		btnEnviar.addActionListener(e -> {
 			String cep = txtCEP.getText();
 			String logradouro = txtLogradouro.getText();
 			int numero = Integer.parseInt(txtNumero.getText());
 			String cidade = txtCidade.getText();
 			String bairro = txtBairro.getText();
-			String estado = txtEstado.getText();
 			double areaImovel = Double.parseDouble(txtArea.getText());
 			double valorImovel =  Double.parseDouble(txtValorImovel.getText());
 
@@ -229,6 +234,12 @@ public class InserirImovel {
 			telaInicial.show();
 			frame.dispose();
 		});
+		
+		
+		String siglaSelecionada = (String) comboBoxEstado.getSelectedItem();
+
+		// Converter para o enum Estado - mandar pro banco depois
+		Estado estadoSelecionado = Estado.fromCodigo(siglaSelecionada);
 
 	}
 
