@@ -11,17 +11,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import br.com.tokio.telas.SelecaoHabitacao;
 import br.com.tokio.telas.TelaInicial;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.SystemColor;
 
 public class AreaCliente {
 
 	private JFrame frame;
-	private JTextField txtEmailtestegmailcom;
-	private JTextField textField_1;
+	private JTextField textFieldValor;
+	private JTextField textFieldData;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -90,87 +93,103 @@ public class AreaCliente {
 
 		// Painel para as informações do cliente
 		JPanel panelInformacoes = new JPanel();
-		panelInformacoes.setBounds(150, 100, 500, 344); // Posição e tamanho do painel
+		panelInformacoes.setBounds(391, 139, 393, 344); // Posição e tamanho do painel
 		panelInformacoes.setLayout(null); // Layout absoluto dentro do painel
 		frame.getContentPane().add(panelInformacoes);
 
-		// Título do painel
-		JLabel lblTitulo = new JLabel("Informações do Cliente");
-		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTitulo.setBounds(150, 35, 200, 30); // Posição no painel
-		panelInformacoes.add(lblTitulo);
-
-		// Campo de exibição de nome
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNome.setBounds(50, 96, 80, 25); // Posição no painel
-		panelInformacoes.add(lblNome);
-
-		JTextField txtNome = new JTextField();
-		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtNome.setBounds(150, 96, 200, 25); // Posição no painel
-		txtNome.setEditable(false); // Campo apenas para exibição
-		txtNome.setText("Nome do Cliente"); // Valor de exemplo
-		panelInformacoes.add(txtNome);
-
-		// Campo de exibição de CPF
-		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCpf.setBounds(50, 136, 80, 25); // Posição no painel
-		panelInformacoes.add(lblCpf);
-
-		JTextField txtCpf = new JTextField();
-		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtCpf.setBounds(150, 136, 200, 25); // Posição no painel
-		txtCpf.setEditable(false); // Campo apenas para exibição
-		txtCpf.setText("123.456.789-00"); // Valor de exemplo
-		panelInformacoes.add(txtCpf);
-
 		// Botão de editar informações
-		JButton btnEditarInformacoes = new JButton("Editar Informações");
-		btnEditarInformacoes.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnEditarInformacoes.setBackground(new Color(225, 193, 85));
-		btnEditarInformacoes.setBounds(150, 275, 200, 30); // Posição no painel
-		panelInformacoes.add(btnEditarInformacoes);
+		JButton btnInformacoes = new JButton("Suas informações");
+		btnInformacoes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnInformacoes.setBackground(new Color(225, 193, 85));
+		btnInformacoes.setBounds(96, 249, 200, 30); // Posição no painel
+		panelInformacoes.add(btnInformacoes);
 		
-		txtEmailtestegmailcom = new JTextField();
-		txtEmailtestegmailcom.setText("email.teste@gmail.com");
-		txtEmailtestegmailcom.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtEmailtestegmailcom.setEditable(false);
-		txtEmailtestegmailcom.setBounds(150, 172, 200, 25);
-		panelInformacoes.add(txtEmailtestegmailcom);
+		JButton btnApolice = new JButton("Sua apólice");
+		btnApolice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnApolice.setBackground(new Color(225, 193, 85));
+		btnApolice.setBounds(96, 156, 200, 30);
+		panelInformacoes.add(btnApolice);
 		
-		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblEmail.setBounds(50, 172, 80, 25);
-		panelInformacoes.add(lblEmail);
+		JButton btnSinistro = new JButton("Solicitar sinistro");
+		btnSinistro.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnSinistro.setBackground(new Color(225, 193, 85));
+		btnSinistro.setBounds(96, 63, 200, 30);
+		panelInformacoes.add(btnSinistro);
 		
-		textField_1 = new JTextField();
-		textField_1.setText("(11) 9 9546-4421");
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		textField_1.setEditable(false);
-		textField_1.setBounds(150, 208, 200, 25);
-		panelInformacoes.add(textField_1);
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 139, 393, 344);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
 		
-		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTelefone.setBounds(50, 208, 80, 25);
-		panelInformacoes.add(lblTelefone);
+		JLabel lblProximoPagto = new JLabel("Próximo Pagamento:");
+		lblProximoPagto.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProximoPagto.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblProximoPagto.setBounds(98, 34, 196, 14);
+		panel.add(lblProximoPagto);
+		
+		JLabel lblData = new JLabel("Data:");
+		lblData.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblData.setBounds(42, 102, 46, 14);
+		panel.add(lblData);
+		
+		JLabel lblValor = new JLabel("Valor:");
+		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblValor.setBounds(42, 154, 46, 14);
+		panel.add(lblValor);
+		
+		textFieldValor = new JTextField();
+		textFieldValor.setBackground(SystemColor.control);
+		textFieldValor.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textFieldValor.setBounds(98, 146, 196, 30);
+		panel.add(textFieldValor);
+		textFieldValor.setColumns(10);
+		
+		textFieldData = new JTextField();
+		textFieldData.setBackground(SystemColor.control);
+		textFieldData.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textFieldData.setColumns(10);
+		textFieldData.setBounds(98, 94, 196, 30);
+		panel.add(textFieldData);
+		
+		JLabel lblPlano = new JLabel("Seu plano é válido até:");
+		lblPlano.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblPlano.setBounds(21, 265, 153, 14);
+		panel.add(lblPlano);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textField.setColumns(10);
+		textField.setBackground(SystemColor.control);
+		textField.setBounds(173, 257, 196, 30);
+		panel.add(textField);
 
 		// Evento para abrir a tela EditarCliente
-		btnEditarInformacoes.addActionListener(e -> {
-			EditarCliente editarCliente = new EditarCliente();
-			editarCliente.show(); // Mostra a tela de edição
+		btnInformacoes.addActionListener(e -> {
+			InformacoesCliente informacoesCliente = new InformacoesCliente();
+			informacoesCliente.show(); // Mostra a tela de edição
 			frame.dispose(); // Fecha a tela atual
 		});
+		
+		btnSinistro.addActionListener(e -> {
+			SolicitarSinistro solicitarSinistro = new SolicitarSinistro();
+			solicitarSinistro.show();
+			frame.dispose();
+		});
+		
+		btnApolice.addActionListener(e -> {
+			VisualizarApolice visualizarApolice = new VisualizarApolice();
+			visualizarApolice.show();
+			frame.dispose();
+		});
+		
+		
 
 	}
 
 	/**
 	 * Método para exibir a tela.
-	 */
-	public void show() {
-		frame.setVisible(true);
-	}
+	 */public void show() {
+			frame.setVisible(true);
+		}
+	 
 }
