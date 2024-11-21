@@ -1,5 +1,6 @@
 package br.com.tokio.teste;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ public class Teste {
 
     public static void main(String[] args) {
         // Criação da conexão com o banco
-        var connection = new ConnectionFactory().conectar();
+        Connection connection = new ConnectionFactory().conectar();
 
         // Criação dos DAOs
         ImovelDAO imovelDAO = new ImovelDAO(connection);

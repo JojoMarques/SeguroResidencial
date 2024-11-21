@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -22,7 +23,7 @@ import javax.swing.JPasswordField;
 public class ConfirmarDados {
 
 	private JFrame frame;
-	
+
 	private JTextField txtEmailtestegmailcom;
 	private JTextField textField_1;
 	private JPasswordField password1;
@@ -92,13 +93,13 @@ public class ConfirmarDados {
 			telaInicial.show();
 			frame.dispose();
 		});
-		
+
 		JPanel panelNav = new JPanel();
 		panelNav.setBackground(new Color(0, 153, 102));
 		panelNav.setBounds(651, 30, 109, 39);
 		panelHeader.add(panelNav);
 		panelNav.setLayout(new GridLayout(0, 2, 10, 0));
-		
+
 		ImageIcon iconLeft = new ImageIcon(getClass().getResource("/resources/images/chevron_left.png"));
 		Image imgLeft = iconLeft.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
 		iconLeft = new ImageIcon(imgLeft);
@@ -153,66 +154,80 @@ public class ConfirmarDados {
 		btnConfirmar.setBackground(new Color(225, 193, 85));
 		btnConfirmar.setBounds(150, 377, 200, 30); // Posição no painel
 		panelInformacoes.add(btnConfirmar);
-		
+
 		txtEmailtestegmailcom = new JTextField();
 		txtEmailtestegmailcom.setText("email.teste@gmail.com");
 		txtEmailtestegmailcom.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtEmailtestegmailcom.setEditable(false);
 		txtEmailtestegmailcom.setBounds(150, 172, 200, 25);
 		panelInformacoes.add(txtEmailtestegmailcom);
-		
+
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblEmail.setBounds(38, 172, 80, 25);
 		panelInformacoes.add(lblEmail);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setText("(11) 9 9546-4421");
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textField_1.setEditable(false);
 		textField_1.setBounds(150, 208, 200, 25);
 		panelInformacoes.add(textField_1);
-		
+
 		JLabel lblTelefone = new JLabel("Telefone:");
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblTelefone.setBounds(38, 208, 80, 25);
 		panelInformacoes.add(lblTelefone);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Crie uma senha:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNewLabel_1.setBounds(10, 288, 130, 18);
 		panelInformacoes.add(lblNewLabel_1);
-		
+
 		JLabel lblNewLabel_1_1 = new JLabel("Confirme sua senha:");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNewLabel_1_1.setBounds(10, 326, 141, 14);
 		panelInformacoes.add(lblNewLabel_1_1);
-		
+
 		password1 = new JPasswordField();
 		password1.setBounds(150, 283, 200, 25);
 		panelInformacoes.add(password1);
-		
+
 		passwordConfirmar = new JPasswordField();
 		passwordConfirmar.setBounds(150, 322, 200, 25);
 		panelInformacoes.add(passwordConfirmar);
-
+		
 		// Evento para abrir a tela EditarCliente
 		btnConfirmar.addActionListener(e -> {
-			LoginCliente loginCliente = new LoginCliente();
-			loginCliente.show(); // Mostra a tela de edição
-			frame.dispose(); // Fecha a tela atual
+			if(confirmarSenha()) {
+				InserirImovel inserirImovel = new InserirImovel();
+				inserirImovel.show(); // Mostra a tela de edição
+				frame.dispose(); // Fecha a tela atual
+			}
+			else {
+				JOptionPane.showMessageDialog(frame, "As senhas estão diferentes", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		});
-		
+
 		btnVoltar.addActionListener(e -> {
 			SelecaoPacoteAssistencia selecaoPacoteAssistencia = new SelecaoPacoteAssistencia();
 			selecaoPacoteAssistencia.show();
 			frame.dispose();
 		});
-		
-	
+
 	}
 
-	
+	public boolean confirmarSenha() {
+		String senha1 = new String(password1.getPassword());
+		String senha2 = new String(passwordConfirmar.getPassword());
+		if (senha1.equals(senha2))
+			return true;
+		else
+			return false;
+
+	}
+
 	public void show() {
 		frame.setVisible(true);
 	}

@@ -136,6 +136,8 @@ public class FuncionarioDAO implements Autenticar {
 		}
 		return funcionario;
 	}
+	
+	
 
 	@Override
 	public int autenticacao(String acesso, String senha) {
@@ -144,11 +146,13 @@ public class FuncionarioDAO implements Autenticar {
 
 	    // Percorrer todos os clientes e comparar o CPF e a senha
 	    for (Funcionario funcionario : listaFuncionarios) {
-	        if (funcionario.getAcessoFunc().equals(acesso) && funcionario.getSenhaFunc().equals(senha)) {
+	    	
+	    	System.out.println(funcionario.getAcessoFunc() +" " + funcionario.getSenhaFunc());
+	        if (funcionario.getAcessoFunc().trim().equals(acesso) && funcionario.getSenhaFunc().trim().equals(senha)) {
 	            return 1; // acesso e Senha corretos
-	        } else if (funcionario.getAcessoFunc().equals(acesso)) {
+	        } else if (funcionario.getAcessoFunc().trim().equals(acesso)) {
 	            return 2; // acesso correto, mas senha incorreta
-	        } else if (funcionario.getSenhaFunc().equals(senha)) {
+	        } else if (funcionario.getSenhaFunc().trim().equals(senha)) {
 	            return 3; // Senha correta, mas acesso incorreto
 	        }
 	    }

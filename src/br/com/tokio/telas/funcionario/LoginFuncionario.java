@@ -149,15 +149,20 @@ public class LoginFuncionario {
         });
         
         btnLogin.addActionListener(e -> {
-			String acesso = txtAcesso.getText();
-			String senha = new String(txtSenha.getPassword());
+			String acesso = txtAcesso.getText().trim();
+			String senha = new String(txtSenha.getPassword()).trim();
+			
+			System.out.println(acesso + " "+ senha);
 
 			// Instanciando a conexão
 			Connection connection = new ConnectionFactory().conectar();
 
 			// Instanciar o ClienteDAO e verificar a autenticação
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO(connection);
+			
 			int resultadoAutenticacao = funcionarioDAO.autenticacao(acesso, senha);
+			
+			System.out.println(acesso + " "+ senha);
 
 			if (resultadoAutenticacao == 1) {
 				// Se CPF e Senha estiverem corretos, direciona para a próxima tela
