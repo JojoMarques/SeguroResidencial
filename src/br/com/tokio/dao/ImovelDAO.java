@@ -19,8 +19,8 @@ public class ImovelDAO {
 
     // insert
     public void insert(Imovel imovel) {
-        String sql = "insert into T_IMOVEL (cep, numero, logradouro, bairro, cidade, pais, "
-        		+ "vl_area, vl_imovel, cd_cliente) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into T_IMOVEL (cep, numero, logradouro, bairro, cidade, pais, estado"
+        		+ "vl_area, vl_imovel, cd_cliente) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -30,9 +30,10 @@ public class ImovelDAO {
             stmt.setString(4, imovel.getBairro());
             stmt.setString(5, imovel.getCidade());
             stmt.setString(6, imovel.getPais());
-            stmt.setDouble(7, imovel.getArea());
-            stmt.setDouble(8, imovel.getValorImovel());
-            stmt.setInt(9, imovel.getIdCliente());
+            stmt.setString(7, imovel.getEstado());
+            stmt.setDouble(8, imovel.getArea());
+            stmt.setDouble(9, imovel.getValorImovel());
+            stmt.setInt(10, imovel.getIdCliente());
 
             stmt.execute();
             stmt.close();
@@ -62,7 +63,7 @@ public class ImovelDAO {
     // update
     public void update(Imovel imovel) {
         String sql = "update T_IMOVEL set cep = ?, numero = ?, logradouro = ?, bairro = ?, "
-        		+ "cidade = ?, pais = ?, vl_area = ?, vl_imovel = ? where cd_imovel = ? and cd_cliente = ?";
+        		+ "cidade = ?, pais = ?, estado=?,vl_area = ?, vl_imovel = ? where cd_imovel = ? and cd_cliente = ?";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -73,10 +74,11 @@ public class ImovelDAO {
             stmt.setString(4, imovel.getBairro());
             stmt.setString(5, imovel.getCidade());
             stmt.setString(6, imovel.getPais());
-            stmt.setDouble(7, imovel.getArea());
-            stmt.setDouble(8, imovel.getValorImovel());
-            stmt.setInt(9, imovel.getIdImovel());
-            stmt.setInt(10, imovel.getIdCliente());
+            stmt.setString(7, imovel.getEstado());
+            stmt.setDouble(8, imovel.getArea());
+            stmt.setDouble(9, imovel.getValorImovel());
+            stmt.setInt(10, imovel.getIdImovel());
+            stmt.setInt(11, imovel.getIdCliente());
 
             stmt.execute();
             stmt.close();

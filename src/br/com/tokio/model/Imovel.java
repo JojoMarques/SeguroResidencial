@@ -6,6 +6,7 @@ public class Imovel {
 	private double valorImovel;
 	private double area;
 	private String pais;
+	private String estado;
 	private String cidade;
 	private String bairro;
 	private String logradouro;
@@ -16,11 +17,12 @@ public class Imovel {
 	public Imovel() {
 	}
 
-	public Imovel(double valorImovel, double area, String pais, String cidade, String bairro, String logradouro,
+	public Imovel(double valorImovel, double area, String pais, String estado, String cidade, String bairro, String logradouro,
 			int numero, String cep, int idCliente) {
 		this.valorImovel = valorImovel;
 		this.area = area;
 		this.pais = pais;
+		this.estado =estado;
 		this.cidade = cidade;
 		this.bairro = bairro;
 		this.logradouro = logradouro;
@@ -69,6 +71,16 @@ public class Imovel {
 
 	public void setPais(String pais) {
 		this.pais = pais;
+	}
+
+	
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public String getCidade() {

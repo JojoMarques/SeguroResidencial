@@ -211,6 +211,11 @@ public class InserirImovel {
 			String bairro = txtBairro.getText();
 			double areaImovel = Double.parseDouble(txtArea.getText());
 			double valorImovel =  Double.parseDouble(txtValorImovel.getText());
+			
+			String siglaSelecionada = (String) comboBoxEstado.getSelectedItem();
+			Estado estadoSelecionado = Estado.fromCodigo(siglaSelecionada);
+			
+			String nomeEstado = estadoSelecionado.name();
 
 //			JOptionPane.showMessageDialog(frame,
 //					"Dados enviados com sucesso!\n" + "CEP: " + cep + "\n" + "Logradouro: " + logradouro + "\n"
@@ -220,12 +225,19 @@ public class InserirImovel {
 			
 			ImovelDAO imovelDAO = new ImovelDAO(connection);
 			
-			Imovel imovel = new Imovel(valorImovel, areaImovel, "Brasil", cidade, bairro,  logradouro, numero, cep, 1);
-			imovelDAO.insert(imovel);
+			if (cep!="" && logradouro!="" && numero>0 && cidade!="" && bairro!="" && areaImovel!=0 && valorImovel!=0 && nomeEstado!="") {
+				
+				Imovel imovel = new Imovel(valorImovel, areaImovel, "Brasil", nomeEstado, cidade, bairro, logradouro, numero, cep, 1);
+				imovelDAO.insert(imovel);
+				
+				LoginCliente loginCliente = new LoginCliente(); 
+				loginCliente.show();
+				frame.dispose();
+			} else {
+				JOptionPane.showMessageDialog(frame, "Dados inválidos", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+			}
 			
-			LoginCliente loginCliente = new LoginCliente(); 
-			loginCliente.show();
-			frame.dispose();
 
 		});
 
@@ -237,10 +249,7 @@ public class InserirImovel {
 		});
 		
 		
-		String siglaSelecionada = (String) comboBoxEstado.getSelectedItem();
-
-		// Converter para o enum Estado - mandar pro banco depois
-		Estado estadoSelecionado = Estado.fromCodigo(siglaSelecionada);
+		
 
 	}
 

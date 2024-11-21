@@ -51,8 +51,8 @@ public class Teste {
         System.out.println("Clientes inseridos com sucesso.");
 
         // Criação e inserção do Imovel
-        Imovel imovel1 = new Imovel(250000, 120.5, "Brasil", "São Paulo", "Centro", "Av. Paulista", 100, "01311000", 1);
-        Imovel imovel2 = new Imovel(350000, 150.0, "Brasil", "Rio de Janeiro", "Copacabana", "Av. Atlântica", 200, "22070000", 2);
+        Imovel imovel1 = new Imovel(250000, 120.5, "Brasil", "São Paulo", "São Paulo","Centro", "Av. Paulista", 100, "01311000", 1);
+        Imovel imovel2 = new Imovel(350000, 150.0, "Brasil", "Rio de Janeiro","Rio de Janeiro", "Copacabana", "Av. Atlântica", 200, "22070000", 2);
         imovelDAO.insert(imovel1);
         imovelDAO.insert(imovel2);
         System.out.println("Imóveis inseridos com sucesso.");
