@@ -139,7 +139,7 @@ public class LoginCliente {
 		// Evento de clique no botão de login
 		btnLogin.addActionListener(e -> {
 			String cpf = txtCpf.getText().trim();
-			String senha = new String(txtSenha.getPassword()).trim();
+			String senha = new String(txtSenha.getPassword());
 			System.out.println(cpf+" "+senha);
 
 			// Instanciando a conexão
