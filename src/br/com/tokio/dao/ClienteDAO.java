@@ -143,13 +143,13 @@ public class ClienteDAO implements Autenticar {
 
 	    // Percorrer todos os clientes e comparar o CPF e a senha
 	    for (Cliente cliente : listaClientes) {
-		    System.out.println(cliente.getCpf().trim() +" "+cliente.getSenhaCliente().trim());
-
-	        if (cliente.getCpf().trim().equals(cpf) && cliente.getSenhaCliente().trim().equals(senha)) {
+	    	if (cliente.getSenhaCliente()==null) //tem que fzr verificacao se é nulo --> mas no cadastro
+	    		cliente.setSenhaCliente("12");
+	        if (cliente.getCpf().equals(cpf) && cliente.getSenhaCliente().equals(senha)) {
 	            num = 1; // CPF e Senha corretos
-	        } else if (cliente.getCpf().trim().equals(cpf)) {
+	        } else if (cliente.getCpf().equals(cpf)) {
 	            num = 2; // CPF correto, mas senha incorreta
-	        } else if (cliente.getSenhaCliente().trim().equals(senha)) {
+	        } else if (cliente.getSenhaCliente().equals(senha)) {
 	            num = 3; // Senha correta, mas CPF incorreto
 	        }
 	    }
