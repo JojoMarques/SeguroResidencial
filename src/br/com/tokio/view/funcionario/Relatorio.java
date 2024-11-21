@@ -1,4 +1,4 @@
-package br.com.tokio.telas;
+package br.com.tokio.view.funcionario;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -11,11 +11,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class DuvidasFrequentes {
+import br.com.tokio.view.TelaInicial;
+
+import javax.swing.JTable;
+
+public class Relatorio {
 
 	private JFrame frame;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -24,7 +31,7 @@ public class DuvidasFrequentes {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DuvidasFrequentes window = new DuvidasFrequentes();
+					Relatorio window = new Relatorio();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +43,7 @@ public class DuvidasFrequentes {
 	/**
 	 * Create the application.
 	 */
-	public DuvidasFrequentes() {
+	public Relatorio() {
 		initialize();
 	}
 
@@ -48,8 +55,9 @@ public class DuvidasFrequentes {
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JPanel panelHeader = new JPanel();
+		panelHeader.setLayout(null);
 		panelHeader.setBackground(new Color(51, 153, 102));
 		panelHeader.setBounds(0, 0, 784, 100);
 		frame.getContentPane().add(panelHeader);
@@ -58,45 +66,39 @@ public class DuvidasFrequentes {
 		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/images/logo-tokio-marine.png"));
 		Image img = icon.getImage().getScaledInstance(220, 60, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(img);
-		panelHeader.setLayout(null);
 
-		JButton btnLogo = new JButton(icon);
-		btnLogo.setBorder(BorderFactory.createEmptyBorder());
-		btnLogo.setFocusPainted(false);
-		btnLogo.setBounds(5, 15, 243, 69);
-		btnLogo.setBackground(new Color(0, 153, 102));
-		panelHeader.add(btnLogo);
+		JButton btnLogoTelaInicial = new JButton(icon);
+		btnLogoTelaInicial.setBorder(BorderFactory.createEmptyBorder());
+		btnLogoTelaInicial.setFocusPainted(false);
+		btnLogoTelaInicial.setBackground(new Color(0, 153, 102));
+		btnLogoTelaInicial.setBounds(5, 15, 243, 69);
+		panelHeader.add(btnLogoTelaInicial);
 
-		JLabel lblAreaDoCliente = new JLabel("Dúvidas frequentes");
-		lblAreaDoCliente.setForeground(new Color(255, 255, 255));
-		lblAreaDoCliente.setBackground(new Color(255, 255, 255));
-		lblAreaDoCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAreaDoCliente.setFont(new Font("Tahoma", Font.PLAIN, 27));
-		lblAreaDoCliente.setBounds(249, 15, 286, 69);
-		panelHeader.add(lblAreaDoCliente);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(107, 100, 569, 461);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JPanel panelPerguntas = new JPanel();
-		panelPerguntas.setBounds(0, 302, 569, 159);
-		panel.add(panelPerguntas);
-		
-		JPanel panelRespostas = new JPanel();
-		panelRespostas.setBounds(0, 0, 569, 291);
-		panel.add(panelRespostas);
+		JLabel lblRelatorio = new JLabel("Relatório");
+		lblRelatorio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRelatorio.setForeground(Color.WHITE);
+		lblRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 29));
+		lblRelatorio.setBackground(Color.WHITE);
+		lblRelatorio.setBounds(266, 18, 251, 63);
+		panelHeader.add(lblRelatorio);
 
-		// Evento para retornar à tela inicial
-		btnLogo.addActionListener(e -> {
+		// Evento para voltar à tela inicial
+		btnLogoTelaInicial.addActionListener(e -> {
 			TelaInicial telaInicial = new TelaInicial();
-			telaInicial.show();
-			frame.dispose();
+			telaInicial.show(); // Mostra a nova tela
+			frame.dispose(); // Fecha a tela atual
 		});
+
+		JPanel panel = new JPanel();
+		panel.setBounds(132, 111, 551, 439);
+		frame.getContentPane().add(panel);
+
+		table = new JTable();
+		panel.add(table);
+
 	}
 
-	
+	// vai exibir a tela (é chamado no click da tela inicial)
 	public void show() {
 		frame.setVisible(true);
 	}

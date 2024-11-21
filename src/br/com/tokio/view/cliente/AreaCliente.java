@@ -1,4 +1,4 @@
-package br.com.tokio.telas.cliente;
+package br.com.tokio.view.cliente;
 
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -11,10 +11,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import br.com.tokio.telas.SelecaoHabitacao;
-import br.com.tokio.telas.TelaInicial;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+
+import br.com.tokio.view.SelecaoHabitacao;
+import br.com.tokio.view.TelaInicial;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -25,6 +27,7 @@ public class AreaCliente {
 	private JTextField textFieldValor;
 	private JTextField textFieldData;
 	private JTextField textField;
+	private int idRecebido;
 
 	/**
 	 * Launch the application.
@@ -45,14 +48,21 @@ public class AreaCliente {
 	/**
 	 * Create the application.
 	 */
+	public AreaCliente(int idCliente) {
+		this.idRecebido = idCliente;
+		initialize();
+	}
+	
 	public AreaCliente() {
 		initialize();
+
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		System.out.println(idRecebido);
 		frame = new JFrame();
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -165,7 +175,7 @@ public class AreaCliente {
 
 		// Evento para abrir a tela EditarCliente
 		btnInformacoes.addActionListener(e -> {
-			InformacoesCliente informacoesCliente = new InformacoesCliente();
+			InformacoesCliente informacoesCliente = new InformacoesCliente(idRecebido);
 			informacoesCliente.show(); // Mostra a tela de edição
 			frame.dispose(); // Fecha a tela atual
 		});

@@ -1,4 +1,4 @@
-package br.com.tokio.telas.funcionario;
+package br.com.tokio.view.funcionario;
 
 import java.awt.EventQueue;
 import java.sql.Connection;
@@ -13,7 +13,8 @@ import javax.swing.JTextField;
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ClienteDAO;
 import br.com.tokio.dao.FuncionarioDAO;
-import br.com.tokio.telas.TelaInicial;
+import br.com.tokio.view.TelaInicial;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 

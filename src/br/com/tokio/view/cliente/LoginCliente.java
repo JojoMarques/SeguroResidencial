@@ -1,7 +1,8 @@
-package br.com.tokio.telas.cliente;
+package br.com.tokio.view.cliente;
 
 import java.awt.EventQueue;
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +13,8 @@ import javax.swing.JTextField;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ClienteDAO;
-import br.com.tokio.telas.TelaInicial;
+import br.com.tokio.view.TelaInicial;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 
@@ -147,22 +149,18 @@ public class LoginCliente {
 
 			// Instanciar o ClienteDAO e verificar a autenticação
 			ClienteDAO clienteDAO = new ClienteDAO(connection);
-			int resultadoAutenticacao = clienteDAO.autenticacao(cpf, senha);
+			List<Integer> resultadoAutenticacao = clienteDAO.autenticacao(cpf, senha);
 
-			if (resultadoAutenticacao == 1) {
+			if (resultadoAutenticacao.get(0) == 1) {
 				// Se CPF e Senha estiverem corretos, direciona para a próxima tela
-				AreaCliente areaCliente = new AreaCliente();
+				AreaCliente areaCliente = new AreaCliente(resultadoAutenticacao.get(1));
+				System.out.println(cpf + " " + senha);
 				areaCliente.show(); // Mostra a nova tela
 				frame.dispose(); // Fecha a tela atual
-			} else if (resultadoAutenticacao == 2)
-				JOptionPane.showMessageDialog(frame, "Senha incorreta!", "Erro de autenticação",
+			} else 
+				JOptionPane.showMessageDialog(frame, "Dados inválidos", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);
-			else if (resultadoAutenticacao == 3)
-				JOptionPane.showMessageDialog(frame, "CPF incorreto!", "Erro de autenticação",
-						JOptionPane.ERROR_MESSAGE);
-			else
-				JOptionPane.showMessageDialog(frame, "CPF e Senha incorretos!", "Erro de autenticação",
-						JOptionPane.ERROR_MESSAGE);
+				
 		});
 		
 	}

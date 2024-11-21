@@ -1,4 +1,4 @@
-package br.com.tokio.telas;
+package br.com.tokio.view;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -21,8 +21,9 @@ import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ImovelDAO;
 import br.com.tokio.model.Estado;
 import br.com.tokio.model.Imovel;
-import br.com.tokio.telas.cliente.AreaCliente;
-import br.com.tokio.telas.cliente.LoginCliente;
+import br.com.tokio.view.cliente.AreaCliente;
+import br.com.tokio.view.cliente.LoginCliente;
+
 import javax.swing.JComboBox;
 
 public class InserirImovel {

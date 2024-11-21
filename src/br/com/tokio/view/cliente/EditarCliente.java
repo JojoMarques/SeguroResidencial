@@ -1,9 +1,10 @@
-package br.com.tokio.telas.cliente;
+package br.com.tokio.view.cliente;
 
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.sql.Connection;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,7 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import br.com.tokio.telas.TelaInicial;
+import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.ClienteDAO;
+import br.com.tokio.model.Cliente;
+import br.com.tokio.view.TelaInicial;
 
 import javax.swing.JPasswordField;
 
@@ -25,6 +29,7 @@ public class EditarCliente {
     private JTextField txtEmail;
     private JPasswordField txtSenha;
     private JTextField txtTelefone;
+    private int idRecebido;
 
     /**
      * Launch the application.
@@ -47,6 +52,11 @@ public class EditarCliente {
      * Create the application.
      */
     public EditarCliente() {
+        initialize();
+    }
+    
+    public EditarCliente(int idCliente) {
+    	this.idRecebido = idCliente;
         initialize();
     }
 
@@ -97,7 +107,12 @@ public class EditarCliente {
         lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblTitulo.setBounds(161, 36, 200, 30); // Posição na janela
         panel.add(lblTitulo);
-
+        
+    	Connection connection = new ConnectionFactory().conectar();
+		ClienteDAO clienteDAO = new ClienteDAO(connection);
+    	Cliente cliente = new Cliente();
+		cliente = clienteDAO.selectById(idRecebido);
+        
         // Campo para editar Nome
         JLabel lblNome = new JLabel("Nome:");
         lblNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -107,6 +122,7 @@ public class EditarCliente {
         txtNome = new JTextField();
         txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
         txtNome.setBounds(161, 106, 200, 25); // Posição na janela
+        txtNome.setText(cliente.getNome());
         panel.add(txtNome);
 
         // Campo para editar E-mail
@@ -118,6 +134,7 @@ public class EditarCliente {
         txtEmail = new JTextField();
         txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
         txtEmail.setBounds(161, 156, 200, 25); // Posição na janela
+        txtEmail.setText(cliente.getEmail());
         panel.add(txtEmail);
 
         // Campo para editar Senha
@@ -129,6 +146,7 @@ public class EditarCliente {
         txtSenha = new JPasswordField();
         txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 13));
         txtSenha.setBounds(161, 206, 200, 25); // Posição na janela
+        txtSenha.setText(cliente.getSenhaCliente());
         panel.add(txtSenha);
 
         // Campo para editar Telefone
@@ -140,6 +158,7 @@ public class EditarCliente {
         txtTelefone = new JTextField();
         txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
         txtTelefone.setBounds(161, 256, 200, 25); // Posição na janela
+        txtTelefone.setText(cliente.getTelefone());
         panel.add(txtTelefone);
 
         // Botão para salvar alterações
@@ -159,14 +178,16 @@ public class EditarCliente {
 
         // Evento do botão "Salvar"
         btnSalvar.addActionListener(e -> {
+        	Cliente c = clienteDAO.selectById(idRecebido);
             // Simulação de atualização dos dados
-            String nome = txtNome.getText();
-            String email = txtEmail.getText();
-            String senha = new String(txtSenha.getPassword());
-            String telefone = txtTelefone.getText();
-            
-            // dar um update no banco.
-
+        	c.setNome(txtNome.getText());
+            c.setEmail(txtEmail.getText());
+            c.setSenhaCliente(new String(txtSenha.getPassword()));
+            c.setTelefone(txtTelefone.getText());
+            clienteDAO.update(c);
+            AreaCliente areaCliente = new AreaCliente(idRecebido);
+            areaCliente.show();
+            frame.dispose();
         });
     }
 

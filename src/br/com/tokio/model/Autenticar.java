@@ -1,7 +1,9 @@
 package br.com.tokio.model;
 
+import java.util.List;
+
 public interface Autenticar {
 
-	public int autenticacao(String user, String senha);
+	public List<Integer> autenticacao(String user, String senha);
 	
 }

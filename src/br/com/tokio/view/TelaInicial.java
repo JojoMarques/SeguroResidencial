@@ -1,12 +1,13 @@
-package br.com.tokio.telas;
+package br.com.tokio.view;
 
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import br.com.tokio.telas.cliente.LoginCliente;
-import br.com.tokio.telas.funcionario.LoginFuncionario;
+import br.com.tokio.view.cliente.LoginCliente;
+import br.com.tokio.view.funcionario.LoginFuncionario;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 

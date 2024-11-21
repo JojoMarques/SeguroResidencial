@@ -1,4 +1,4 @@
-package br.com.tokio.telas.cliente;
+package br.com.tokio.view.cliente;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -24,8 +24,9 @@ import br.com.tokio.dao.ImovelDAO;
 import br.com.tokio.dao.SinistroDAO;
 import br.com.tokio.model.Imovel;
 import br.com.tokio.model.Sinistro;
-import br.com.tokio.telas.TelaCorretora;
-import br.com.tokio.telas.TelaInicial;
+import br.com.tokio.view.TelaCorretora;
+import br.com.tokio.view.TelaInicial;
+
 import javax.swing.JTextArea;
 
 public class SolicitarSinistro {

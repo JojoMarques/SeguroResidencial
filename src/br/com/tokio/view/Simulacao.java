@@ -1,4 +1,4 @@
-package br.com.tokio.telas;
+package br.com.tokio.view;
 
 import java.awt.EventQueue;
 import javax.swing.*;

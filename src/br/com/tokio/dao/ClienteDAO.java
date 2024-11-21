@@ -57,7 +57,7 @@ public class ClienteDAO implements Autenticar {
 
 	// Update
 	public void update(Cliente cliente) {
-		String sql = "update t_cliente set nm_cliente = ?, cpf_cliente = ?, telefone_cliente = ?, email_cliente = ?, ds_senha_cliente = ?";
+		String sql = "update t_cliente set nm_cliente = ?, cpf_cliente = ?, telefone_cliente = ?, email_cliente = ?, ds_senha_cliente = ? where cd_cliente = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -67,9 +67,11 @@ public class ClienteDAO implements Autenticar {
 			stmt.setString(3, cliente.getTelefone());
 			stmt.setString(4, cliente.getEmail());
 			stmt.setString(5, cliente.getSenhaCliente());
+			stmt.setInt(6, cliente.getIdCliente());
 
 			stmt.execute();
 			stmt.close();
+			System.out.println("UPDATE FEITO");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,11 +85,9 @@ public class ClienteDAO implements Autenticar {
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			
 
 			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery();
-			
 
 			while (rs.next()) {
 				Cliente cliente = new Cliente();
@@ -115,7 +115,31 @@ public class ClienteDAO implements Autenticar {
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, idCliente);
-			
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				cliente.setIdCliente(rs.getInt("cd_cliente"));
+				cliente.setNome(rs.getString("nm_cliente"));
+				cliente.setCpf(rs.getString("cpf_cliente"));
+				cliente.setTelefone(rs.getString("telefone_cliente"));
+				cliente.setEmail(rs.getString("email_cliente"));
+				cliente.setSenhaCliente(rs.getString("ds_senha_cliente"));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+
+	public Cliente selectLogin(String cpf, String senha) {
+		Cliente cliente = new Cliente();
+		String sql = "select * from t_cliente where cpf_cliente = ? and ds_senha_cliente = ?";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, cpf);
+			stmt.setString(2, senha);
 
 			ResultSet rs = stmt.executeQuery();
 
@@ -135,26 +159,29 @@ public class ClienteDAO implements Autenticar {
 	}
 
 	@Override
-	public int autenticacao(String cpf, String senha) {
-	    // Aqui, vamos buscar todos os clientes
-	    List<Cliente> listaClientes = selectAll();
-	    System.out.println("Chegou aqui");
-	    int num = 0 ;
+	public List<Integer> autenticacao(String cpf, String senha) {
+		// Buscar todos os clientes
+		Cliente cliente = selectLogin(cpf, senha);
+		List<Integer> resultado = new ArrayList<>();
+		// Status padrão: CPF e senha incorretos
+		int status = 0;
+		int idCliente = 0;
+		// Verificar os clientes
 
-	    // Percorrer todos os clientes e comparar o CPF e a senha
-	    for (Cliente cliente : listaClientes) {
-	    	if (cliente.getSenhaCliente()==null) //tem que fzr verificacao se é nulo --> mas no cadastro
-	    		cliente.setSenhaCliente("12");
-	        if (cliente.getCpf().equals(cpf) && cliente.getSenhaCliente().equals(senha)) {
-	            num = 1; // CPF e Senha corretos
-	        } else if (cliente.getCpf().equals(cpf)) {
-	            num = 2; // CPF correto, mas senha incorreta
-	        } else if (cliente.getSenhaCliente().equals(senha)) {
-	            num = 3; // Senha correta, mas CPF incorreto
-	        }
-	    }
+		if (cliente.getCpf() == null && cliente.getSenhaCliente() == null) {
+			status = 0; // Cliente sem CPF e senha
+			idCliente = 0;
+		} else {
+			if (cliente.getCpf().equals(cpf) && cliente.getSenhaCliente().equals(senha)) {
+				status = 1; // CPF e senha corretos
+				idCliente = cliente.getIdCliente();
+			}
+		}
 
-	    return num; // CPF e Senha incorretos
+		// Adicionar resultados na lista
+		resultado.add(status); // Status da autenticação
+		resultado.add(idCliente); // ID do cliente (ou 0)
+		return resultado;
+
 	}
-
 }

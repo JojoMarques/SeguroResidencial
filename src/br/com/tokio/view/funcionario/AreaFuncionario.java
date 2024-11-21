@@ -1,4 +1,4 @@
-package br.com.tokio.telas.funcionario;
+package br.com.tokio.view.funcionario;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
-import br.com.tokio.telas.TelaInicial;
+import br.com.tokio.view.TelaInicial;
 
 public class AreaFuncionario {
 

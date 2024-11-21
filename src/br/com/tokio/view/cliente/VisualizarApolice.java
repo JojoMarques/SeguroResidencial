@@ -1,4 +1,4 @@
-package br.com.tokio.telas;
+package br.com.tokio.view.cliente;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -11,23 +11,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import br.com.tokio.telas.cliente.EditarCliente;
-import br.com.tokio.telas.cliente.LoginCliente;
-import javax.swing.JPasswordField;
+import br.com.tokio.view.SelecaoPacoteAssistencia;
+import br.com.tokio.view.TelaInicial;
 
-public class ConfirmarDados {
+public class VisualizarApolice {
 
 	private JFrame frame;
-
-	private JTextField txtEmailtestegmailcom;
-	private JTextField textField_1;
-	private JPasswordField password1;
-	private JPasswordField passwordConfirmar;
 
 	/**
 	 * Launch the application.
@@ -36,7 +30,7 @@ public class ConfirmarDados {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ConfirmarDados window = new ConfirmarDados();
+					VisualizarApolice window = new VisualizarApolice();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +42,7 @@ public class ConfirmarDados {
 	/**
 	 * Create the application.
 	 */
-	public ConfirmarDados() {
+	public VisualizarApolice() {
 		initialize();
 	}
 
@@ -79,13 +73,13 @@ public class ConfirmarDados {
 		btnLogo.setBackground(new Color(0, 153, 102));
 		panelHeader.add(btnLogo);
 
-		JLabel lblAreaDoCliente = new JLabel("Confirmar dados");
-		lblAreaDoCliente.setForeground(new Color(255, 255, 255));
-		lblAreaDoCliente.setBackground(new Color(255, 255, 255));
-		lblAreaDoCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAreaDoCliente.setFont(new Font("Tahoma", Font.PLAIN, 27));
-		lblAreaDoCliente.setBounds(279, 15, 226, 69);
-		panelHeader.add(lblAreaDoCliente);
+		JLabel lblVerApolice = new JLabel("Visualizar apólice");
+		lblVerApolice.setForeground(new Color(255, 255, 255));
+		lblVerApolice.setBackground(new Color(255, 255, 255));
+		lblVerApolice.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVerApolice.setFont(new Font("Tahoma", Font.PLAIN, 27));
+		lblVerApolice.setBounds(279, 15, 226, 69);
+		panelHeader.add(lblVerApolice);
 
 		// Evento para retornar à tela inicial
 		btnLogo.addActionListener(e -> {
@@ -93,13 +87,13 @@ public class ConfirmarDados {
 			telaInicial.show();
 			frame.dispose();
 		});
-
+		
 		JPanel panelNav = new JPanel();
 		panelNav.setBackground(new Color(0, 153, 102));
 		panelNav.setBounds(651, 30, 109, 39);
 		panelHeader.add(panelNav);
 		panelNav.setLayout(new GridLayout(0, 2, 10, 0));
-
+		
 		ImageIcon iconLeft = new ImageIcon(getClass().getResource("/resources/images/chevron_left.png"));
 		Image imgLeft = iconLeft.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
 		iconLeft = new ImageIcon(imgLeft);
@@ -116,7 +110,7 @@ public class ConfirmarDados {
 		frame.getContentPane().add(panelInformacoes);
 
 		// Título do painel
-		JLabel lblTitulo = new JLabel("Confirme seus dados:");
+		JLabel lblTitulo = new JLabel("Apólice");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTitulo.setBounds(150, 35, 200, 30); // Posição no painel
@@ -149,86 +143,55 @@ public class ConfirmarDados {
 		panelInformacoes.add(txtCpf);
 
 		// Botão de editar informações
-		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnConfirmar.setBackground(new Color(225, 193, 85));
-		btnConfirmar.setBounds(150, 377, 200, 30); // Posição no painel
-		panelInformacoes.add(btnConfirmar);
-
-		txtEmailtestegmailcom = new JTextField();
+		JButton btnImprimir = new JButton("Imprimir ");
+		btnImprimir.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnImprimir.setBackground(new Color(225, 193, 85));
+		btnImprimir.setBounds(150, 377, 200, 30); // Posição no painel
+		panelInformacoes.add(btnImprimir);
+		
+		JTextField txtEmailtestegmailcom = new JTextField();
 		txtEmailtestegmailcom.setText("email.teste@gmail.com");
 		txtEmailtestegmailcom.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtEmailtestegmailcom.setEditable(false);
 		txtEmailtestegmailcom.setBounds(150, 172, 200, 25);
 		panelInformacoes.add(txtEmailtestegmailcom);
-
+		
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblEmail.setBounds(38, 172, 80, 25);
 		panelInformacoes.add(lblEmail);
-
-		textField_1 = new JTextField();
+		
+		JTextField textField_1 = new JTextField();
 		textField_1.setText("(11) 9 9546-4421");
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textField_1.setEditable(false);
 		textField_1.setBounds(150, 208, 200, 25);
 		panelInformacoes.add(textField_1);
-
+		
 		JLabel lblTelefone = new JLabel("Telefone:");
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblTelefone.setBounds(38, 208, 80, 25);
 		panelInformacoes.add(lblTelefone);
-
-		JLabel lblNewLabel_1 = new JLabel("Crie uma senha:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(10, 288, 130, 18);
-		panelInformacoes.add(lblNewLabel_1);
-
-		JLabel lblNewLabel_1_1 = new JLabel("Confirme sua senha:");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1.setBounds(10, 326, 141, 14);
-		panelInformacoes.add(lblNewLabel_1_1);
-
-		password1 = new JPasswordField();
-		password1.setBounds(150, 283, 200, 25);
-		panelInformacoes.add(password1);
-
-		passwordConfirmar = new JPasswordField();
-		passwordConfirmar.setBounds(150, 322, 200, 25);
-		panelInformacoes.add(passwordConfirmar);
 		
-		// Evento para abrir a tela EditarCliente
-		btnConfirmar.addActionListener(e -> {
-			if(confirmarSenha()) {
-				InserirImovel inserirImovel = new InserirImovel();
-				inserirImovel.show(); // Mostra a tela de edição
-				frame.dispose(); // Fecha a tela atual
-			}
-			else {
-				JOptionPane.showMessageDialog(frame, "As senhas estão diferentes", "Erro de autenticação",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		});
 
+		// Evento para abrir a tela EditarCliente
+		btnImprimir.addActionListener(e -> {
+			
+			// mandar imprimir
+			
+			frame.dispose(); // Fecha a tela atual
+		});
+		
 		btnVoltar.addActionListener(e -> {
-			SelecaoPacoteAssistencia selecaoPacoteAssistencia = new SelecaoPacoteAssistencia();
-			selecaoPacoteAssistencia.show();
+			AreaCliente areaCliente = new AreaCliente();
+			areaCliente.show();
 			frame.dispose();
 		});
-
+		
 	}
-
-	public boolean confirmarSenha() {
-		String senha1 = new String(password1.getPassword());
-		String senha2 = new String(passwordConfirmar.getPassword());
-		if (senha1.equals(senha2))
-			return true;
-		else
-			return false;
-
-	}
-
+	
 	public void show() {
 		frame.setVisible(true);
 	}
+
 }
