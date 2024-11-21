@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.TextArea;
+import java.sql.Connection;
+import java.sql.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,6 +19,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.ImovelDAO;
+import br.com.tokio.dao.SinistroDAO;
+import br.com.tokio.model.Imovel;
+import br.com.tokio.model.Sinistro;
 import br.com.tokio.telas.TelaCorretora;
 import br.com.tokio.telas.TelaInicial;
 import javax.swing.JTextArea;
@@ -85,7 +92,7 @@ public class SolicitarSinistro {
 		lblCotacao.setBackground(Color.WHITE);
 		lblCotacao.setBounds(280, 34, 224, 31);
 		panelHeader.add(lblCotacao);
-		
+
 		JPanel panelNav = new JPanel();
 		panelNav.setBackground(new Color(0, 153, 102));
 		panelNav.setBounds(651, 30, 109, 39);
@@ -100,7 +107,7 @@ public class SolicitarSinistro {
 		JButton btnVoltar = new JButton(iconLeft);
 		btnVoltar.setBackground(new Color(225, 193, 85));
 		panelNav.add(btnVoltar);
-		
+
 		// -----------------
 
 		JPanel panel = new JPanel();
@@ -144,39 +151,47 @@ public class SolicitarSinistro {
 		txtDescricao.setBounds(181, 200, 200, 97);
 		panel.add(txtDescricao);
 
-		
 		JButton btnEnviar = new JButton("Enviar");
 		btnEnviar.setBackground(new Color(225, 193, 85));
 		btnEnviar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEnviar.setBounds(223, 341, 116, 39);
 		panel.add(btnEnviar);
-		
 
 		btnEnviar.addActionListener(e -> {
 			String tipo = txtTipo.getText();
 			String data = txtData.getText();
 			String descricao = txtDescricao.getText();
 
-			JOptionPane.showMessageDialog(frame, "Dados enviados com sucesso!\n" + "tipo: " + tipo + "\n" + "data: " + data
-					+ "\n" + "descricao: " + descricao);
+//			JOptionPane.showMessageDialog(frame, "Dados enviados com sucesso!\n" + "tipo: " + tipo + "\n" + "data: "
+//					+ data + "\n" + "descricao: " + descricao);
+
+			Connection connection = new ConnectionFactory().conectar();
+
+			SinistroDAO sinistroDAO = new SinistroDAO(connection);
+
+			Sinistro sinistro = new Sinistro(tipo,Date.valueOf(data),descricao,false, 1, 1);
+			sinistroDAO.insert(sinistro);
+
+			AreaCliente areaCliente = new AreaCliente();
+			areaCliente.show();
+			frame.dispose();
 		});
-		
+
 		// Evento para retornar à tela inicial
 		btnLogoTelaInicial.addActionListener(e -> {
 			TelaInicial telaInicial = new TelaInicial();
 			telaInicial.show();
 			frame.dispose();
 		});
-		
+
 		btnVoltar.addActionListener(e -> {
 			AreaCliente areaCliente = new AreaCliente();
 			areaCliente.show();
 			frame.dispose();
 		});
 
-
 	}
-	
+
 	public void show() {
 		frame.setVisible(true);
 	}

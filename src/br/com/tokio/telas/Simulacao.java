@@ -11,7 +11,6 @@ public class Simulacao {
 
 	private JFrame frame;
 	private JTextField txtCPF;
-	private JTextField txtCEP;
 	private JTextField txtTelefone;
 	private JTextField txtEmail;
 	private JTextField txtCobertura;
@@ -126,44 +125,34 @@ public class Simulacao {
 		txtCPF.setBounds(181, 100, 200, 25);
 		panel.add(txtCPF);
 
-		JLabel lblCEP = new JLabel("CEP:");
-		lblCEP.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCEP.setBounds(74, 150, 100, 25);
-		panel.add(lblCEP);
-
-		txtCEP = new JTextField();
-		txtCEP.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtCEP.setBounds(181, 150, 200, 25);
-		panel.add(txtCEP);
-
 		JLabel lblTelefone = new JLabel("Telefone:");
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTelefone.setBounds(74, 200, 100, 25);
+		lblTelefone.setBounds(74, 144, 100, 25);
 		panel.add(lblTelefone);
 
 		txtTelefone = new JTextField();
 		txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtTelefone.setBounds(181, 200, 200, 25);
+		txtTelefone.setBounds(181, 144, 200, 25);
 		panel.add(txtTelefone);
 
 		JLabel lblEmail = new JLabel("E-mail:");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblEmail.setBounds(74, 250, 100, 25);
+		lblEmail.setBounds(74, 194, 100, 25);
 		panel.add(lblEmail);
 
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtEmail.setBounds(181, 250, 200, 25);
+		txtEmail.setBounds(181, 194, 200, 25);
 		panel.add(txtEmail);
 
 		JLabel lblCobertura = new JLabel("Valor cobertura:");
 		lblCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCobertura.setBounds(74, 300, 100, 25);
+		lblCobertura.setBounds(74, 244, 100, 25);
 		panel.add(lblCobertura);
 
 		txtCobertura = new JTextField();
 		txtCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtCobertura.setBounds(181, 300, 200, 25);
+		txtCobertura.setBounds(181, 244, 200, 25);
 		panel.add(txtCobertura);
 
 		JButton btnEnviar = new JButton("Enviar");
@@ -174,13 +163,12 @@ public class Simulacao {
 
 		btnEnviar.addActionListener(e -> {
 			String cpf = txtCPF.getText();
-			String cep = txtCEP.getText();
 			String telefone = txtTelefone.getText();
 			String email = txtEmail.getText();
 			String cobertura = txtCobertura.getText();
 
-			JOptionPane.showMessageDialog(frame, "Dados enviados com sucesso!\n" + "CPF: " + cpf + "\n" + "CEP: " + cep
-					+ "\n" + "Telefone: " + telefone + "\n" + "E-mail: " + email + "\n" + "Cobertura: " + cobertura);
+			JOptionPane.showMessageDialog(frame, "Dados enviados com sucesso!\n" + "CPF: " + cpf + "\n" + 
+				 "Telefone: " + telefone + "\n" + "E-mail: " + email + "\n" + "Cobertura: " + cobertura);
 		});
 		
 		// Evento para retornar à tela inicial

@@ -79,11 +79,15 @@ public class ClienteDAO implements Autenticar {
 	// Select all
 	public List<Cliente> selectAll() {
 		List<Cliente> listaClientes = new ArrayList<Cliente>();
-		String sql = "select * from t_cliente order by cd_cliente";
+		String sql = "select * from t_cliente";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
+			
+
+			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery();
+			
 
 			while (rs.next()) {
 				Cliente cliente = new Cliente();
@@ -111,6 +115,8 @@ public class ClienteDAO implements Autenticar {
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, idCliente);
+			
+
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
@@ -132,15 +138,18 @@ public class ClienteDAO implements Autenticar {
 	public int autenticacao(String cpf, String senha) {
 	    // Aqui, vamos buscar todos os clientes
 	    List<Cliente> listaClientes = selectAll();
+	    System.out.println("Chegou aqui");
 	    int num = 0 ;
 
 	    // Percorrer todos os clientes e comparar o CPF e a senha
 	    for (Cliente cliente : listaClientes) {
-	        if (cliente.getCpf().equals(cpf) && cliente.getSenhaCliente().equals(senha)) {
+		    System.out.println(cliente.getCpf().trim() +" "+cliente.getSenhaCliente().trim());
+
+	        if (cliente.getCpf().trim().equals(cpf) && cliente.getSenhaCliente().trim().equals(senha)) {
 	            num = 1; // CPF e Senha corretos
-	        } else if (cliente.getCpf().equals(cpf)) {
+	        } else if (cliente.getCpf().trim().equals(cpf)) {
 	            num = 2; // CPF correto, mas senha incorreta
-	        } else if (cliente.getSenhaCliente().equals(senha)) {
+	        } else if (cliente.getSenhaCliente().trim().equals(senha)) {
 	            num = 3; // Senha correta, mas CPF incorreto
 	        }
 	    }
