@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+
+import br.com.tokio.view.cliente.ConfirmarDados;
+
 import javax.swing.JList;
 
 public class SelecaoPacoteAssistencia {

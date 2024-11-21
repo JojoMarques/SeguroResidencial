@@ -1,4 +1,4 @@
-package br.com.tokio.view;
+package br.com.tokio.view.cliente;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -16,8 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import br.com.tokio.view.cliente.EditarCliente;
-import br.com.tokio.view.cliente.LoginCliente;
+import br.com.tokio.view.InserirImovel;
+import br.com.tokio.view.SelecaoPacoteAssistencia;
+import br.com.tokio.view.TelaInicial;
 
 import javax.swing.JPasswordField;
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.model.Autenticar;
+import br.com.tokio.model.Cliente;
 import br.com.tokio.model.Funcionario;
 
 public class FuncionarioDAO implements Autenticar {
@@ -124,7 +125,7 @@ public class FuncionarioDAO implements Autenticar {
 				funcionario.setIdFuncionario(rs.getInt("cd_funcionario"));
 				funcionario.setNome(rs.getString("nm_func"));
 				funcionario.setCpf(rs.getString("cpf_func"));
-				funcionario.setTelefone(rs.getString("telefone"));
+				funcionario.setTelefone(rs.getString("telefone_func"));
 				funcionario.setEmail(rs.getString("email_func"));
 				funcionario.setAcessoFunc(rs.getString("ds_acesso_func"));
 				funcionario.setDataAdmissao(rs.getDate("dt_admissao"));
@@ -137,29 +138,58 @@ public class FuncionarioDAO implements Autenticar {
 		return funcionario;
 	}
 	
-	
+	public Funcionario selectLogin(String acesso, String senha) {
+		Funcionario funcionario = new Funcionario();
+		String sql = "select * from t_funcionario where ds_acesso_func = ? and senha = ?";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, acesso);
+			stmt.setString(2, senha);
 
-	@Override
-	public int autenticacao(String acesso, String senha) {
-	    // Aqui, vamos buscar todos os clientes
-	    List<Funcionario> listaFuncionarios = selectAll();
+			ResultSet rs = stmt.executeQuery();
 
-	    // Percorrer todos os clientes e comparar o CPF e a senha
-	    for (Funcionario funcionario : listaFuncionarios) {
-	    	
-	    	System.out.println(funcionario.getAcessoFunc() +" " + funcionario.getSenhaFunc());
-	        if (funcionario.getAcessoFunc().trim().equals(acesso) && funcionario.getSenhaFunc().trim().equals(senha)) {
-	            return 1; // acesso e Senha corretos
-	        } else if (funcionario.getAcessoFunc().trim().equals(acesso)) {
-	            return 2; // acesso correto, mas senha incorreta
-	        } else if (funcionario.getSenhaFunc().trim().equals(senha)) {
-	            return 3; // Senha correta, mas acesso incorreto
-	        }
-	    }
-
-	    return 0; // acesso e Senha incorretos
+			if (rs.next()) {
+				funcionario.setIdFuncionario(rs.getInt("cd_funcionario"));
+				funcionario.setNome(rs.getString("nm_func"));
+				funcionario.setCpf(rs.getString("cpf_func"));
+				funcionario.setTelefone(rs.getString("telefone_func"));
+				funcionario.setEmail(rs.getString("email_func"));
+				funcionario.setAcessoFunc(rs.getString("ds_acesso_func"));
+				funcionario.setDataAdmissao(rs.getDate("dt_admissao"));
+				funcionario.setSenhaFunc(rs.getString("senha"));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return funcionario;
 	}
 
+	@Override
+	public List<Integer> autenticacao(String acesso, String senha) {
+		// Buscar todos os funcionarios
+		Funcionario funcionario = selectLogin(acesso, senha);
+		List<Integer> resultado = new ArrayList<>();
+		// Status padrão: acesso e senha incorretos
+		int status = 0;
+		int idFuncionario = 0;
+		// Verificar os funcionarios
 
+		if (funcionario.getAcessoFunc() == null && funcionario.getSenhaFunc() == null) {
+			status = 0; // funcionario sem acesso e senha
+			idFuncionario = 0;
+		} else {
+			if (funcionario.getAcessoFunc().equals(acesso) && funcionario.getSenhaFunc().equals(senha)) {
+				status = 1; // acesso e senha corretos
+				idFuncionario = funcionario.getIdFuncionario();
+			}
+		}
+
+		// Adicionar resultados na lista
+		resultado.add(status); // Status da autenticação
+		resultado.add(idFuncionario); // ID do cliente (ou 0)
+		return resultado;
+
+	}
 
 }

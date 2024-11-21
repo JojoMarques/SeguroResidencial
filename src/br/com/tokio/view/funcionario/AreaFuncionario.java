@@ -24,6 +24,7 @@ import br.com.tokio.view.TelaInicial;
 public class AreaFuncionario {
 
 	private JFrame frame;
+	private int idRecebido;
 
 	/**
 	 * Launch the application.
@@ -45,6 +46,11 @@ public class AreaFuncionario {
 	 * Create the application.
 	 */
 	public AreaFuncionario() {
+		initialize();
+	}
+	
+	public AreaFuncionario(int idFuncionario) {
+		this.idRecebido = idFuncionario;
 		initialize();
 	}
 
