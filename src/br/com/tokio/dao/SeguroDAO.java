@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.tokio.model.Corretora;
+import br.com.tokio.model.PacoteAssistencia;
+import br.com.tokio.model.PacoteCobertura;
 import br.com.tokio.model.Seguro;
 
 public class SeguroDAO {
@@ -421,7 +424,94 @@ public class SeguroDAO {
         }
         return seguro;
     }
+    
+ // Select pacote de cobertura por cliente
+    public PacoteCobertura selectCoberturaPorCliente(int idCliente) {
+        String sql = "SELECT c.cd_cobertura, c.ds_cobertura, c.vl_premio_cobertura " +
+                     "FROM T_SEGURO s " +
+                     "JOIN T_COBERTURA c ON s.cd_cobertura = c.cd_cobertura " +
+                     "WHERE s.cd_cliente = ?";
+        
+        PacoteCobertura cobertura = new PacoteCobertura();
 
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idCliente);  // Passa o ID do cliente como parâmetro
 
+            ResultSet rs = stmt.executeQuery();
 
+            while (rs.next()) {
+ 
+                cobertura.setIdCobertura(rs.getInt("cd_cobertura"));
+                cobertura.setTipo(rs.getString("tp_cobertura"));
+                cobertura.setDescricao(rs.getString("tp_cobertura"));
+                cobertura.setPreco(rs.getDouble("vl_pct_cobertura"));
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cobertura;
+    }
+    
+    public PacoteAssistencia selectPacotePorCliente(int idCliente) {
+        String sql = "SELECT pa.cd_assistencia, pa.tp_assistencia, pa.ds_assistencia, pa.vl_pct_assistencia " +
+                     "FROM t_pct_assistencia pa " +
+                     "JOIN t_cliente_assistencia ca ON pa.cd_assistencia = ca.cd_assistencia " +
+                     "WHERE ca.cd_cliente = ?";
+        PacoteAssistencia pacote = new PacoteAssistencia();            
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idCliente);  // Definindo o ID do cliente como parâmetro da consulta
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                pacote.setIdAssistencia(rs.getInt("cd_assistencia"));
+                pacote.setTipo(rs.getString("tp_assistencia"));
+                pacote.setDescricao(rs.getString("ds_assistencia"));
+                pacote.setPreco(rs.getDouble("vl_pct_assistencia"));
+            }
+
+            stmt.close();
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pacote;  // Retorna a lista de pacotes de assistência
+    }
+    
+    public Corretora selectCorretoraByIdSeguro(int idSeguro) {
+        // SQL para buscar a corretora associada ao seguro, baseado no ID do seguro
+        String sql = "SELECT c.* FROM T_SINISTRO s "
+                   + "JOIN T_CORRETORA c ON s.cd_corretora = c.cd_corretora "
+                   + "WHERE s.cd_seguro = ?";
+
+        Corretora corretora = null;
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idSeguro);  // Definindo o ID do seguro como parâmetro da consulta
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // Preenche o objeto corretora com os dados retornados
+                corretora = new Corretora();
+                corretora.setIdCorretora(rs.getInt("cd_corretora"));
+                corretora.setNomeCorretora(rs.getString("nm_corretora"));
+                corretora.setEndereco(rs.getString("ds_endereco_corretora"));
+                // Preenchendo outros campos da corretora, se necessário...
+            }
+
+            stmt.close();
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return corretora;  // Retorna a corretora associada ao seguro
+    }
 }
+

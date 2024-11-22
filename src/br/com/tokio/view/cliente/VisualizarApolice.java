@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ClienteDAO;
 import br.com.tokio.dao.ImovelDAO;
+import br.com.tokio.dao.PacoteCoberturaDAO;
 import br.com.tokio.dao.SeguroDAO;
 import br.com.tokio.model.Cliente;
 import br.com.tokio.model.Imovel;
@@ -74,6 +75,7 @@ public class VisualizarApolice {
 		ClienteDAO clienteDAO = new ClienteDAO(connection);
 		ImovelDAO imovelDAO = new ImovelDAO(connection);
 		SeguroDAO seguroDAO = new SeguroDAO(connection);
+		PacoteCoberturaDAO pacoteCoberturaDAO = new PacoteCoberturaDAO(connection);
 		
 		JPanel panelHeader = new JPanel();
 		panelHeader.setBackground(new Color(51, 153, 102));
@@ -148,7 +150,7 @@ public class VisualizarApolice {
 		frame.getContentPane().add(lblTitulo);
 		// --------------------------------------------------------------
 		
-		Cliente clienteLogado = clienteDAO.selectById(0); //id que passa de página a página
+		Cliente clienteLogado = clienteDAO.selectById(idRecebido); //id que passa de página a página
 
 		JLabel lblCdCliente = new JLabel("Código do Cliente:");
 		lblCdCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -217,7 +219,7 @@ public class VisualizarApolice {
 		panel.add(txtEmailCliente);
 
 		// Imóvel
-		Imovel imovel = imovelDAO.selectByClienteId(0);
+		Imovel imovel = imovelDAO.selectByClienteId(idRecebido);
 		JLabel lblCdImovel = new JLabel("Código do Imóvel:");
 		lblCdImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblCdImovel.setBounds(38, 250, 150, 25);
@@ -299,7 +301,7 @@ public class VisualizarApolice {
 		panel.add(txtVlImovel);
 
 		// Seguro
-		Seguro seguro = seguroDAO.selectByCliente(0);
+		Seguro seguro = seguroDAO.selectByCliente(idRecebido);
 
 		JLabel lblCdSeguro = new JLabel("Código do Seguro:");
 		lblCdSeguro.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -354,7 +356,9 @@ public class VisualizarApolice {
 		txtDtFim.setEditable(false);
 		txtDtFim.setText("31/12/2024");
 		panel.add(txtDtFim);
-
+		
+		
+		
 		JLabel lblCdCobertura = new JLabel("Código da Cobertura:");
 		lblCdCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblCdCobertura.setBounds(450, 200, 150, 25);
