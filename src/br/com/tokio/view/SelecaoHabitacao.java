@@ -20,12 +20,19 @@ import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.CorretoraDAO;
+import br.com.tokio.model.Cliente;
 import br.com.tokio.model.Corretora;
+import br.com.tokio.model.Seguro;
 
 public class SelecaoHabitacao {
 
 	private JFrame frame;
 	private JComboBox<String> comboBox; // Caixa de seleção (JComboBox)
+
+	Cliente clienteRecebido;
+	Seguro seguroRecebido;
+	String corretoraRecebida;
+	String habitacaoSelecionada;
 
 	/**
 	 * Launch the application.
@@ -47,6 +54,13 @@ public class SelecaoHabitacao {
 	 * Create the application.
 	 */
 	public SelecaoHabitacao() {
+		initialize();
+	}
+
+	public SelecaoHabitacao(Cliente cliente, Seguro seguro, String corretora) {
+		this.clienteRecebido = cliente;
+		this.seguroRecebido = seguro;
+		this.corretoraRecebida = corretora;
 		initialize();
 	}
 
@@ -137,7 +151,7 @@ public class SelecaoHabitacao {
 		panel.add(comboBox);
 		comboBox.addItem("Veraneiro");
 		comboBox.addItem("Moradia");
-		
+
 		// Botão para exibir o item selecionado
 		JButton btnExibir = new JButton("Corretora selecionada:");
 		btnExibir.setBounds(130, 224, 245, 36);
@@ -148,10 +162,10 @@ public class SelecaoHabitacao {
 		// Evento para o botão (Exibir Seleção)
 		btnExibir.addActionListener(e -> {
 			// variavel selecionada
-			String selecionado = (String) comboBox.getSelectedItem();
-			JOptionPane.showMessageDialog(frame, "Você selecionou: " + selecionado);
+			habitacaoSelecionada = (String) comboBox.getSelectedItem();
+			JOptionPane.showMessageDialog(frame, "Você selecionou: " + habitacaoSelecionada);
 		});
-		
+
 		// -------------------------------------------------------------
 
 		// Evento para retornar à tela inicial
@@ -169,6 +183,7 @@ public class SelecaoHabitacao {
 
 		btnAvancar.addActionListener(e -> {
 			SelecaoPacoteCobertura selecaoPacoteCobertura = new SelecaoPacoteCobertura();
+			// clienteRecebido,seguroRecebido,corretoraRecebida,habitacaoSelecionada
 			selecaoPacoteCobertura.show();
 			frame.dispose();
 		});
