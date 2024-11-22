@@ -33,6 +33,7 @@ import br.com.tokio.view.TelaInicial;
 public class VisualizarApolice {
 
 	private JFrame frame;
+	private int idRecebido;
 
 	/**
 	 * Launch the application.
@@ -56,7 +57,11 @@ public class VisualizarApolice {
 	public VisualizarApolice() {
 		initialize();
 	}
-
+	
+	public VisualizarApolice(int idCliente) {
+		this.idRecebido = idCliente;
+		initialize();
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
