@@ -387,5 +387,41 @@ public class SeguroDAO {
         }
         return listSeguros;
     }
+    
+ // Select seguros por cliente (considerando a associação com imóveis)
+    public Seguro selectByCliente(int idCliente) {
+        String sql = "SELECT s.cd_seguro, s.vl_premio, s.dt_inicio, s.dt_fim, s.cd_cliente, s.cd_cobertura, s.cd_assistencia, s.cd_corretora " +
+                     "FROM T_SEGURO s " +
+                     "JOIN T_IMOVEL i ON s.cd_cliente = i.cd_cliente " +  // Join entre seguro e imóvel pela chave cliente
+                     "WHERE s.cd_cliente = ?"; // Filtro de cliente
+
+        Seguro seguro = new Seguro();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idCliente);  // Passa o ID do cliente
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                
+
+                seguro.setIdSeguro(rs.getInt("cd_seguro"));
+                seguro.setValorPremio(rs.getDouble("vl_premio"));
+                seguro.setDataInicio(rs.getDate("dt_inicio"));
+                seguro.setDataFim(rs.getDate("dt_fim"));
+                seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCobertura(rs.getInt("cd_cobertura"));
+                seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
+
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return seguro;
+    }
+
+
 
 }
