@@ -10,6 +10,7 @@ import java.sql.Connection;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,12 +20,11 @@ import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ImovelDAO;
+import br.com.tokio.model.Cliente;
 import br.com.tokio.model.Estado;
 import br.com.tokio.model.Imovel;
-import br.com.tokio.view.cliente.AreaCliente;
+import br.com.tokio.model.Seguro;
 import br.com.tokio.view.cliente.LoginCliente;
-
-import javax.swing.JComboBox;
 
 public class InserirImovel {
 
@@ -36,6 +36,13 @@ public class InserirImovel {
 	private JTextField txtNumero;
 	private JTextField txtCidade;
 	private JTextField txtBairro;
+
+	Cliente clienteRecebido;
+	Seguro seguroRecebido;
+	String corretoraRecebida;
+	String habitacaoRecebida;
+	int pacoteCoberturaSelecionada;
+	int pacoteAssistenciaSelecionada;
 
 	/**
 	 * Launch the application.
@@ -60,10 +67,26 @@ public class InserirImovel {
 		initialize();
 	}
 
+	public InserirImovel(Cliente cliente, Seguro seguro, String corretora, String habitacao, int pacoteCobertura,
+			int pacoteAssistencia) {
+		this.clienteRecebido = cliente;
+		this.seguroRecebido = seguro;
+		this.corretoraRecebida = corretora;
+		this.habitacaoRecebida = habitacao;
+		this.pacoteCoberturaSelecionada = pacoteCobertura;
+		this.pacoteAssistenciaSelecionada = pacoteAssistencia;
+		initialize();
+
+	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+	   
+		Connection connection = new ConnectionFactory().conectar();
+	    ImovelDAO imovelDAO = new ImovelDAO(connection);
+	    
 		frame = new JFrame();
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -182,27 +205,25 @@ public class InserirImovel {
 		txtValorImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtValorImovel.setBounds(173, 324, 200, 25);
 		panel.add(txtValorImovel);
-		
+
 		JLabel lblBairro = new JLabel("Bairro: ");
 		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblBairro.setBounds(63, 169, 100, 25);
 		panel.add(lblBairro);
-		
+
 		txtBairro = new JTextField();
 		txtBairro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtBairro.setBounds(173, 169, 200, 25);
 		panel.add(txtBairro);
-		
+
 		JComboBox comboBoxEstado = new JComboBox();
 		comboBoxEstado.setBounds(173, 246, 200, 22);
 		panel.add(comboBoxEstado);
-		
+
 		for (Estado estado : Estado.values()) {
-		    comboBoxEstado.addItem(estado.getSigla()); // Adiciona a sigla de cada estado no ComboBox
+			comboBoxEstado.addItem(estado.getSigla()); // Adiciona a sigla de cada estado no ComboBox
 		}
-		
-		
-		
+
 		btnEnviar.addActionListener(e -> {
 			String cep = txtCEP.getText();
 			String logradouro = txtLogradouro.getText();
@@ -211,40 +232,54 @@ public class InserirImovel {
 			String bairro = txtBairro.getText();
 			String areaImovel = txtArea.getText();
 			String valorImovel = txtValorImovel.getText();
-			
+
 			String siglaSelecionada = (String) comboBoxEstado.getSelectedItem();
 			Estado estadoSelecionado = Estado.fromCodigo(siglaSelecionada);
-			
+
 			String nomeEstado = estadoSelecionado.name();
 
 //			JOptionPane.showMessageDialog(frame,
 //					"Dados enviados com sucesso!\n" + "CEP: " + cep + "\n" + "Logradouro: " + logradouro + "\n"
 //							+ "Número " + numero + "\n" + "Cidade: " + cidade + "\n" + "Estado: " + estado + "\n"
 //							+ "Área do imóvel: " + areaImovel + "\n" + "Valor imóvel: " + valorImovel);
-			Connection connection = new ConnectionFactory().conectar();
-			
-			ImovelDAO imovelDAO = new ImovelDAO(connection);
-			
-			// verifica se todos tem valor.
-			if (!cep.isEmpty() && !logradouro.isEmpty() && !numero.isEmpty() && !cidade.isEmpty() &&
-				    !bairro.isEmpty() && !areaImovel.isEmpty() && !valorImovel.isEmpty() && !nomeEstado.isEmpty()) {
+	
 
-				
+
+			// verifica se todos tem valor.
+			if (!cep.isEmpty() && !logradouro.isEmpty() && !numero.isEmpty() && !cidade.isEmpty() && !bairro.isEmpty()
+					&& !areaImovel.isEmpty() && !valorImovel.isEmpty() && !nomeEstado.isEmpty()) {
+
 				int num = Integer.parseInt(numero);
 				double area = Double.parseDouble(areaImovel);
-				double valor =  Double.parseDouble(valorImovel);
+				double valor = Double.parseDouble(valorImovel);
+
+				System.out.println(clienteRecebido.getIdUsuario() + "-" + clienteRecebido.getNome());
 				
-				Imovel imovel = new Imovel(valor, area, "Brasil", nomeEstado, cidade, bairro, logradouro, num, cep, 1);
+				Imovel imovel = new Imovel();
+				//Imovel imovel = new Imovel(valor, area, "Brasil", nomeEstado, cidade, bairro, logradouro, num, cep,clienteRecebido.getIdCliente() );
+				imovel.setValorImovel(valor);
+				imovel.setArea(area);
+				imovel.setPais("Brasil");
+				imovel.setEstado(nomeEstado);
+				imovel.setCidade(cidade);
+				imovel.setBairro(bairro);
+				imovel.setLogradouro(logradouro);
+				imovel.setNumero(num);
+				imovel.setCep(cep);
+				System.out.println("id cliente aq na inserir imovel: "+clienteRecebido.getIdCliente());
+				System.out.println(imovel.getValorImovel());
+				System.out.println(imovel.getIdCliente());
+				imovel.setIdCliente(clienteRecebido.getIdCliente());
+				
 				imovelDAO.insert(imovel);
-				
-				LoginCliente loginCliente = new LoginCliente(); 
+
+				LoginCliente loginCliente = new LoginCliente();
 				loginCliente.show();
 				frame.dispose();
 			} else {
 				JOptionPane.showMessageDialog(frame, "Preencha todos os campos", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);
 			}
-			
 
 		});
 
@@ -254,9 +289,6 @@ public class InserirImovel {
 			telaInicial.show();
 			frame.dispose();
 		});
-		
-		
-		
 
 	}
 

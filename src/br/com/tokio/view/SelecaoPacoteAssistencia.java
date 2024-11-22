@@ -22,8 +22,10 @@ import javax.swing.SwingConstants;
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.PacoteAssistenciaDAO;
 import br.com.tokio.dao.PacoteCoberturaDAO;
+import br.com.tokio.model.Cliente;
 import br.com.tokio.model.PacoteAssistencia;
 import br.com.tokio.model.PacoteCobertura;
+import br.com.tokio.model.Seguro;
 import br.com.tokio.view.cliente.ConfirmarDados;
 
 import javax.swing.JList;
@@ -31,6 +33,12 @@ import javax.swing.JList;
 public class SelecaoPacoteAssistencia {
 
 	private JFrame frame;
+	Cliente clienteRecebido;
+	Seguro seguroRecebido;
+	String corretoraRecebida;
+	String habitacaoRecebida;
+	int pacoteCoberturaSelecionada;
+	int pacoteAssistenciaSelecionada;
 
 	/**
 	 * Launch the application.
@@ -51,6 +59,17 @@ public class SelecaoPacoteAssistencia {
 	 */
 	public SelecaoPacoteAssistencia() {
 		initialize();
+	}
+
+	public SelecaoPacoteAssistencia(Cliente cliente, Seguro seguro, String corretora,
+			String habitacao, int pacoteCobertura) {
+		this.clienteRecebido = cliente;
+		this.seguroRecebido = seguro;
+		this.corretoraRecebida = corretora;
+		this.habitacaoRecebida = habitacao;
+		this.pacoteCoberturaSelecionada = pacoteCobertura;
+		initialize();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -143,15 +162,15 @@ public class SelecaoPacoteAssistencia {
 		panelPacote1.setBackground(new Color(169, 196, 145));
 
 		// Título do pacote
-		PacoteAssistencia pacoteAssistencia = pacoteAssistenciaDAO.selectById(1);
+		PacoteAssistencia pacoteAssistencia1 = pacoteAssistenciaDAO.selectById(1);
 		
-		JLabel lblNomePacote1 = new JLabel(pacoteAssistencia.getTipo().toUpperCase(), JLabel.CENTER);
+		JLabel lblNomePacote1 = new JLabel(pacoteAssistencia1.getTipo().toUpperCase(), JLabel.CENTER);
 		lblNomePacote1.setBackground(new Color(151, 204, 136));
 		panelPacote1.add(lblNomePacote1);
 		lblNomePacote1.setFont(new Font("Arial", Font.BOLD, 14));
 
 		// Preço
-		JLabel lblValorPacote1 = new JLabel("R$ "+ pacoteAssistencia.getPreco() + " /mês", JLabel.CENTER);
+		JLabel lblValorPacote1 = new JLabel("R$ "+ pacoteAssistencia1.getPreco() + " /mês", JLabel.CENTER);
 		lblValorPacote1.setBackground(new Color(151, 204, 136));
 		panelPacote1.add(lblValorPacote1);
 		lblValorPacote1.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -185,7 +204,8 @@ public class SelecaoPacoteAssistencia {
 		btnEscolher1.setBackground(new Color(225, 193, 85));
 
 		btnEscolher1.addActionListener(e -> {
-			ConfirmarDados confirmarDados = new ConfirmarDados(); //aqui tem que passar o id do pacote cobertura :)
+			pacoteAssistenciaSelecionada = pacoteAssistencia1.getIdAssistencia();
+			ConfirmarDados confirmarDados = new ConfirmarDados(clienteRecebido, seguroRecebido, corretoraRecebida, habitacaoRecebida, pacoteCoberturaSelecionada, pacoteAssistenciaSelecionada); //aqui tem que passar o id do pacote cobertura :)
 			confirmarDados.show(); 
 			frame.dispose(); 
 		});
@@ -196,23 +216,31 @@ public class SelecaoPacoteAssistencia {
 		panelPacote2.setBackground(new Color(145, 189, 148));
 		panelPacote2.setLayout(new GridLayout(4, 1));
 		
-		PacoteAssistencia pacoteAssistencia1 = pacoteAssistenciaDAO.selectById(2);
+		PacoteAssistencia pacoteAssistencia2 = pacoteAssistenciaDAO.selectById(2);
 
-		JLabel lblNomePacote2 = new JLabel(pacoteAssistencia1.getTipo().toUpperCase(), SwingConstants.CENTER);
+		JLabel lblNomePacote2 = new JLabel(pacoteAssistencia2.getTipo().toUpperCase(), SwingConstants.CENTER);
 		lblNomePacote2.setBackground(new Color(151, 204, 136));
 		lblNomePacote2.setFont(new Font("Arial", Font.BOLD, 14));
 		panelPacote2.add(lblNomePacote2);
 
-		JLabel lblValorPacote2 = new JLabel("R$"+ pacoteAssistencia1.getPreco()+"/mês", SwingConstants.CENTER);
+		JLabel lblValorPacote2 = new JLabel("R$"+ pacoteAssistencia2.getPreco()+"/mês", SwingConstants.CENTER);
 		lblValorPacote2.setBackground(new Color(151, 204, 136));
 		lblValorPacote2.setFont(new Font("Arial", Font.PLAIN, 12));
 		panelPacote2.add(lblValorPacote2);
 
-		servico = pacoteAssistenciaDAO.selectServicos(2);
-		servicos = Arrays.asList(servico.split(", "));
-		JList<String> listEventos2 = new JList<>(servicos.toArray(new String[0]));
+		String servico2 = pacoteAssistenciaDAO.selectServicos(2);
+		List<String> servicos2 = Arrays.asList(servico2.split(", "));
+		JList<String> listEventos2 = new JList<>(servicos2.toArray(new String[0]));
 		listEventos2.setBackground(new Color(216, 216, 216));
-		panelPacote2.add(listEventos2);
+		listEventos2.setFont(new Font("Arial", Font.PLAIN, 12));
+		listEventos2.setFixedCellHeight(20);
+		listEventos2.setVisibleRowCount(5);
+
+		// Adiciona a lista ao JScrollPane
+		JScrollPane scrollPane2 = new JScrollPane(listEventos2);
+		scrollPane2.setBackground(new Color(216, 216, 216));
+		scrollPane2.setBorder(BorderFactory.createEmptyBorder());
+		panelPacote2.add(scrollPane2);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(216, 216, 216));
@@ -226,7 +254,8 @@ public class SelecaoPacoteAssistencia {
 		btnEscolher2.setBackground(new Color(225, 193, 85));
 		
 		btnEscolher2.addActionListener(e -> {
-			ConfirmarDados confirmarDados = new ConfirmarDados(); //aqui tem que passar o id do pacote cobertura :)
+			pacoteAssistenciaSelecionada = pacoteAssistencia2.getIdAssistencia();
+			ConfirmarDados confirmarDados = new ConfirmarDados(clienteRecebido, seguroRecebido, corretoraRecebida, habitacaoRecebida, pacoteCoberturaSelecionada, pacoteAssistenciaSelecionada); //aqui tem que passar o id do pacote cobertura :)
 			confirmarDados.show(); 
 			frame.dispose(); 
 		});
@@ -239,26 +268,33 @@ public class SelecaoPacoteAssistencia {
 		panelPacote3.setLayout(new GridLayout(4, 1)); // Dividido em 3 linhas
 		panelPacote3.setBackground(new Color(141, 186, 173));
 		
-		PacoteAssistencia pacoteAssistencia2 = pacoteAssistenciaDAO.selectById(3);
+		PacoteAssistencia pacoteAssistencia3 = pacoteAssistenciaDAO.selectById(3);
 		
 		// Título do pacote
-		JLabel lblNomePacote3 = new JLabel(pacoteAssistencia2.getTipo().toUpperCase(), JLabel.CENTER);
+		JLabel lblNomePacote3 = new JLabel(pacoteAssistencia3.getTipo().toUpperCase(), JLabel.CENTER);
 		lblNomePacote3.setBackground(new Color(151, 204, 136));
 		panelPacote3.add(lblNomePacote3);
 		lblNomePacote3.setFont(new Font("Arial", Font.BOLD, 14));
 
 		// Preço
-		JLabel lblValorPacote3 = new JLabel("R$"+pacoteAssistencia2.getPreco() +"/mês", JLabel.CENTER);
+		JLabel lblValorPacote3 = new JLabel("R$"+pacoteAssistencia3.getPreco() +"/mês", JLabel.CENTER);
 		lblValorPacote3.setBackground(new Color(151, 204, 136));
 		panelPacote3.add(lblValorPacote3);
 		lblValorPacote3.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		servico = pacoteAssistenciaDAO.selectServicos(3);
-		servicos = Arrays.asList(servico.split(", "));
-		JList<String> listEventos3 = new JList<>(servicos.toArray(new String[0]));
+		String servico3 = pacoteAssistenciaDAO.selectServicos(3);
+		List<String> servicos3 = Arrays.asList(servico3.split(", "));
+		JList<String> listEventos3 = new JList<>(servicos3.toArray(new String[0]));
 		listEventos3.setBackground(new Color(216, 216, 216));
-		panelPacote3.add(listEventos3);
+		listEventos3.setFont(new Font("Arial", Font.PLAIN, 12));
+		listEventos3.setFixedCellHeight(20);
+		listEventos3.setVisibleRowCount(5);
 
+		// Adiciona a lista ao JScrollPane
+		JScrollPane scrollPane3 = new JScrollPane(listEventos3);
+		scrollPane3.setBackground(new Color(216, 216, 216));
+		scrollPane3.setBorder(BorderFactory.createEmptyBorder());
+		panelPacote3.add(scrollPane3);
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(216, 216, 216));
 		panelPacote3.add(panel_3);
@@ -272,7 +308,8 @@ public class SelecaoPacoteAssistencia {
 		btnEscolher3.setBackground(new Color(225, 193, 85));
 		
 		btnEscolher3.addActionListener(e -> {
-			ConfirmarDados confirmarDados = new ConfirmarDados(); //aqui tem que passar o id do pacote cobertura :)
+			pacoteAssistenciaSelecionada = pacoteAssistencia3.getIdAssistencia();
+			ConfirmarDados confirmarDados = new ConfirmarDados(clienteRecebido, seguroRecebido, corretoraRecebida, habitacaoRecebida, pacoteCoberturaSelecionada, pacoteAssistenciaSelecionada); //aqui tem que passar o id do pacote cobertura :)
 			confirmarDados.show();
 			frame.dispose(); 
 		});

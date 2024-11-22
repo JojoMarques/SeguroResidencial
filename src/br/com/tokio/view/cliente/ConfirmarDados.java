@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.sql.Connection;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,6 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.ClienteDAO;
+import br.com.tokio.model.Cliente;
+import br.com.tokio.model.Seguro;
 import br.com.tokio.view.InserirImovel;
 import br.com.tokio.view.SelecaoPacoteAssistencia;
 import br.com.tokio.view.TelaInicial;
@@ -30,6 +35,12 @@ public class ConfirmarDados {
 	private JTextField textField_1;
 	private JPasswordField password1;
 	private JPasswordField passwordConfirmar;
+	Cliente clienteRecebido;
+	Seguro seguroRecebido;
+	String corretoraRecebida;
+	String habitacaoRecebida;
+	int pacoteCoberturaSelecionada;
+	int pacoteAssistenciaSelecionada;
 
 	/**
 	 * Launch the application.
@@ -51,6 +62,16 @@ public class ConfirmarDados {
 	 * Create the application.
 	 */
 	public ConfirmarDados() {
+		initialize();
+	}
+
+	public ConfirmarDados(Cliente cliente, Seguro seguro, String corretora, String habitacao, int pacoteCobertura, int pacoteAssistencia) {
+		this.clienteRecebido = cliente;
+		this.seguroRecebido = seguro;
+		this.corretoraRecebida = corretora;
+		this.habitacaoRecebida = habitacao;
+		this.pacoteCoberturaSelecionada = pacoteCobertura;
+		this.pacoteAssistenciaSelecionada = pacoteAssistencia;
 		initialize();
 	}
 
@@ -118,7 +139,7 @@ public class ConfirmarDados {
 		frame.getContentPane().add(panelInformacoes);
 
 		// Título do painel
-		JLabel lblTitulo = new JLabel("Confirme seus dados:");
+		JLabel lblTitulo = new JLabel("Finalize seu cadastro:");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTitulo.setBounds(150, 35, 200, 30); // Posição no painel
@@ -134,7 +155,7 @@ public class ConfirmarDados {
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtNome.setBounds(150, 96, 200, 25); // Posição no painel
 		txtNome.setEditable(false); // Campo apenas para exibição
-		txtNome.setText("Nome do Cliente"); // Valor de exemplo
+		txtNome.setText(clienteRecebido.getNome()); // Valor de exemplo
 		panelInformacoes.add(txtNome);
 
 		// Campo de exibição de CPF
@@ -147,7 +168,7 @@ public class ConfirmarDados {
 		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCpf.setBounds(150, 136, 200, 25); // Posição no painel
 		txtCpf.setEditable(false); // Campo apenas para exibição
-		txtCpf.setText("123.456.789-00"); // Valor de exemplo
+		txtCpf.setText(clienteRecebido.getCpf()); // Valor de exemplo
 		panelInformacoes.add(txtCpf);
 
 		// Botão de editar informações
@@ -158,7 +179,7 @@ public class ConfirmarDados {
 		panelInformacoes.add(btnConfirmar);
 
 		txtEmailtestegmailcom = new JTextField();
-		txtEmailtestegmailcom.setText("email.teste@gmail.com");
+		txtEmailtestegmailcom.setText(clienteRecebido.getEmail());
 		txtEmailtestegmailcom.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtEmailtestegmailcom.setEditable(false);
 		txtEmailtestegmailcom.setBounds(150, 172, 200, 25);
@@ -170,7 +191,7 @@ public class ConfirmarDados {
 		panelInformacoes.add(lblEmail);
 
 		textField_1 = new JTextField();
-		textField_1.setText("(11) 9 9546-4421");
+		textField_1.setText(clienteRecebido.getTelefone());
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textField_1.setEditable(false);
 		textField_1.setBounds(150, 208, 200, 25);
@@ -197,16 +218,26 @@ public class ConfirmarDados {
 
 		passwordConfirmar = new JPasswordField();
 		passwordConfirmar.setBounds(150, 322, 200, 25);
+		String senhaFinal = new String(passwordConfirmar.getPassword());
+		System.out.println("testandoooo:"+senhaFinal);
 		panelInformacoes.add(passwordConfirmar);
-		
+
 		// Evento para abrir a tela EditarCliente
 		btnConfirmar.addActionListener(e -> {
-			if(confirmarSenha()) {
-				InserirImovel inserirImovel = new InserirImovel();
+			if (confirmarSenha()) {
+				clienteRecebido.setSenhaCliente(senhaFinal);
+				System.out.println(senhaFinal);
+				Connection connection = new ConnectionFactory().conectar();
+				ClienteDAO novoCliente = new ClienteDAO(connection);
+				novoCliente.insert(clienteRecebido);
+				
+				Cliente clienteCriado;
+				clienteCriado = novoCliente.getLastCliente();
+				
+;				InserirImovel inserirImovel = new InserirImovel(clienteCriado, seguroRecebido, corretoraRecebida, habitacaoRecebida, pacoteCoberturaSelecionada, pacoteAssistenciaSelecionada );
 				inserirImovel.show(); // Mostra a tela de edição
 				frame.dispose(); // Fecha a tela atual
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(frame, "As senhas estão diferentes", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);
 			}
@@ -223,6 +254,7 @@ public class ConfirmarDados {
 	public boolean confirmarSenha() {
 		String senha1 = new String(password1.getPassword());
 		String senha2 = new String(passwordConfirmar.getPassword());
+		System.out.println(senha1 +" tester "+senha2);
 		if (senha1.equals(senha2))
 			return true;
 		else

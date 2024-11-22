@@ -159,7 +159,6 @@ public class TelaCorretora {
 			corretoraSelecionada = (String) comboBox.getSelectedItem();
 			JOptionPane.showMessageDialog(frame, "Você selecionou: " + corretoraSelecionada);
 		});
-		
 
 		Connection connection = new ConnectionFactory().conectar();
 		CorretoraDAO corretoraDAO = new CorretoraDAO(connection);
