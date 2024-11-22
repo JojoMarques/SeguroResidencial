@@ -186,13 +186,13 @@ public class AreaCliente {
 		});
 		
 		btnSinistro.addActionListener(e -> {
-			SolicitarSinistro solicitarSinistro = new SolicitarSinistro();
+			SolicitarSinistro solicitarSinistro = new SolicitarSinistro(idRecebido);
 			solicitarSinistro.show();
 			frame.dispose();
 		});
 		
 		btnApolice.addActionListener(e -> {
-			VisualizarApolice visualizarApolice = new VisualizarApolice();
+			VisualizarApolice visualizarApolice = new VisualizarApolice(idRecebido);
 			visualizarApolice.show();
 			frame.dispose();
 		});
