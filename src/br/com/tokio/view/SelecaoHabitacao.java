@@ -5,8 +5,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.sql.Connection;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,10 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import br.com.tokio.connection.ConnectionFactory;
-import br.com.tokio.dao.CorretoraDAO;
 import br.com.tokio.model.Cliente;
-import br.com.tokio.model.Corretora;
 import br.com.tokio.model.Seguro;
 
 public class SelecaoHabitacao {
@@ -153,7 +148,7 @@ public class SelecaoHabitacao {
 		comboBox.addItem("Moradia");
 
 		// Botão para exibir o item selecionado
-		JButton btnExibir = new JButton("Corretora selecionada:");
+		JButton btnExibir = new JButton("Habitação selecionada:");
 		btnExibir.setBounds(130, 224, 245, 36);
 		panel.add(btnExibir);
 		btnExibir.setFont(new Font("Tahoma", Font.PLAIN, 14));

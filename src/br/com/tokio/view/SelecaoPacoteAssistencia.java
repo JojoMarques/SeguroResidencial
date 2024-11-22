@@ -14,17 +14,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.PacoteAssistenciaDAO;
-import br.com.tokio.dao.PacoteCoberturaDAO;
 import br.com.tokio.model.Cliente;
 import br.com.tokio.model.PacoteAssistencia;
-import br.com.tokio.model.PacoteCobertura;
 import br.com.tokio.model.Seguro;
 import br.com.tokio.view.cliente.ConfirmarDados;
 
