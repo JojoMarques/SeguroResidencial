@@ -159,7 +159,7 @@ public class LoginFuncionario {
 		// Evento de clique no botão de login
 		btnLogin.addActionListener(e -> {
 			String acesso = txtAcesso.getText().trim();
-			String senha = new String(txtSenha.getPassword());
+			String senha = new String(txtSenha.getPassword()).trim();
 
 			// Instanciando a conexão
 			Connection connection = new ConnectionFactory().conectar();

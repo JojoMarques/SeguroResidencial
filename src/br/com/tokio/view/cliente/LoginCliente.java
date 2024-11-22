@@ -78,7 +78,7 @@ public class LoginCliente {
 
 		JButton btnLogoTelaInicial = new JButton(icon);
 		btnLogoTelaInicial.setBorder(BorderFactory.createEmptyBorder());
-        btnLogoTelaInicial.setFocusPainted(false);
+		btnLogoTelaInicial.setFocusPainted(false);
 		btnLogoTelaInicial.setBackground(new Color(0, 153, 102));
 		btnLogoTelaInicial.setBounds(5, 15, 243, 69);
 		panelHeader.add(btnLogoTelaInicial);
@@ -140,33 +140,43 @@ public class LoginCliente {
 
 		// Evento de clique no botão de login
 		btnLogin.addActionListener(e -> {
-			String cpf = txtCpf.getText().trim();
+			String cpf = txtCpf.getText();
 			String senha = new String(txtSenha.getPassword());
-			System.out.println(cpf+" "+senha);
 
 			// Instanciando a conexão
 			Connection connection = new ConnectionFactory().conectar();
-
+			
 			// Instanciar o ClienteDAO e verificar a autenticação
 			ClienteDAO clienteDAO = new ClienteDAO(connection);
 			List<Integer> resultadoAutenticacao = clienteDAO.autenticacao(cpf, senha);
 
-			if (resultadoAutenticacao.get(0) == 1) {
-				// Se CPF e Senha estiverem corretos, direciona para a próxima tela
+			int resultado = resultadoAutenticacao.get(0);
+			
+			if (resultado == 1) {
 				AreaCliente areaCliente = new AreaCliente(resultadoAutenticacao.get(1));
-				System.out.println(cpf + " " + senha);
+				System.out.println("lixo: " + resultadoAutenticacao.get(0));
 				areaCliente.show(); // Mostra a nova tela
-				frame.dispose(); // Fecha a tela atual
-			} else 
+				frame.dispose();
+			} else if (resultado == 2) {
+				JOptionPane.showMessageDialog(frame, "Dados incorretos", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+			} else
 				JOptionPane.showMessageDialog(frame, "Dados inválidos", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);
-				
+			/*
+			 * if (resultadoAutenticacao.get(0) == 1) { // Se CPF e Senha estiverem
+			 * corretos, direciona para a próxima tela AreaCliente areaCliente = new
+			 * AreaCliente(resultadoAutenticacao.get(1)); System.out.println(cpf + " " +
+			 * senha); areaCliente.show(); // Mostra a nova tela frame.dispose(); // Fecha a
+			 * tela atual } else JOptionPane.showMessageDialog(frame, "Dados inválidos",
+			 * "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+			 */
 		});
-		
+
 	}
 
 	public void show() {
 		frame.setVisible(true);
 	}
-	
+
 }

@@ -182,7 +182,7 @@ public class AreaFuncionario {
 			System.out.println("Tabelas Selecionadas: " + selectedTabelas);
 			System.out.println("Campos Selecionados: " + selectedCampos);
 
-			Relatorio relatorio = new Relatorio();
+			Relatorio relatorio = new Relatorio(idRecebido);
 			relatorio.show(); // Mostra a nova tela
 			frame.dispose(); // Fecha a tela atual
 		});

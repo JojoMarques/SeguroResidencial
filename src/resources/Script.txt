@@ -61,10 +61,10 @@ DROP SEQUENCE SEQ_ID_EVENTO_COBERTURA;
 
 CREATE TABLE t_cliente (
     cd_cliente       NUMBER(5) NOT NULL,
-    ds_senha_cliente CHAR(8),
-    nm_cliente       VARCHAR2(50),
-    cpf_cliente      CHAR(11),
-    telefone_cliente CHAR(11),
+    ds_senha_cliente VARCHAR(8),
+    nm_cliente       VARCHAR(50),
+    cpf_cliente      VARCHAR(11),
+    telefone_cliente VARCHAR(11),
     email_cliente    VARCHAR2(50)
 );
 
@@ -128,12 +128,12 @@ ALTER TABLE t_evento ADD CONSTRAINT t_evento_pk PRIMARY KEY ( cd_evento );
 
 CREATE TABLE t_funcionario (
     cd_funcionario NUMBER(5) NOT NULL,
-    ds_acesso_func CHAR(5),
+    ds_acesso_func VARCHAR(5),
     dt_admissao    DATE,
-    senha          CHAR(50),
+    senha          VARCHAR(50),
     nm_func        VARCHAR2(50),
-    cpf_func       CHAR(11),
-    telefone_func  CHAR(11),
+    cpf_func       VARCHAR(11),
+    telefone_func  VARCHAR(11),
     email_func     VARCHAR2(50)
 );
 
@@ -150,7 +150,7 @@ ALTER TABLE t_funcionario ADD CONSTRAINT t_funcionario_pk PRIMARY KEY ( cd_funci
 
 CREATE TABLE t_imovel (
     cd_imovel  NUMBER(5) NOT NULL,
-    cep        CHAR(8),
+    cep        VARCHAR(8),
     numero     NUMBER(5),
     logradouro VARCHAR2(100),
     bairro     VARCHAR2(50),
@@ -286,7 +286,7 @@ CREATE TABLE t_sinistro (
     tp_sinistro VARCHAR2(30),
     dt_sinistro DATE,
     ds_sinistro VARCHAR2(100),
-    status      CHAR(1),
+    status      VARCHAR(1),
     cd_seguro   NUMBER(5) NOT NULL,
     cd_cliente  NUMBER(5) NOT NULL
 );
@@ -480,5 +480,4 @@ BEGIN
     SELECT SEQ_ID_EVENTO_COBERTURA.NEXTVAL INTO :NEW.cd_evento_cobertura FROM DUAL;
 END;
 /
-
 commit;
