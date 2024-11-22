@@ -26,6 +26,7 @@ public class Simulacao {
 	private JTextField txtTelefone;
 	private JTextField txtEmail;
 	private JTextField txtCobertura;
+	private JTextField txtNome;
 
 	/**
 	 * Launch the application.
@@ -133,42 +134,42 @@ public class Simulacao {
 
 		JLabel lblCPF = new JLabel("CPF:");
 		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCPF.setBounds(74, 100, 100, 25);
+		lblCPF.setBounds(76, 145, 100, 25);
 		panel.add(lblCPF);
 
 		txtCPF = new JTextField();
 		txtCPF.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtCPF.setBounds(181, 100, 200, 25);
+		txtCPF.setBounds(183, 145, 200, 25);
 		panel.add(txtCPF);
 
 		JLabel lblTelefone = new JLabel("Telefone:");
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTelefone.setBounds(74, 144, 100, 25);
+		lblTelefone.setBounds(76, 189, 100, 25);
 		panel.add(lblTelefone);
 
 		txtTelefone = new JTextField();
 		txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtTelefone.setBounds(181, 144, 200, 25);
+		txtTelefone.setBounds(183, 189, 200, 25);
 		panel.add(txtTelefone);
 
 		JLabel lblEmail = new JLabel("E-mail:");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblEmail.setBounds(74, 194, 100, 25);
+		lblEmail.setBounds(76, 239, 100, 25);
 		panel.add(lblEmail);
 
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtEmail.setBounds(181, 194, 200, 25);
+		txtEmail.setBounds(183, 239, 200, 25);
 		panel.add(txtEmail);
 
 		JLabel lblCobertura = new JLabel("Valor cobertura:");
 		lblCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCobertura.setBounds(74, 244, 100, 25);
+		lblCobertura.setBounds(76, 289, 100, 25);
 		panel.add(lblCobertura);
 
 		txtCobertura = new JTextField();
 		txtCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtCobertura.setBounds(181, 244, 200, 25);
+		txtCobertura.setBounds(183, 289, 200, 25);
 		panel.add(txtCobertura);
 
 		JButton btnEnviar = new JButton("Enviar");
@@ -176,20 +177,32 @@ public class Simulacao {
 		btnEnviar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEnviar.setBounds(221, 380, 116, 39);
 		panel.add(btnEnviar);
+		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNome.setBounds(76, 104, 100, 25);
+		panel.add(lblNome);
+		
+		txtNome = new JTextField();
+		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtNome.setBounds(183, 104, 200, 25);
+		panel.add(txtNome);
 
 		btnEnviar.addActionListener(e -> {
 			String cpf = txtCPF.getText();
+			String nome = txtNome.getText();
 			String telefone = txtTelefone.getText();
 			String email = txtEmail.getText();
 			String cobertura = txtCobertura.getText();
 			
 			
+			cliente.setNome(nome);
 			cliente.setCpf(cpf);
 			cliente.setTelefone(telefone);
 			cliente.setEmail(email);
 			seguro.setValorPremio(Float.parseFloat(cobertura));
 
-			JOptionPane.showMessageDialog(frame, "Dados enviados com sucesso!\n" + "CPF: " + cpf + "\n" + 
+			JOptionPane.showMessageDialog(frame, "Dados enviados com sucesso!\n"+ "Nome: " + nome + "\n" +  "CPF: " + cpf + "\n" + 
 				 "Telefone: " + telefone + "\n" + "E-mail: " + email + "\n" + "Cobertura: " + cobertura);
 		});
 		

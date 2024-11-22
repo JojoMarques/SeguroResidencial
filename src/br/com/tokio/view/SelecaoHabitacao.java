@@ -182,8 +182,8 @@ public class SelecaoHabitacao {
 		});
 
 		btnAvancar.addActionListener(e -> {
-			SelecaoPacoteCobertura selecaoPacoteCobertura = new SelecaoPacoteCobertura();
-			// clienteRecebido,seguroRecebido,corretoraRecebida,habitacaoSelecionada
+			SelecaoPacoteCobertura selecaoPacoteCobertura = new SelecaoPacoteCobertura(clienteRecebido,seguroRecebido,corretoraRecebida,habitacaoSelecionada);
+			// 
 			selecaoPacoteCobertura.show();
 			frame.dispose();
 		});

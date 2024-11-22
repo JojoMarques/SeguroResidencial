@@ -158,6 +158,29 @@ public class ClienteDAO implements Autenticar {
 		System.out.println(cliente.getIdCliente() + " - " + cliente.getNome());
 		return cliente;
 	}
+	
+	public Cliente getLastCliente() {
+		Cliente cliente = new Cliente();
+		String sql = "SELECT * FROM t_cliente WHERE cd_cliente = (SELECT MAX(cd_cliente) FROM t_cliente)";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				cliente.setIdCliente(rs.getInt("cd_cliente"));
+				cliente.setNome(rs.getString("nm_cliente"));
+				cliente.setCpf(rs.getString("cpf_cliente"));
+				cliente.setTelefone(rs.getString("telefone_cliente"));
+				cliente.setEmail(rs.getString("email_cliente"));
+				cliente.setSenhaCliente(rs.getString("ds_senha_cliente"));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(cliente.getIdCliente() + " - " + cliente.getNome());
+		return cliente;
+	}
 
 	@Override
 	public List<Integer> autenticacao(String cpf, String senha) {

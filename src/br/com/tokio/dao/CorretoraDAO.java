@@ -45,6 +45,8 @@ public class CorretoraDAO {
 		}
 		return listCorretoras;
 	}
+	
+	
 
 	// select by id
 	public Corretora selectById(int idCorretora) {
