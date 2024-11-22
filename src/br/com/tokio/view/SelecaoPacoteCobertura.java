@@ -1,10 +1,14 @@
 package br.com.tokio.view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.sql.Connection;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,6 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.PacoteCoberturaDAO;
+
 import javax.swing.JScrollBar;
 
 public class SelecaoPacoteCobertura {
@@ -47,6 +55,8 @@ public class SelecaoPacoteCobertura {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Connection connection = new ConnectionFactory().conectar();
+		PacoteCoberturaDAO pacoteCoberturaDAO = new PacoteCoberturaDAO(connection);
 		frame = new JFrame("Seleção de Pacote");
 		frame.setBounds(400, 200, 800, 600); // Tamanho menor
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -142,11 +152,17 @@ public class SelecaoPacoteCobertura {
 		lblValorPacote1.setBackground(new Color(151, 204, 136));
 		panelPacote1.add(lblValorPacote1);
 		lblValorPacote1.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		JList listEventos1 = new JList();
+		
+		
+		String evento = pacoteCoberturaDAO.selectEventos(1);
+		System.out.println(evento);
+		List<String> eventos = Arrays.asList(evento.split(", "));		
+		JList<String> listEventos1 = new JList<>(eventos.toArray(new String[0]));
 		listEventos1.setBackground(new Color(216, 216, 216));
+		listEventos1.setFont(new Font("Arial", Font.PLAIN, 10));
 		panelPacote1.add(listEventos1);
-
+		
+	
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(216, 216, 216));
 		panelPacote1.add(panel_1);
@@ -158,6 +174,12 @@ public class SelecaoPacoteCobertura {
 		btnEscolher1.setBounds(33, 16, 185, 36);
 		panel_1.add(btnEscolher1);
 		btnEscolher1.setBackground(new Color(225, 193, 85));
+		
+		btnEscolher1.addActionListener(e -> {
+			SelecaoPacoteAssistencia selecaoPacoteAssistencia = new SelecaoPacoteAssistencia(); //aqui tem que passar o id do pacote cobertura :)
+			selecaoPacoteAssistencia.show(); 
+			frame.dispose(); 
+		});
 
 		JPanel panelPacote2 = new JPanel();
 		panelPacote2.setBounds(255, 81, 245, 277);
@@ -165,7 +187,7 @@ public class SelecaoPacoteCobertura {
 		panelPacote2.setBackground(new Color(145, 189, 148));
 		panelPacote2.setLayout(new GridLayout(4, 1));
 
-		JLabel lblNomePacote2 = new JLabel("PACOTE BÁSICO", SwingConstants.CENTER);
+		JLabel lblNomePacote2 = new JLabel("PACOTE INTERMEDIÁRIO", SwingConstants.CENTER);
 		lblNomePacote2.setBackground(new Color(151, 204, 136));
 		lblNomePacote2.setFont(new Font("Arial", Font.BOLD, 14));
 		panelPacote2.add(lblNomePacote2);
@@ -175,7 +197,10 @@ public class SelecaoPacoteCobertura {
 		lblValorPacote2.setFont(new Font("Arial", Font.PLAIN, 12));
 		panelPacote2.add(lblValorPacote2);
 
-		JList listEventos2 = new JList();
+		evento = pacoteCoberturaDAO.selectEventos(2);
+		eventos = Arrays.asList(evento.split(", "));
+		JList<String> listEventos2 = new JList<>(eventos.toArray(new String[0]));
+		listEventos2.setFont(new Font("Arial", Font.PLAIN, 10));
 		listEventos2.setBackground(new Color(216, 216, 216));
 		panelPacote2.add(listEventos2);
 
@@ -189,6 +214,12 @@ public class SelecaoPacoteCobertura {
 		btnEscolher2.setBounds(33, 16, 185, 36);
 		panel_2.add(btnEscolher2);
 		btnEscolher2.setBackground(new Color(225, 193, 85));
+		
+		btnEscolher2.addActionListener(e -> {
+			SelecaoPacoteAssistencia selecaoPacoteAssistencia = new SelecaoPacoteAssistencia(); //aqui tem que passar o id do pacote cobertura :)
+			selecaoPacoteAssistencia.show(); 
+			frame.dispose(); 
+		});
 
 		// Criando um painel para o pacote
 		JPanel panelPacote3 = new JPanel();
@@ -198,7 +229,7 @@ public class SelecaoPacoteCobertura {
 		panelPacote3.setBackground(new Color(141, 186, 173));
 
 		// Título do pacote
-		JLabel lblNomePacote3 = new JLabel("PACOTE BÁSICO", JLabel.CENTER);
+		JLabel lblNomePacote3 = new JLabel("PACOTE COMPLETO", JLabel.CENTER);
 		lblNomePacote3.setBackground(new Color(151, 204, 136));
 		panelPacote3.add(lblNomePacote3);
 		lblNomePacote3.setFont(new Font("Arial", Font.BOLD, 14));
@@ -209,7 +240,10 @@ public class SelecaoPacoteCobertura {
 		panelPacote3.add(lblValorPacote3);
 		lblValorPacote3.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		JList listEventos3 = new JList();
+		evento = pacoteCoberturaDAO.selectEventos(2);
+		eventos = Arrays.asList(evento.split(", "));
+		JList<String> listEventos3 = new JList<>(eventos.toArray(new String[0]));
+		listEventos3.setFont(new Font("Arial", Font.PLAIN, 10));
 		listEventos3.setBackground(new Color(216, 216, 216));
 		panelPacote3.add(listEventos3);
 
@@ -224,6 +258,12 @@ public class SelecaoPacoteCobertura {
 		btnEscolher3.setBounds(33, 16, 185, 36);
 		panel_3.add(btnEscolher3);
 		btnEscolher3.setBackground(new Color(225, 193, 85));
+		
+		btnEscolher3.addActionListener(e -> {
+			SelecaoPacoteAssistencia selecaoPacoteAssistencia = new SelecaoPacoteAssistencia(); //aqui tem que passar o id do pacote cobertura :)
+			selecaoPacoteAssistencia.show(); 
+			frame.dispose(); 
+		});
 		
 		JScrollBar scrollBar = new JScrollBar();
 		scrollBar.setBounds(767, 100, 17, 461);

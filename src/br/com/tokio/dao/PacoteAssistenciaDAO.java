@@ -154,4 +154,24 @@ public class PacoteAssistenciaDAO {
 
 		return pacote;
 	}
+	
+	public String selectServicos(int idAssistencia){
+		String servicos = "";
+		String sql = "SELECT LISTAGG(s.nm_servico, ', ') WITHIN GROUP (ORDER BY s.nm_servico) AS servicos FROM t_pct_assistencia pa JOIN t_servico_assistencia sa ON pa.cd_assistencia = sa.cd_assistencia JOIN t_servico s ON sa.cd_servico = s.cd_servico WHERE pa.cd_assistencia = ? GROUP BY pa.cd_assistencia";
+    	try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, idAssistencia);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				servicos = rs.getString("servicos");
+			}
+
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return servicos;
+    
+	}
 }
