@@ -218,13 +218,16 @@ public class ConfirmarDados {
 
 		passwordConfirmar = new JPasswordField();
 		passwordConfirmar.setBounds(150, 322, 200, 25);
-		String senhaFinal = new String(passwordConfirmar.getPassword());
-		System.out.println("testandoooo:"+senhaFinal);
 		panelInformacoes.add(passwordConfirmar);
+		System.out.println(passwordConfirmar.getPassword());
+		
+		
 
 		// Evento para abrir a tela EditarCliente
 		btnConfirmar.addActionListener(e -> {
+			
 			if (confirmarSenha()) {
+				String senhaFinal = new String(passwordConfirmar.getPassword());
 				clienteRecebido.setSenhaCliente(senhaFinal);
 				System.out.println(senhaFinal);
 				Connection connection = new ConnectionFactory().conectar();
@@ -234,7 +237,7 @@ public class ConfirmarDados {
 				Cliente clienteCriado;
 				clienteCriado = novoCliente.getLastCliente();
 				
-;				InserirImovel inserirImovel = new InserirImovel(clienteCriado, seguroRecebido, corretoraRecebida, habitacaoRecebida, pacoteCoberturaSelecionada, pacoteAssistenciaSelecionada );
+				InserirImovel inserirImovel = new InserirImovel(clienteCriado, seguroRecebido, corretoraRecebida, habitacaoRecebida, pacoteCoberturaSelecionada, pacoteAssistenciaSelecionada );
 				inserirImovel.show(); // Mostra a tela de edição
 				frame.dispose(); // Fecha a tela atual
 			} else {

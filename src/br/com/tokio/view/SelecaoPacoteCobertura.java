@@ -14,19 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-
-import javax.swing.JScrollBar;
-
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.PacoteCoberturaDAO;
-
 import br.com.tokio.model.Cliente;
 import br.com.tokio.model.PacoteCobertura;
 import br.com.tokio.model.Seguro;
-
 
 public class SelecaoPacoteCobertura {
 
@@ -150,32 +145,25 @@ public class SelecaoPacoteCobertura {
 		lblEscolhaSuaCobertura.setBounds(197, 11, 369, 30);
 		panel.add(lblEscolhaSuaCobertura);
 
-
-		PacoteCobertura pacoteCobertura1 = pacoteCoberturaDAO.selectById(1);
-
-		// Criando um painel para o pacote
-
+		// Pacote Cobertura 1
 		JPanel panelPacote1 = new JPanel();
 		panelPacote1.setBounds(5, 81, 245, 328);
 		panelPacote1.setBackground(new Color(169, 196, 145));
 		panelPacote1.setLayout(new GridLayout(4, 1));
 		panel.add(panelPacote1);
 
+		// Obter informações do pacote 1
+		PacoteCobertura pacoteCobertura1 = pacoteCoberturaDAO.selectById(1);
 
-		// Título do pacote
+		// Nome do pacote
 		JLabel lblNomePacote1 = new JLabel(pacoteCobertura1.getTipo().toUpperCase(), JLabel.CENTER);
-		lblNomePacote1.setBackground(new Color(151, 204, 136));
-		panelPacote1.add(lblNomePacote1);
-
 		lblNomePacote1.setFont(new Font("Arial", Font.BOLD, 14));
 		panelPacote1.add(lblNomePacote1);
 
-		// Preço
-		JLabel lblValorPacote1 = new JLabel("R$" + pacoteCobertura1.getPreco() + "/mês", JLabel.CENTER);
-		lblValorPacote1.setBackground(new Color(151, 204, 136));
-		panelPacote1.add(lblValorPacote1);
+		// Preço do pacote
+		JLabel lblValorPacote1 = new JLabel("R$ " + pacoteCobertura1.getPreco() + " /mês", JLabel.CENTER);
 		lblValorPacote1.setFont(new Font("Arial", Font.PLAIN, 12));
-
+		panelPacote1.add(lblValorPacote1);
 
 		// Lista de eventos do pacote 1
 		String eventos1 = pacoteCoberturaDAO.selectEventos(1);
@@ -185,27 +173,22 @@ public class SelecaoPacoteCobertura {
 		listEventos1.setFixedCellHeight(20);
 		panelPacote1.add(new JScrollPane(listEventos1));
 
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(216, 216, 216));
-		panelPacote1.add(panel_1);
-		panel_1.setLayout(null);
-
-		// Botão para selecionar
+		// Botão do pacote 1
+		JPanel panelBtn1 = new JPanel();
+		panelBtn1.setLayout(null);
+		panelBtn1.setBackground(new Color(216, 216, 216));
+		panelPacote1.add(panelBtn1);
 
 		JButton btnEscolher1 = new JButton("ESCOLHER");
 		btnEscolher1.setBounds(33, 16, 185, 36);
 		btnEscolher1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnEscolher1.setBackground(new Color(225, 193, 85));
-
+		panelBtn1.add(btnEscolher1);
 
 		btnEscolher1.addActionListener(e -> {
 			pacoteCoberturaSelecionada = pacoteCobertura1.getIdCobertura();
 			SelecaoPacoteAssistencia selecaoPacoteAssistencia = new SelecaoPacoteAssistencia(clienteRecebido,
 					seguroRecebido, corretoraRecebida, habitacaoRecebida, pacoteCoberturaSelecionada); // aqui tem que
-																										// passar o id
-																										// do pacote
-																										// cobertura :)
 			selecaoPacoteAssistencia.show();
 			frame.dispose();
 
@@ -217,18 +200,15 @@ public class SelecaoPacoteCobertura {
 		panelPacote2.setBounds(255, 81, 245, 328);
 		panelPacote2.setBackground(new Color(145, 189, 148));
 		panelPacote2.setLayout(new GridLayout(4, 1));
-
+		panel.add(panelPacote2);
 
 		PacoteCobertura pacoteCobertura2 = pacoteCoberturaDAO.selectById(2);
 
-		JLabel lblNomePacote2 = new JLabel(pacoteCobertura2.getTipo().toUpperCase(), SwingConstants.CENTER);
-		lblNomePacote2.setBackground(new Color(151, 204, 136));
+		JLabel lblNomePacote2 = new JLabel(pacoteCobertura2.getTipo().toUpperCase(), JLabel.CENTER);
 		lblNomePacote2.setFont(new Font("Arial", Font.BOLD, 14));
 		panelPacote2.add(lblNomePacote2);
 
-		JLabel lblValorPacote2 = new JLabel("R$" + pacoteCobertura2.getPreco() + "/mês", SwingConstants.CENTER);
-		lblValorPacote2.setBackground(new Color(151, 204, 136));
-
+		JLabel lblValorPacote2 = new JLabel("R$ " + pacoteCobertura2.getPreco() + " /mês", JLabel.CENTER);
 		lblValorPacote2.setFont(new Font("Arial", Font.PLAIN, 12));
 		panelPacote2.add(lblValorPacote2);
 
@@ -237,7 +217,6 @@ public class SelecaoPacoteCobertura {
 		listEventos2.setBackground(new Color(216, 216, 216));
 		listEventos2.setFont(new Font("Arial", Font.PLAIN, 12));
 		panelPacote2.add(new JScrollPane(listEventos2));
-
 
 		JPanel panelBtn2 = new JPanel();
 		panelBtn2.setLayout(null);
@@ -248,7 +227,7 @@ public class SelecaoPacoteCobertura {
 		btnEscolher2.setBounds(33, 16, 185, 36);
 		btnEscolher2.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnEscolher2.setBackground(new Color(225, 193, 85));
-
+		panelBtn2.add(btnEscolher2);
 
 		btnEscolher2.addActionListener(e -> {
 			pacoteCoberturaSelecionada = pacoteCobertura2.getIdCobertura();
@@ -266,24 +245,16 @@ public class SelecaoPacoteCobertura {
 		JPanel panelPacote3 = new JPanel();
 		panelPacote3.setBounds(505, 81, 245, 328);
 		panelPacote3.setBackground(new Color(141, 186, 173));
-
+		panelPacote3.setLayout(new GridLayout(4, 1));
+		panel.add(panelPacote3);
 
 		PacoteCobertura pacoteCobertura3 = pacoteCoberturaDAO.selectById(3);
 
-		// Título do pacote
 		JLabel lblNomePacote3 = new JLabel(pacoteCobertura3.getTipo().toUpperCase(), JLabel.CENTER);
-		lblNomePacote3.setBackground(new Color(151, 204, 136));
-		panelPacote3.add(lblNomePacote3);
-
 		lblNomePacote3.setFont(new Font("Arial", Font.BOLD, 14));
 		panelPacote3.add(lblNomePacote3);
 
-
-		// Preço
-		JLabel lblValorPacote3 = new JLabel("R$" + pacoteCobertura3.getPreco() + "/mês", JLabel.CENTER);
-		lblValorPacote3.setBackground(new Color(151, 204, 136));
-		panelPacote3.add(lblValorPacote3);
-
+		JLabel lblValorPacote3 = new JLabel("R$ " + pacoteCobertura3.getPreco() + " /mês", JLabel.CENTER);
 		lblValorPacote3.setFont(new Font("Arial", Font.PLAIN, 12));
 		panelPacote3.add(lblValorPacote3);
 
@@ -302,7 +273,7 @@ public class SelecaoPacoteCobertura {
 		btnEscolher3.setBounds(33, 16, 185, 36);
 		btnEscolher3.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnEscolher3.setBackground(new Color(225, 193, 85));
-
+		panelBtn3.add(btnEscolher3);
 
 		btnEscolher3.addActionListener(e -> {
 			pacoteCoberturaSelecionada = pacoteCobertura3.getIdCobertura();
@@ -315,11 +286,6 @@ public class SelecaoPacoteCobertura {
 			pacoteCobertura3.getIdCobertura();
 			frame.dispose();
 		});
-
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(767, 100, 17, 461);
-		frame.getContentPane().add(scrollBar);
-
 
 		// ---------------------------------------------
 

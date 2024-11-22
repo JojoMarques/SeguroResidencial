@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 public class TelaInicial {
 
 	private JFrame frame;
+	
 
 	/**
 	 * Launch the application.

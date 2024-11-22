@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import java.awt.Font;
