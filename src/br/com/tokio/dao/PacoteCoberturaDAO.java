@@ -137,10 +137,10 @@ public class PacoteCoberturaDAO {
 
 			if (rs.next()) {
 				pacote = new PacoteCobertura();
-				pacote.setIdCobertura(rs.getInt("cd_obertura"));
+				pacote.setIdCobertura(rs.getInt("cd_cobertura"));
 				pacote.setTipo(rs.getString("tp_cobertura"));
 				pacote.setDescricao(rs.getString("ds_cobertura"));
-				pacote.setPreco(rs.getDouble("vl_preco_cobertura"));
+				pacote.setPreco(rs.getDouble("vl_pct_cobertura"));
 			}
 
 			stmt.close();

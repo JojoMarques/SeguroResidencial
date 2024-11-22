@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.PacoteCoberturaDAO;
+import br.com.tokio.model.PacoteAssistencia;
+import br.com.tokio.model.PacoteCobertura;
 
 import javax.swing.JScrollBar;
 
@@ -132,8 +134,10 @@ public class SelecaoPacoteCobertura {
 		lblEscolhaSuaCobertura.setBackground(Color.BLACK);
 		lblEscolhaSuaCobertura.setBounds(197, 11, 369, 30);
 		panel.add(lblEscolhaSuaCobertura);
+		
+		PacoteCobertura pacoteCobertura = pacoteCoberturaDAO.selectById(1);
 
-
+		
 		// Criando um painel para o pacote
 		JPanel panelPacote1 = new JPanel();
 		panelPacote1.setBounds(5, 81, 245, 277);
@@ -142,13 +146,13 @@ public class SelecaoPacoteCobertura {
 		panelPacote1.setBackground(new Color(169, 196, 145));
 
 		// Título do pacote
-		JLabel lblNomePacote1 = new JLabel("PACOTE BÁSICO", JLabel.CENTER);
+		JLabel lblNomePacote1 = new JLabel(pacoteCobertura.getTipo().toUpperCase(), JLabel.CENTER);
 		lblNomePacote1.setBackground(new Color(151, 204, 136));
 		panelPacote1.add(lblNomePacote1);
 		lblNomePacote1.setFont(new Font("Arial", Font.BOLD, 14));
 
 		// Preço
-		JLabel lblValorPacote1 = new JLabel("R$ 20,12/mês", JLabel.CENTER);
+		JLabel lblValorPacote1 = new JLabel("R$"+pacoteCobertura.getPreco()+"/mês", JLabel.CENTER);
 		lblValorPacote1.setBackground(new Color(151, 204, 136));
 		panelPacote1.add(lblValorPacote1);
 		lblValorPacote1.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -186,13 +190,15 @@ public class SelecaoPacoteCobertura {
 		panel.add(panelPacote2);
 		panelPacote2.setBackground(new Color(145, 189, 148));
 		panelPacote2.setLayout(new GridLayout(4, 1));
-
-		JLabel lblNomePacote2 = new JLabel("PACOTE INTERMEDIÁRIO", SwingConstants.CENTER);
+		
+		PacoteCobertura pacoteCobertura1 = pacoteCoberturaDAO.selectById(2);
+		
+		JLabel lblNomePacote2 = new JLabel(pacoteCobertura1.getTipo().toUpperCase(), SwingConstants.CENTER);
 		lblNomePacote2.setBackground(new Color(151, 204, 136));
 		lblNomePacote2.setFont(new Font("Arial", Font.BOLD, 14));
 		panelPacote2.add(lblNomePacote2);
 
-		JLabel lblValorPacote2 = new JLabel("R$ 20,12/mês", SwingConstants.CENTER);
+		JLabel lblValorPacote2 = new JLabel("R$"+pacoteCobertura1.getPreco()+"/mês", SwingConstants.CENTER);
 		lblValorPacote2.setBackground(new Color(151, 204, 136));
 		lblValorPacote2.setFont(new Font("Arial", Font.PLAIN, 12));
 		panelPacote2.add(lblValorPacote2);
@@ -227,15 +233,18 @@ public class SelecaoPacoteCobertura {
 		panel.add(panelPacote3);
 		panelPacote3.setLayout(new GridLayout(4, 1)); // Dividido em 3 linhas
 		panelPacote3.setBackground(new Color(141, 186, 173));
+		
+		PacoteCobertura pacoteCobertura2 = pacoteCoberturaDAO.selectById(3);
 
+		
 		// Título do pacote
-		JLabel lblNomePacote3 = new JLabel("PACOTE COMPLETO", JLabel.CENTER);
+		JLabel lblNomePacote3 = new JLabel(pacoteCobertura2.getTipo().toUpperCase(), JLabel.CENTER);
 		lblNomePacote3.setBackground(new Color(151, 204, 136));
 		panelPacote3.add(lblNomePacote3);
 		lblNomePacote3.setFont(new Font("Arial", Font.BOLD, 14));
 
 		// Preço
-		JLabel lblValorPacote3 = new JLabel("R$ 20,12/mês", JLabel.CENTER);
+		JLabel lblValorPacote3 = new JLabel("R$" + pacoteCobertura2.getPreco()+"/mês", JLabel.CENTER);
 		lblValorPacote3.setBackground(new Color(151, 204, 136));
 		panelPacote3.add(lblValorPacote3);
 		lblValorPacote3.setFont(new Font("Arial", Font.PLAIN, 12));
