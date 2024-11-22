@@ -155,18 +155,32 @@ public class ClienteDAO implements Autenticar {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(cliente.getIdCliente() + " - " + cliente.getNome());
 		return cliente;
 	}
 
 	@Override
 	public List<Integer> autenticacao(String cpf, String senha) {
 		// Buscar todos os clientes
-		Cliente cliente = selectLogin(cpf, senha);
+		Cliente cliente = new Cliente();
+		cliente = selectLogin(cpf, senha);
 		List<Integer> resultado = new ArrayList<>();
 		// Status padrão: CPF e senha incorretos
 		int status = 0;
 		int idCliente = 0;
 		// Verificar os clientes
+
+		/*
+		if(cliente.getCpf().equals(cpf) && cliente.getSenhaCliente().equals(senha)) {
+			status = 1;
+			idCliente = cliente.getIdCliente();
+		} else if ((cliente.getCpf() != cpf) || (cliente.getSenhaCliente() != senha)) {
+			status = 2;
+			idCliente = 0;
+		}else if (cliente.getCpf() == null && cliente.getSenhaCliente() == null) {
+			status = 0; // Cliente sem CPF e senha
+			idCliente = 0;
+		}*/
 
 		if (cliente.getCpf() == null && cliente.getSenhaCliente() == null) {
 			status = 0; // Cliente sem CPF e senha

@@ -178,13 +178,10 @@ public class FuncionarioDAO implements Autenticar {
 		if (funcionario.getAcessoFunc() == null && funcionario.getSenhaFunc() == null) {
 			status = 0; // funcionario sem acesso e senha
 			idFuncionario = 0;
-		} else {
-			if (funcionario.getAcessoFunc().equals(acesso) && funcionario.getSenhaFunc().equals(senha)) {
+		} else if (funcionario.getAcessoFunc().equals(acesso) && funcionario.getSenhaFunc().equals(senha)) {
 				status = 1; // acesso e senha corretos
 				idFuncionario = funcionario.getIdFuncionario();
 			}
-		}
-
 		// Adicionar resultados na lista
 		resultado.add(status); // Status da autenticação
 		resultado.add(idFuncionario); // ID do cliente (ou 0)

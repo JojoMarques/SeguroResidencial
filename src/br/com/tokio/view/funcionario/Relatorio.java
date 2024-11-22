@@ -23,6 +23,7 @@ public class Relatorio {
 
 	private JFrame frame;
 	private JTable table;
+	private int idRecebido;
 
 	/**
 	 * Launch the application.
@@ -46,6 +47,11 @@ public class Relatorio {
 	public Relatorio() {
 		initialize();
 	}
+
+	public Relatorio(int idCliente) {
+    	this.idRecebido = idCliente;
+        initialize();
+    }
 
 	/**
 	 * Initialize the contents of the frame.

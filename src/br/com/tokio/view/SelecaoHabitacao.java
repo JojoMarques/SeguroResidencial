@@ -137,8 +137,6 @@ public class SelecaoHabitacao {
 		panel.add(comboBox);
 		comboBox.addItem("Veraneiro");
 		comboBox.addItem("Moradia");
-
-	
 		
 		// Botão para exibir o item selecionado
 		JButton btnExibir = new JButton("Corretora selecionada:");
@@ -149,6 +147,7 @@ public class SelecaoHabitacao {
 
 		// Evento para o botão (Exibir Seleção)
 		btnExibir.addActionListener(e -> {
+			// variavel selecionada
 			String selecionado = (String) comboBox.getSelectedItem();
 			JOptionPane.showMessageDialog(frame, "Você selecionou: " + selecionado);
 		});
