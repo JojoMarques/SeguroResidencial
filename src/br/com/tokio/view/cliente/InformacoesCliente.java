@@ -18,10 +18,8 @@ import javax.swing.SwingConstants;
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ClienteDAO;
 import br.com.tokio.model.Cliente;
-import br.com.tokio.view.TelaCorretora;
 import br.com.tokio.view.TelaInicial;
 
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -200,7 +198,7 @@ public class InformacoesCliente {
 		});
 
 		btnVoltar.addActionListener(e -> {
-			AreaCliente areaCliente = new AreaCliente();
+			AreaCliente areaCliente = new AreaCliente(idRecebido);
 			areaCliente.show();
 			frame.dispose();
 		});

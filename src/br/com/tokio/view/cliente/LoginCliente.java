@@ -31,6 +31,7 @@ public class LoginCliente {
 	private JFrame frame;
 	private JTextField txtCpf;
 	private JPasswordField txtSenha;
+	int idClienteRecebido;
 
 	/**
 	 * Launch the application.
@@ -52,6 +53,11 @@ public class LoginCliente {
 	 * Create the application.
 	 */
 	public LoginCliente() {
+		initialize();
+	}
+
+	public LoginCliente(int idCliente) {
+		this.idClienteRecebido = idCliente;
 		initialize();
 	}
 

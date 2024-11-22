@@ -12,16 +12,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import br.com.tokio.connection.ConnectionFactory;
-import br.com.tokio.dao.ClienteDAO;
 import br.com.tokio.dao.FuncionarioDAO;
 import br.com.tokio.view.TelaInicial;
-import br.com.tokio.view.cliente.AreaCliente;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import java.awt.Font;
