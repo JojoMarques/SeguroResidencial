@@ -206,11 +206,11 @@ public class InserirImovel {
 		btnEnviar.addActionListener(e -> {
 			String cep = txtCEP.getText();
 			String logradouro = txtLogradouro.getText();
-			int numero = Integer.parseInt(txtNumero.getText());
+			String numero = txtNumero.getText();
 			String cidade = txtCidade.getText();
 			String bairro = txtBairro.getText();
-			double areaImovel = Double.parseDouble(txtArea.getText());
-			double valorImovel =  Double.parseDouble(txtValorImovel.getText());
+			String areaImovel = txtArea.getText();
+			String valorImovel = txtValorImovel.getText();
 			
 			String siglaSelecionada = (String) comboBoxEstado.getSelectedItem();
 			Estado estadoSelecionado = Estado.fromCodigo(siglaSelecionada);
@@ -225,16 +225,23 @@ public class InserirImovel {
 			
 			ImovelDAO imovelDAO = new ImovelDAO(connection);
 			
-			if (cep!="" && logradouro!="" && numero>0 && cidade!="" && bairro!="" && areaImovel!=0 && valorImovel!=0 && nomeEstado!="") {
+			// verifica se todos tem valor.
+			if (!cep.isEmpty() && !logradouro.isEmpty() && !numero.isEmpty() && !cidade.isEmpty() &&
+				    !bairro.isEmpty() && !areaImovel.isEmpty() && !valorImovel.isEmpty() && !nomeEstado.isEmpty()) {
+
 				
-				Imovel imovel = new Imovel(valorImovel, areaImovel, "Brasil", nomeEstado, cidade, bairro, logradouro, numero, cep, 1);
+				int num = Integer.parseInt(numero);
+				double area = Double.parseDouble(areaImovel);
+				double valor =  Double.parseDouble(valorImovel);
+				
+				Imovel imovel = new Imovel(valor, area, "Brasil", nomeEstado, cidade, bairro, logradouro, num, cep, 1);
 				imovelDAO.insert(imovel);
 				
 				LoginCliente loginCliente = new LoginCliente(); 
 				loginCliente.show();
 				frame.dispose();
 			} else {
-				JOptionPane.showMessageDialog(frame, "Dados inválidos", "Erro de autenticação",
+				JOptionPane.showMessageDialog(frame, "Preencha todos os campos", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);
 			}
 			
