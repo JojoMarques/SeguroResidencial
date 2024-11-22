@@ -1,11 +1,13 @@
 package br.com.tokio.view.funcionario;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,18 +25,24 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.ClienteDAO;
+import br.com.tokio.dao.PacoteAssistenciaDAO;
+import br.com.tokio.dao.PacoteCoberturaDAO;
 import br.com.tokio.dao.SeguroDAO;
 import br.com.tokio.model.Impressora;
+import br.com.tokio.model.Seguro;
 import br.com.tokio.view.TelaInicial;
 
 public class AreaFuncionario {
 
 	private JFrame frame;
 	private int idRecebido;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textClienteCPF;
+	private JTextField textDataInicial;
+	private JTextField textFinal;
+	private JTextField textCorretora;
+	
+	public List<Seguro> seguros = null;
 
 	/**
 	 * Launch the application.
@@ -72,6 +80,14 @@ public class AreaFuncionario {
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		
+		Connection connection = new ConnectionFactory().conectar();
+		
+        SeguroDAO dao = new SeguroDAO(connection);
+		ClienteDAO clienteDAO = new ClienteDAO(connection);
+		PacoteAssistenciaDAO assistenciaDAO = new PacoteAssistenciaDAO(connection);
+		PacoteCoberturaDAO coberturaDAO = new PacoteCoberturaDAO(connection);
 
 		JPanel panelHeader = new JPanel();
 		panelHeader.setLayout(null);
@@ -121,18 +137,7 @@ public class AreaFuncionario {
 		lblRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblRelatorio.setBounds(49, 11, 200, 25);
 		panel.add(lblRelatorio);
-
-	
-		// --------------------------------------------------------
-		
-		JLabel lblOrdenarPor = new JLabel("Ordenar por:");
-		lblOrdenarPor.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblOrdenarPor.setBounds(400, 60, 200, 14);
-		panel.add(lblOrdenarPor);
-
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(400, 85, 200, 22);
-		panel.add(comboBox_1);
+		// ------------------------------------------------
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(49, 60, 295, 246);
@@ -168,7 +173,7 @@ public class AreaFuncionario {
 		rdbtnPeriodo.setBounds(6, 163, 283, 23);
 		panel_1.add(rdbtnPeriodo);
 
-		JRadioButton rdbtnAssistencia = new JRadioButton("Relatório de Seguros com Assistência Específica");
+		JRadioButton rdbtnAssistencia = new JRadioButton("Relatório de Seguros por Assistência");
 		rdbtnAssistencia.setBounds(6, 189, 283, 23);
 		panel_1.add(rdbtnAssistencia);
 
@@ -187,6 +192,8 @@ public class AreaFuncionario {
 		group.add(rdbtnAssistencia);
 		group.add(rdbtnPremios);
 
+		// ------------------------------------------------------
+		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(400, 129, 200, 177);
 		panel.add(panel_2);
@@ -197,77 +204,85 @@ public class AreaFuncionario {
 		panel_2.add(panelCobertura);
 		panelCobertura.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Selecione o tipo de cobertura:");
-		lblNewLabel_3.setBounds(0, 0, 200, 14);
-		panelCobertura.add(lblNewLabel_3);
+		JLabel lblCobertura = new JLabel("Selecione o tipo de cobertura:");
+		lblCobertura.setBounds(0, 0, 200, 14);
+		panelCobertura.add(lblCobertura);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(0, 25, 200, 22);
-		panelCobertura.add(comboBox);
+		JComboBox comboBoxCobertura = new JComboBox();
+		comboBoxCobertura.setBounds(0, 25, 200, 22);
+		panelCobertura.add(comboBoxCobertura);
+		
+		comboBoxCobertura.addItem("Básico");
+		comboBoxCobertura.addItem("Intermediário");
+		comboBoxCobertura.addItem("Completo");
 		
 		JPanel panelCliente = new JPanel();
 		panelCliente.setBounds(0, 0, 200, 177);
 		panel_2.add(panelCliente);
 		panelCliente.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("CPF do cliente a ser consultado:");
-		lblNewLabel_1.setBounds(0, 11, 200, 14);
-		panelCliente.add(lblNewLabel_1);
+		JLabel lblCliente = new JLabel("CPF do cliente a ser consultado:");
+		lblCliente.setBounds(0, 11, 200, 14);
+		panelCliente.add(lblCliente);
 		
-		textField = new JTextField();
-		textField.setBounds(0, 30, 200, 20);
-		panelCliente.add(textField);
-		textField.setColumns(10);
+		textClienteCPF = new JTextField();
+		textClienteCPF.setBounds(0, 30, 200, 20);
+		panelCliente.add(textClienteCPF);
+		textClienteCPF.setColumns(10);
 		
 		JPanel panelPeriodo = new JPanel();
 		panelPeriodo.setBounds(0, 0, 200, 177);
 		panel_2.add(panelPeriodo);
 		panelPeriodo.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Data inicial:");
-		lblNewLabel_2.setBounds(0, 0, 200, 14);
-		panelPeriodo.add(lblNewLabel_2);
+		JLabel lblInicial = new JLabel("Data inicial:");
+		lblInicial.setBounds(0, 0, 200, 14);
+		panelPeriodo.add(lblInicial);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(0, 25, 200, 20);
-		panelPeriodo.add(textField_1);
-		textField_1.setColumns(10);
+		textDataInicial = new JTextField();
+		textDataInicial.setBounds(0, 25, 200, 20);
+		panelPeriodo.add(textDataInicial);
+		textDataInicial.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(0, 103, 200, 20);
-		panelPeriodo.add(textField_2);
+		textFinal = new JTextField();
+		textFinal.setColumns(10);
+		textFinal.setBounds(0, 103, 200, 20);
+		panelPeriodo.add(textFinal);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("Data final:");
-		lblNewLabel_2_1.setBounds(0, 78, 200, 14);
-		panelPeriodo.add(lblNewLabel_2_1);
+		JLabel lblFinal = new JLabel("Data final:");
+		lblFinal.setBounds(0, 78, 200, 14);
+		panelPeriodo.add(lblFinal);
 		
 		JPanel panelCorretora = new JPanel();
 		panelCorretora.setBounds(0, 0, 200, 177);
 		panel_2.add(panelCorretora);
 		panelCorretora.setLayout(null);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(0, 25, 200, 20);
-		textField_3.setColumns(10);
-		panelCorretora.add(textField_3);
+		textCorretora = new JTextField();
+		textCorretora.setBounds(0, 25, 200, 20);
+		textCorretora.setColumns(10);
+		panelCorretora.add(textCorretora);
 		
-		JLabel lblNewLabel_2_2 = new JLabel("ID da corretora:");
-		lblNewLabel_2_2.setBounds(0, 0, 200, 14);
-		panelCorretora.add(lblNewLabel_2_2);
+		JLabel lblCorretora = new JLabel("ID da corretora:");
+		lblCorretora.setBounds(0, 0, 200, 14);
+		panelCorretora.add(lblCorretora);
 		
 		JPanel panelAssistencia = new JPanel();
 		panelAssistencia.setBounds(0, 0, 200, 177);
 		panel_2.add(panelAssistencia);
 		panelAssistencia.setLayout(null);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(0, 25, 200, 22);
-		panelAssistencia.add(comboBox_2);
+		JComboBox comboBoxAssistencia = new JComboBox();
+		comboBoxAssistencia.setBounds(0, 25, 200, 22);
+		panelAssistencia.add(comboBoxAssistencia);
 		
-		JLabel lblNewLabel_3_1 = new JLabel("Selecione o tipo de assistencia");
-		lblNewLabel_3_1.setBounds(0, 0, 200, 14);
-		panelAssistencia.add(lblNewLabel_3_1);
+		comboBoxAssistencia.addItem("Básico");
+		comboBoxAssistencia.addItem("Essencial");
+		comboBoxAssistencia.addItem("VIP");
+		
+		JLabel lblAssistencia = new JLabel("Selecione o tipo de assistencia");
+		lblAssistencia.setBounds(0, 0, 200, 14);
+		panelAssistencia.add(lblAssistencia);
 		
 		// ---------------------------------------
 		// painel que é uma aba
@@ -275,16 +290,17 @@ public class AreaFuncionario {
 		panel2.setBounds(0, 100, 564, 461);
 		panel2.setLayout(null);
 		
+		
+		// painel dentro do scrollpane
 		JPanel panelRelatorio = new JPanel();
 		panelRelatorio.setBounds(0, 100,260, 461);
 
 		JScrollPane scrollPanelInformacoes = new JScrollPane(panelRelatorio);
-		scrollPanelInformacoes.setBounds(184, 36, 431, 314);
+		scrollPanelInformacoes.setBounds(10, 36, 747, 314);
 		scrollPanelInformacoes.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPanelInformacoes.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		panel2.add(scrollPanelInformacoes);
 		
-		panelRelatorio.setLayout(new GridLayout(0, 2, 0, 0));
+		panelRelatorio.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JLabel lblTitulo = new JLabel("Informações da Apólice");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -303,9 +319,6 @@ public class AreaFuncionario {
 		
 		// --------------------------------------------
 		
-		
-		
-
 	    // Inicialmente, ocultar todos os painéis
 	    panelCobertura.setVisible(false);
 	    panelCliente.setVisible(false);
@@ -385,9 +398,24 @@ public class AreaFuncionario {
 		//--------------------------------------------------
 
 		btnGerarRelatorio.addActionListener(e -> {
-			Connection connection = new ConnectionFactory().conectar();
-			SeguroDAO dao = new SeguroDAO(connection);
+			
+			
+			
 			String selectedOption = "";
+			
+			String coberturaSelecionada = (String) comboBoxCobertura.getSelectedItem();
+			String clienteCPF = textClienteCPF.getText();
+			String dataInicial = textDataInicial.getText();
+			String dataFinal = textFinal.getText();
+			String corretoraID = textCorretora.getText();
+			String assistenciaSelecionada = (String) comboBoxAssistencia.getSelectedItem();
+			
+			System.out.println("Cobertura Selecionada: " + coberturaSelecionada);
+			System.out.println("CPF Cliente: " + clienteCPF);
+			System.out.println("Data Inicial: " + dataInicial);
+			System.out.println("Data Final: " + dataFinal);
+			System.out.println("Corretora ID: " + corretoraID);
+			System.out.println("Assistência Selecionada: " + assistenciaSelecionada);
 			
 			// Criando um array de botões de rádio e seus nomes
             JRadioButton[] buttons = {rdbtnAtivos, rdbtnCliente, rdbtnCorretora, rdbtnVencidos, 
@@ -401,46 +429,68 @@ public class AreaFuncionario {
                 	selectedOption = labels[i];
                 }
             }
+            
+            panelRelatorio.removeAll(); // Limpa os itens anteriores
+            
+            List<Seguro> seguros;
+            
+            switch (selectedOption) {
+            case "Ativos":
+            	seguros = dao.buscarAtivos();  // Preenchendo a lista com os resultados da consulta
+            	break;
+            case "Cliente":
+            	int idCliente = clienteDAO.selectIdByCpf(textClienteCPF.getText());  // Pegando o CPF do cliente do campo de texto
+            	seguros = dao.buscarPorCliente(idCliente);  // Preenchendo a lista com os resultados da consulta
+            	break;
+            case "Corretora":
+            	int idCorretora = Integer.parseInt(textCorretora.getText());  // Pegando o ID da corretora do campo de texto
+            	seguros = dao.buscarPorCorretora(idCorretora);  // Preenchendo a lista com os resultados da consulta
+            	break;
+            case "Vencidos":
+            	seguros = dao.buscarVencidos();  // Preenchendo a lista com os resultados da consulta
+            	break;
+            case "Cobertura":
+            	int idCobertura = coberturaDAO.selectIdByNome(comboBoxCobertura.getSelectedItem().toString().trim());  // Pegando o ID da cobertura do combo box
+            	seguros = dao.buscarCobertura(idCobertura);  // Preenchendo a lista com os resultados da consulta
+            	break;
+            case "Período":
+            	java.sql.Date dataInicio = java.sql.Date.valueOf(textDataInicial.getText().trim());  // Pegando a data inicial do campo de texto
+            	java.sql.Date dataFim = java.sql.Date.valueOf(textFinal.getText().trim());  // Pegando a data final do campo de texto
+            	seguros = dao.buscarPorPeriodo(dataInicio, dataFim);  // Preenchendo a lista com os resultados da consulta
+            	break;
+            case "Assistência":
+            	int idAssistencia = assistenciaDAO.selectIdByNome(comboBoxAssistencia.getSelectedItem().toString().trim());  // Pegando o ID da assistência do combo box
+            	seguros = dao.buscarPorAssistencia(idAssistencia);  // Preenchendo a lista com os resultados da consulta
+            	break;
+            case "Prêmios":
+            	seguros = dao.buscarPremios();  // Preenchendo a lista com os resultados da consulta
+            	break;
+            default:
+            	seguros = List.of();
+            }
+            
+            // Adicionar os itens ao painel
+            if (seguros.isEmpty()) {
+            	
+            	JOptionPane.showMessageDialog(frame, "nada foi encontrado", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+            } else {
+            	for (Seguro seguro : seguros) {
+            		JLabel lblSeguro = new JLabel(formatarSeguro(seguro));
+            		lblSeguro.setFont(new Font("Tahoma", Font.PLAIN, 12));
+            		lblSeguro.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            		lblSeguro.setAlignmentX(Component.LEFT_ALIGNMENT);
+            		panelRelatorio.add(lblSeguro);
+            		tabbedPaneOpcoes.setSelectedIndex(1);
+            	}
+            }
+            
+            panelRelatorio.revalidate();
+            panelRelatorio.repaint();
 
-			// Usando switch para verificar qual opção foi selecionada
-			switch (selectedOption) {
-			case "Ativos":
-				tabbedPaneOpcoes.setSelectedIndex(1);
-				//dao.buscarAtivos();
-				break;
-			case "Cliente":
-				tabbedPaneOpcoes.setSelectedIndex(1);
-				//dao.buscarPorCliente();
-				break;
-			case "Corretora":
-				tabbedPaneOpcoes.setSelectedIndex(1);
-				//dao.buscarPorCorretora();
-				break;
-			case "Vencidos":
-				tabbedPaneOpcoes.setSelectedIndex(1);
-				//dao.buscarVencidos();
-				break;
-			case "Cobertura":
-				tabbedPaneOpcoes.setSelectedIndex(1);
-				//dao.buscarCobertura();
-				break;
-			case "Período":
-				tabbedPaneOpcoes.setSelectedIndex(1);
-				//dao.buscarPorPeriodo();
-				break;
-			case "Assistência":
-				tabbedPaneOpcoes.setSelectedIndex(1);
-				//dao.buscarPorAssistencia();
-				break;
-			case "Prêmios":
-				tabbedPaneOpcoes.setSelectedIndex(1);
-				//dao.buscarPremios();
-				break;
-			default:
-				JOptionPane.showMessageDialog(frame, "Nenhuma opção selecionada.");
-			}
 			
 		});
+		
 
 		// Ação para voltar à tela inicial
 		btnLogoTelaInicial.addActionListener(e -> {
@@ -458,6 +508,22 @@ public class AreaFuncionario {
 		});
 	}
 
+    	
+ 
+
+    private String formatarSeguro(Seguro seguro) {
+        return String.format(
+            "ID: %d | Prêmio: R$ %.2f | Início: %s | Fim: %s | Cliente: %d | Cobertura: %d | Assistência: %d | Corretora: %d",
+            seguro.getIdSeguro(),
+            seguro.getValorPremio(),
+            seguro.getDataInicio(),
+            seguro.getDataFim(),
+            seguro.getIdCliente(),
+            seguro.getIdCobertura(),
+            seguro.getIdAssistencia(),
+            seguro.getIdCorretora()
+        );
+    }
 
 	// Exibe a tela (chamado no clique da tela inicial)
 	public void show() {

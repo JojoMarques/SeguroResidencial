@@ -14,10 +14,8 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
-import br.com.tokio.view.SelecaoHabitacao;
 import br.com.tokio.view.TelaInicial;
 
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.SystemColor;
 
@@ -62,7 +60,7 @@ public class AreaCliente {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		System.out.println(idRecebido);
+		System.out.println("id q chegou aqui na area cliente:"+idRecebido);
 		frame = new JFrame();
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,13 +179,13 @@ public class AreaCliente {
 		});
 		
 		btnSinistro.addActionListener(e -> {
-			SolicitarSinistro solicitarSinistro = new SolicitarSinistro();
+			SolicitarSinistro solicitarSinistro = new SolicitarSinistro(idRecebido);
 			solicitarSinistro.show();
 			frame.dispose();
 		});
 		
 		btnApolice.addActionListener(e -> {
-			VisualizarApolice visualizarApolice = new VisualizarApolice();
+			VisualizarApolice visualizarApolice = new VisualizarApolice(idRecebido);
 			visualizarApolice.show();
 			frame.dispose();
 		});

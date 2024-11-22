@@ -174,4 +174,27 @@ public class PacoteAssistenciaDAO {
 		return servicos;
     
 	}
+	
+	public int selectIdByNome(String nomeAssistencia) {
+	    int idAssistencia = 0;
+	    String sql = "SELECT cd_assistencia FROM t_pct_assistencia WHERE tp_assistencia = ?";
+	    
+	    try {
+	        PreparedStatement stmt = connection.prepareStatement(sql);
+	        stmt.setString(1, nomeAssistencia);  // Passando o nome do pacote de assistência como parâmetro
+	        
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            idAssistencia = rs.getInt("cd_assistencia");  // Obtendo o ID do pacote de assistência
+	        }
+	        
+	        stmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return idAssistencia;  // Retorna o ID do pacote de assistência encontrado ou 0 caso não exista
+	}
+
 }

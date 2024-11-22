@@ -72,4 +72,26 @@ public class CorretoraDAO {
 		}
 		return corretora;
 	}
+	
+	public int selectByName(String nome) {
+		String sql = "select cd_corretora from t_corretora where nm_corretora = ?";
+		Corretora corretora = new Corretora();
+
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, nome);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				corretora.setIdCorretora(rs.getInt("cd_corretora"));
+			}
+
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return corretora.getIdCorretora();
+	}
 }

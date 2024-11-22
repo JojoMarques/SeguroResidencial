@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.sql.Connection;
+import java.sql.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,7 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.CorretoraDAO;
 import br.com.tokio.dao.ImovelDAO;
+import br.com.tokio.dao.SeguroDAO;
 import br.com.tokio.model.Cliente;
 import br.com.tokio.model.Estado;
 import br.com.tokio.model.Imovel;
@@ -83,10 +86,10 @@ public class InserirImovel {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-	   
+
 		Connection connection = new ConnectionFactory().conectar();
-	    ImovelDAO imovelDAO = new ImovelDAO(connection);
-	    
+		ImovelDAO imovelDAO = new ImovelDAO(connection);
+
 		frame = new JFrame();
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,7 +140,7 @@ public class InserirImovel {
 
 		JLabel lblCEP = new JLabel("CEP:");
 		lblCEP.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCEP.setBounds(63, 61, 100, 25);
+		lblCEP.setBounds(40, 64, 100, 25);
 		panel.add(lblCEP);
 
 		txtCEP = new JTextField();
@@ -147,12 +150,12 @@ public class InserirImovel {
 
 		JLabel lblLogradouro = new JLabel("Logradouro: ");
 		lblLogradouro.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblLogradouro.setBounds(63, 97, 100, 25);
+		lblLogradouro.setBounds(40, 100, 100, 25);
 		panel.add(lblLogradouro);
 
 		JLabel lblNumero = new JLabel("Número: ");
 		lblNumero.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNumero.setBounds(63, 133, 100, 25);
+		lblNumero.setBounds(40, 136, 100, 25);
 		panel.add(lblNumero);
 
 		txtLogradouro = new JTextField();
@@ -162,7 +165,7 @@ public class InserirImovel {
 
 		JLabel lblCidade = new JLabel("Cidade");
 		lblCidade.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCidade.setBounds(63, 207, 100, 25);
+		lblCidade.setBounds(40, 210, 100, 25);
 		panel.add(lblCidade);
 
 		txtNumero = new JTextField();
@@ -172,7 +175,7 @@ public class InserirImovel {
 
 		JLabel lblEstado = new JLabel("Estado");
 		lblEstado.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblEstado.setBounds(63, 246, 100, 25);
+		lblEstado.setBounds(40, 246, 100, 25);
 		panel.add(lblEstado);
 
 		txtCidade = new JTextField();
@@ -186,9 +189,9 @@ public class InserirImovel {
 		btnEnviar.setBounds(221, 380, 116, 39);
 		panel.add(btnEnviar);
 
-		JLabel lblArea = new JLabel("Área do imóvel");
+		JLabel lblArea = new JLabel("Área do imóvel (m²)");
 		lblArea.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblArea.setBounds(63, 282, 100, 25);
+		lblArea.setBounds(40, 282, 123, 25);
 		panel.add(lblArea);
 
 		txtArea = new JTextField();
@@ -196,9 +199,9 @@ public class InserirImovel {
 		txtArea.setBounds(173, 282, 200, 25);
 		panel.add(txtArea);
 
-		JLabel lblValorImovel = new JLabel("Valor do imóvel");
+		JLabel lblValorImovel = new JLabel("Valor do imóvel (R$)");
 		lblValorImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblValorImovel.setBounds(63, 324, 100, 25);
+		lblValorImovel.setBounds(40, 324, 123, 25);
 		panel.add(lblValorImovel);
 
 		txtValorImovel = new JTextField();
@@ -208,7 +211,7 @@ public class InserirImovel {
 
 		JLabel lblBairro = new JLabel("Bairro: ");
 		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblBairro.setBounds(63, 169, 100, 25);
+		lblBairro.setBounds(40, 172, 100, 25);
 		panel.add(lblBairro);
 
 		txtBairro = new JTextField();
@@ -242,8 +245,6 @@ public class InserirImovel {
 //					"Dados enviados com sucesso!\n" + "CEP: " + cep + "\n" + "Logradouro: " + logradouro + "\n"
 //							+ "Número " + numero + "\n" + "Cidade: " + cidade + "\n" + "Estado: " + estado + "\n"
 //							+ "Área do imóvel: " + areaImovel + "\n" + "Valor imóvel: " + valorImovel);
-	
-
 
 			// verifica se todos tem valor.
 			if (!cep.isEmpty() && !logradouro.isEmpty() && !numero.isEmpty() && !cidade.isEmpty() && !bairro.isEmpty()
@@ -254,9 +255,10 @@ public class InserirImovel {
 				double valor = Double.parseDouble(valorImovel);
 
 				System.out.println(clienteRecebido.getIdUsuario() + "-" + clienteRecebido.getNome());
-				
+
 				Imovel imovel = new Imovel();
-				//Imovel imovel = new Imovel(valor, area, "Brasil", nomeEstado, cidade, bairro, logradouro, num, cep,clienteRecebido.getIdCliente() );
+				// Imovel imovel = new Imovel(valor, area, "Brasil", nomeEstado, cidade, bairro,
+				// logradouro, num, cep,clienteRecebido.getIdCliente() );
 				imovel.setValorImovel(valor);
 				imovel.setArea(area);
 				imovel.setPais("Brasil");
@@ -266,14 +268,38 @@ public class InserirImovel {
 				imovel.setLogradouro(logradouro);
 				imovel.setNumero(num);
 				imovel.setCep(cep);
-				System.out.println("id cliente aq na inserir imovel: "+clienteRecebido.getIdCliente());
+				System.out.println("id cliente aq na inserir imovel: " + clienteRecebido.getIdCliente());
 				System.out.println(imovel.getValorImovel());
 				System.out.println(imovel.getIdCliente());
 				imovel.setIdCliente(clienteRecebido.getIdCliente());
-				
+
+				// Obtém a data atual usando System.currentTimeMillis() e cria um objeto Date
+				Date dataInicio = new Date(System.currentTimeMillis());
+				seguroRecebido.setDataInicio(dataInicio);
+
+				// Adiciona 12 meses (1 ano) à data de início
+				Date dataFim = new Date(dataInicio.getTime() + (365L * 24 * 60 * 60 * 1000)); // 12 meses em
+																								// milissegundos
+				seguroRecebido.setDataFim(dataFim);
+
+				// Exibindo as datas para verificação
+				System.out.println("Data Início: " + dataInicio);
+				System.out.println("Data Fim: " + dataFim);
+
+				seguroRecebido.setIdCliente(clienteRecebido.getIdCliente());
+				seguroRecebido.setIdAssistencia(pacoteAssistenciaSelecionada);
+				seguroRecebido.setIdCobertura(pacoteCoberturaSelecionada);
+
+				CorretoraDAO corretoraDAO = new CorretoraDAO(connection);
+				int idCorretora = corretoraDAO.selectByName(corretoraRecebida);
+				seguroRecebido.setIdCorretora(idCorretora);
+
+				SeguroDAO seguroDAO = new SeguroDAO(connection);
+				seguroDAO.insert(seguroRecebido);
+
 				imovelDAO.insert(imovel);
 
-				LoginCliente loginCliente = new LoginCliente();
+				LoginCliente loginCliente = new LoginCliente(clienteRecebido.getIdUsuario());
 				loginCliente.show();
 				frame.dispose();
 			} else {

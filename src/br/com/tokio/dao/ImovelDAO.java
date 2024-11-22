@@ -126,15 +126,14 @@ public class ImovelDAO {
     }
 
     // select by id
-    public Imovel selectById(int idImovel, int idCliente) {
-        String sql = "select * from T_IMOVEL where cd_imovel = ? and cd_cliente = ?";
+    public Imovel selectById(int idImovel) {
+        String sql = "select * from T_IMOVEL where cd_imovel = ?";
         Imovel imovel = new Imovel();
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, idImovel);
-            stmt.setInt(2, idCliente);
-
+           
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -149,6 +148,37 @@ public class ImovelDAO {
                 imovel.setArea(rs.getDouble("vl_area"));
                 imovel.setValorImovel(rs.getDouble("vl_imovel"));
                 imovel.setIdCliente(rs.getInt("cd_cliente"));
+            }
+
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return imovel;
+    }
+    
+    public Imovel selectByClienteId(int idCliente) {
+        String sql = "select * from T_IMOVEL where cd_cliente = ?";
+        Imovel imovel = new Imovel();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idCliente);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                imovel.setIdImovel(rs.getInt("cd_imovel"));
+                imovel.setCep(rs.getString("cep"));
+                imovel.setNumero(rs.getInt("numero"));
+                imovel.setLogradouro(rs.getString("logradouro"));
+                imovel.setBairro(rs.getString("bairro"));
+                imovel.setCidade(rs.getString("cidade"));
+                imovel.setPais(rs.getString("pais"));
+                imovel.setEstado(rs.getString("estado"));
+                imovel.setArea(rs.getDouble("vl_area"));
+                imovel.setValorImovel(rs.getDouble("vl_imovel"));
+                imovel.setIdCliente(rs.getInt("cd_cliente"));
+
             }
 
             stmt.close();

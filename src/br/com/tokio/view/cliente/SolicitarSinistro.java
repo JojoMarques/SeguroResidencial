@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.TextArea;
 import java.sql.Connection;
 import java.sql.Date;
 
@@ -14,17 +13,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
-import br.com.tokio.dao.ImovelDAO;
 import br.com.tokio.dao.SinistroDAO;
-import br.com.tokio.model.Imovel;
 import br.com.tokio.model.Sinistro;
-import br.com.tokio.view.TelaCorretora;
 import br.com.tokio.view.TelaInicial;
 
 import javax.swing.JTextArea;
@@ -35,6 +30,7 @@ public class SolicitarSinistro {
 	private JTextField txtTipo;
 	private JTextField txtData;
 	private JTextArea txtDescricao;
+	private int idRecebido;
 
 	/**
 	 * Launch the application.
@@ -58,6 +54,12 @@ public class SolicitarSinistro {
 	public SolicitarSinistro() {
 		initialize();
 	}
+	
+	public SolicitarSinistro(int idCliente) {
+		this.idRecebido = idCliente;
+		initialize();
+	}
+
 
 	/**
 	 * Initialize the contents of the frame.
