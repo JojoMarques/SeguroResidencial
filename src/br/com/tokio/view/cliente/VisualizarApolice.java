@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.sql.Connection;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,7 +17,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.ClienteDAO;
+import br.com.tokio.dao.ImovelDAO;
+import br.com.tokio.dao.SeguroDAO;
+import br.com.tokio.model.Cliente;
+import br.com.tokio.model.Imovel;
 import br.com.tokio.model.Impressora;
+import br.com.tokio.model.Seguro;
 import br.com.tokio.view.TelaInicial;
 
 
@@ -57,7 +65,11 @@ public class VisualizarApolice {
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+        Connection connection = new ConnectionFactory().conectar();
+		ClienteDAO clienteDAO = new ClienteDAO(connection);
+		ImovelDAO imovelDAO = new ImovelDAO(connection);
+		SeguroDAO seguroDAO = new SeguroDAO(connection);
+		
 		JPanel panelHeader = new JPanel();
 		panelHeader.setBackground(new Color(51, 153, 102));
 		panelHeader.setBounds(0, 0, 784, 100);
@@ -130,7 +142,8 @@ public class VisualizarApolice {
 		lblTitulo.setBounds(124, 111, 300, 30);
 		frame.getContentPane().add(lblTitulo);
 		// --------------------------------------------------------------
-
+		
+		Cliente clienteLogado = clienteDAO.selectById(0); //id que passa de página a página
 
 		JLabel lblCdCliente = new JLabel("Código do Cliente:");
 		lblCdCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -142,7 +155,8 @@ public class VisualizarApolice {
 		txtCdCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCdCliente.setBounds(182, 60, 200, 25);
 		txtCdCliente.setEditable(false);
-		txtCdCliente.setText("1"); // Valor de exemplo
+		String idCliente = String.valueOf(clienteLogado.getIdCliente());
+		txtCdCliente.setText(idCliente);
 		panel.add(txtCdCliente);
 
 		JLabel lblNmCliente = new JLabel("Nome:");
@@ -155,7 +169,7 @@ public class VisualizarApolice {
 		txtNmCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtNmCliente.setBounds(182, 95, 200, 25);
 		txtNmCliente.setEditable(false);
-		txtNmCliente.setText("Nome do Cliente");
+		txtNmCliente.setText(clienteLogado.getNome());
 		panel.add(txtNmCliente);
 
 		JLabel lblCpfCliente = new JLabel("CPF:");
@@ -168,7 +182,7 @@ public class VisualizarApolice {
 		txtCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCpfCliente.setBounds(182, 130, 200, 25);
 		txtCpfCliente.setEditable(false);
-		txtCpfCliente.setText("123.456.789-00");
+		txtCpfCliente.setText(clienteLogado.getCpf());//
 		panel.add(txtCpfCliente);
 
 		JLabel lblTelefoneCliente = new JLabel("Telefone:");
@@ -181,7 +195,7 @@ public class VisualizarApolice {
 		txtTelefoneCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtTelefoneCliente.setBounds(182, 165, 200, 25);
 		txtTelefoneCliente.setEditable(false);
-		txtTelefoneCliente.setText("(11) 91234-5678");
+		txtTelefoneCliente.setText(clienteLogado.getTelefone());//
 		panel.add(txtTelefoneCliente);
 
 		JLabel lblEmailCliente = new JLabel("Email:");
@@ -194,10 +208,11 @@ public class VisualizarApolice {
 		txtEmailCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtEmailCliente.setBounds(182, 200, 200, 25);
 		txtEmailCliente.setEditable(false);
-		txtEmailCliente.setText("cliente@exemplo.com");
+		txtEmailCliente.setText(clienteLogado.getEmail());//
 		panel.add(txtEmailCliente);
 
 		// Imóvel
+		Imovel imovel = imovelDAO.selectByClienteId(0);
 		JLabel lblCdImovel = new JLabel("Código do Imóvel:");
 		lblCdImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblCdImovel.setBounds(38, 250, 150, 25);
@@ -208,7 +223,8 @@ public class VisualizarApolice {
 		txtCdImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCdImovel.setBounds(182, 250, 200, 25);
 		txtCdImovel.setEditable(false);
-		txtCdImovel.setText("101"); // Valor de exemplo
+		String idImovel = String.valueOf(imovel.getIdImovel());
+		txtCdImovel.setText(idImovel); // Valor de exemplo
 		panel.add(txtCdImovel);
 
 		JLabel lblLogradouro = new JLabel("Logradouro:");
@@ -221,7 +237,7 @@ public class VisualizarApolice {
 		txtLogradouro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtLogradouro.setBounds(182, 285, 200, 25);
 		txtLogradouro.setEditable(false);
-		txtLogradouro.setText("Rua Exemplo, 123");
+		txtLogradouro.setText(imovel.getLogradouro());
 		panel.add(txtLogradouro);
 
 		JLabel lblBairro = new JLabel("Bairro:");
@@ -234,7 +250,7 @@ public class VisualizarApolice {
 		txtBairro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtBairro.setBounds(182, 320, 200, 25);
 		txtBairro.setEditable(false);
-		txtBairro.setText("Centro");
+		txtBairro.setText(imovel.getBairro());
 		panel.add(txtBairro);
 
 		JLabel lblCidade = new JLabel("Cidade:");
@@ -247,7 +263,7 @@ public class VisualizarApolice {
 		txtCidade.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCidade.setBounds(182, 355, 200, 25);
 		txtCidade.setEditable(false);
-		txtCidade.setText("São Paulo");
+		txtCidade.setText(imovel.getCidade());
 		panel.add(txtCidade);
 
 		JLabel lblEstado = new JLabel("Estado:");
@@ -260,7 +276,7 @@ public class VisualizarApolice {
 		txtEstado.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtEstado.setBounds(182, 390, 200, 25);
 		txtEstado.setEditable(false);
-		txtEstado.setText("SP");
+		txtEstado.setText(imovel.getEstado());
 		panel.add(txtEstado);
 
 		JLabel lblVlImovel = new JLabel("Valor do Imóvel:");
@@ -273,10 +289,13 @@ public class VisualizarApolice {
 		txtVlImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtVlImovel.setBounds(182, 425, 200, 25);
 		txtVlImovel.setEditable(false);
-		txtVlImovel.setText("R$ 500.000,00");
+		String valorImovel = "R$"+ String.valueOf(imovel.getValorImovel());
+		txtVlImovel.setText(valorImovel);
 		panel.add(txtVlImovel);
 
 		// Seguro
+		Seguro seguro = seguroDAO.selectByCliente(0);
+
 		JLabel lblCdSeguro = new JLabel("Código do Seguro:");
 		lblCdSeguro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblCdSeguro.setBounds(450, 60, 150, 25);
@@ -287,7 +306,9 @@ public class VisualizarApolice {
 		txtCdSeguro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCdSeguro.setBounds(610, 60, 200, 25);
 		txtCdSeguro.setEditable(false);
-		txtCdSeguro.setText("201"); // Valor de exemplo
+		String idSeguro = String.valueOf(seguro.getIdSeguro());
+
+		txtCdSeguro.setText(idSeguro); // Valor de exemplo
 		panel.add(txtCdSeguro);
 
 		JLabel lblVlPremio = new JLabel("Valor do Prêmio:");
@@ -382,7 +403,7 @@ public class VisualizarApolice {
 		txtDsCobertura.setText("Cobertura contra danos de incêndio");
 		panel.add(txtDsCobertura);
 
-		JLabel lblVlPctCobertura = new JLabel("Valor do Pacote:");
+		JLabel lblVlPctCobertura = new JLabel("Valor da Cobertura:");
 		lblVlPctCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblVlPctCobertura.setBounds(450, 355, 150, 25);
 		panel.add(lblVlPctCobertura);
