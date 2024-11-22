@@ -20,12 +20,17 @@ import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.CorretoraDAO;
+import br.com.tokio.model.Cliente;
 import br.com.tokio.model.Corretora;
+import br.com.tokio.model.Seguro;
 
 public class TelaCorretora {
 
 	private JFrame frame;
 	private JComboBox<String> comboBox; // Caixa de seleção (JComboBox)
+	Cliente clienteRecebido;
+	Seguro seguroRecebido;
+	String corretoraSelecionada;
 
 	/**
 	 * Launch the application.
@@ -48,6 +53,12 @@ public class TelaCorretora {
 	 */
 	public TelaCorretora() {
 		initialize();
+	}
+
+	public TelaCorretora(Cliente cliente, Seguro seguro) {
+		this.clienteRecebido = cliente;
+		this.seguroRecebido = seguro;
+		initialize();		
 	}
 
 	/**
@@ -145,8 +156,8 @@ public class TelaCorretora {
 		
 		// Evento para o botão (Exibir Seleção)
 		btnExibir.addActionListener(e -> {
-			String selecionado = (String) comboBox.getSelectedItem();
-			JOptionPane.showMessageDialog(frame, "Você selecionou: " + selecionado);
+			corretoraSelecionada = (String) comboBox.getSelectedItem();
+			JOptionPane.showMessageDialog(frame, "Você selecionou: " + corretoraSelecionada);
 		});
 		
 
@@ -173,7 +184,7 @@ public class TelaCorretora {
 		});
 
 		btnAvancar.addActionListener(e -> {
-			SelecaoHabitacao selecaoHabitacao = new SelecaoHabitacao();
+			SelecaoHabitacao selecaoHabitacao = new SelecaoHabitacao(clienteRecebido,seguroRecebido,corretoraSelecionada);
 			selecaoHabitacao.show();
 			frame.dispose();
 		});
