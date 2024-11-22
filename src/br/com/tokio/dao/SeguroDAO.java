@@ -140,4 +140,252 @@ public class SeguroDAO {
         }
         return seguro;
     }
+    
+ // Relatório de Seguros Ativos
+    public List<Seguro> relatorioSegurosAtivos() {
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
+                     "FROM T_SEGURO " +
+                     "WHERE dt_inicio <= CURRENT_DATE AND dt_fim >= CURRENT_DATE";
+        List<Seguro> listSeguros = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Seguro seguro = new Seguro();
+                seguro.setIdSeguro(rs.getInt("cd_seguro"));
+                seguro.setValorPremio(rs.getDouble("vl_premio"));
+                seguro.setDataInicio(rs.getDate("dt_inicio"));
+                seguro.setDataFim(rs.getDate("dt_fim"));
+                seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCobertura(rs.getInt("cd_cobertura"));
+                seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
+
+                listSeguros.add(seguro);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listSeguros;
+    }
+
+    // Relatório de Seguros por Cliente
+    public List<Seguro> relatorioSegurosPorCliente(int idCliente) {
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
+                     "FROM T_SEGURO " +
+                     "WHERE cd_cliente = ?";
+        List<Seguro> listSeguros = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idCliente);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Seguro seguro = new Seguro();
+                seguro.setIdSeguro(rs.getInt("cd_seguro"));
+                seguro.setValorPremio(rs.getDouble("vl_premio"));
+                seguro.setDataInicio(rs.getDate("dt_inicio"));
+                seguro.setDataFim(rs.getDate("dt_fim"));
+                seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCobertura(rs.getInt("cd_cobertura"));
+                seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
+
+                listSeguros.add(seguro);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listSeguros;
+    }
+
+    // Relatório de Seguros por Corretora
+    public List<Seguro> relatorioSegurosPorCorretora(int idCorretora) {
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia " +
+                     "FROM T_SEGURO " +
+                     "WHERE cd_corretora = ?";
+        List<Seguro> listSeguros = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idCorretora);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Seguro seguro = new Seguro();
+                seguro.setIdSeguro(rs.getInt("cd_seguro"));
+                seguro.setValorPremio(rs.getDouble("vl_premio"));
+                seguro.setDataInicio(rs.getDate("dt_inicio"));
+                seguro.setDataFim(rs.getDate("dt_fim"));
+                seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCobertura(rs.getInt("cd_cobertura"));
+                seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+
+                listSeguros.add(seguro);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listSeguros;
+    }
+
+    // Relatório de Seguros Vencidos
+    public List<Seguro> relatorioSegurosVencidos() {
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
+                     "FROM T_SEGURO " +
+                     "WHERE dt_fim < CURRENT_DATE";
+        List<Seguro> listSeguros = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Seguro seguro = new Seguro();
+                seguro.setIdSeguro(rs.getInt("cd_seguro"));
+                seguro.setValorPremio(rs.getDouble("vl_premio"));
+                seguro.setDataInicio(rs.getDate("dt_inicio"));
+                seguro.setDataFim(rs.getDate("dt_fim"));
+                seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCobertura(rs.getInt("cd_cobertura"));
+                seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
+
+                listSeguros.add(seguro);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listSeguros;
+    }
+
+    // Relatório de Seguros por Cobertura
+    public List<Seguro> relatorioSegurosPorCobertura(int idCobertura) {
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_assistencia, cd_corretora " +
+                     "FROM T_SEGURO " +
+                     "WHERE cd_cobertura = ?";
+        List<Seguro> listSeguros = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idCobertura);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Seguro seguro = new Seguro();
+                seguro.setIdSeguro(rs.getInt("cd_seguro"));
+                seguro.setValorPremio(rs.getDouble("vl_premio"));
+                seguro.setDataInicio(rs.getDate("dt_inicio"));
+                seguro.setDataFim(rs.getDate("dt_fim"));
+                seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCobertura(rs.getInt("cd_cobertura"));
+                seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
+
+                listSeguros.add(seguro);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listSeguros;
+    }
+
+    // Relatório de Seguros por Período
+    public List<Seguro> relatorioSegurosPorPeriodo(java.sql.Date dataInicio, java.sql.Date dataFim) {
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
+                     "FROM T_SEGURO " +
+                     "WHERE dt_inicio >= ? AND dt_fim <= ?";
+        List<Seguro> listSeguros = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setDate(1, dataInicio);
+            stmt.setDate(2, dataFim);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Seguro seguro = new Seguro();
+                seguro.setIdSeguro(rs.getInt("cd_seguro"));
+                seguro.setValorPremio(rs.getDouble("vl_premio"));
+                seguro.setDataInicio(rs.getDate("dt_inicio"));
+                seguro.setDataFim(rs.getDate("dt_fim"));
+                seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCobertura(rs.getInt("cd_cobertura"));
+                seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
+
+                listSeguros.add(seguro);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listSeguros;
+    }
+
+    // Relatório de Seguros com Assistência Específica
+    public List<Seguro> relatorioSegurosComAssistenciaEspecifica(int idAssistencia) {
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_corretora " +
+                     "FROM T_SEGURO " +
+                     "WHERE cd_assistencia = ?";
+        List<Seguro> listSeguros = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idAssistencia);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Seguro seguro = new Seguro();
+                seguro.setIdSeguro(rs.getInt("cd_seguro"));
+                seguro.setValorPremio(rs.getDouble("vl_premio"));
+                seguro.setDataInicio(rs.getDate("dt_inicio"));
+                seguro.setDataFim(rs.getDate("dt_fim"));
+                seguro.setIdCliente(rs.getInt("cd_cliente"));
+                seguro.setIdCobertura(rs.getInt("cd_cobertura"));
+                seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
+
+                listSeguros.add(seguro);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listSeguros;
+    }
+
+    // Relatório de Total de Prêmios por Corretora
+    public List<Seguro> relatorioTotalPremioPorCorretora() {
+        String sql = "SELECT cd_corretora, SUM(vl_premio) AS totalPremio " +
+                     "FROM T_SEGURO " +
+                     "GROUP BY cd_corretora";
+        List<Seguro> listSeguros = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Seguro seguro = new Seguro();
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
+                seguro.setValorPremio(rs.getDouble("totalPremio"));
+                
+                listSeguros.add(seguro);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listSeguros;
+    }
+
 }

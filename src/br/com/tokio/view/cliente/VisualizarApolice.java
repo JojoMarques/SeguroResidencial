@@ -7,19 +7,20 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import br.com.tokio.view.SelecaoPacoteAssistencia;
+import br.com.tokio.model.Impressora;
 import br.com.tokio.view.TelaInicial;
-import javax.swing.JScrollPane;
+
+
+
 
 public class VisualizarApolice {
 
@@ -471,11 +472,14 @@ public class VisualizarApolice {
 		btnFechar.setBackground(new Color(225, 193, 85));
 		btnFechar.setBounds(250, 500, 200, 30);
 		scrollPanelInformacoes.add(btnFechar);
+		
+		
 		// Evento para abrir a tela EditarCliente
 		btnImprimir.addActionListener(e -> {
-
-			// mandar imprimir
-
+			
+			Impressora impressora = new Impressora();
+	        impressora.iniciarImpressao(panel);
+			
 			frame.dispose(); // Fecha a tela atual
 		});
 
@@ -485,7 +489,12 @@ public class VisualizarApolice {
 			frame.dispose();
 		});
 
+		
 	}
+
+
+
+
 
 	public void show() {
 		frame.setVisible(true);

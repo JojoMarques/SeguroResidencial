@@ -1,0 +1,38 @@
+SELECT 
+    c.cd_cliente AS "Código do Cliente",
+    c.nm_cliente AS "Nome do Cliente",
+    c.cpf_cliente AS "CPF",
+    c.telefone_cliente AS "Telefone",
+    c.email_cliente AS "Email",
+    i.cd_imovel AS "Código do Imóvel",
+    i.logradouro AS "Logradouro",
+    i.bairro AS "Bairro",
+    i.cidade AS "Cidade",
+    i.estado AS "Estado",
+    i.vl_imovel AS "Valor do Imóvel",
+    s.cd_seguro AS "Código do Seguro",
+    s.vl_premio AS "Valor do Prêmio",
+    s.dt_inicio AS "Data de Início",
+    s.dt_fim AS "Data de Término",
+    cob.tp_cobertura AS "Tipo de Cobertura",
+    cob.ds_cobertura AS "Descrição da Cobertura",
+    cob.vl_pct_cobertura AS "Valor da Cobertura",
+    ass.tp_assistencia AS "Tipo de Assistência",
+    ass.ds_assistencia AS "Descrição da Assistência",
+    ass.vl_pct_assistencia AS "Valor da Assistência",
+    corr.nm_corretora AS "Nome da Corretora",
+    corr.ds_endereco_corretora AS "Endereço da Corretora"
+FROM 
+    t_cliente c
+JOIN 
+    t_imovel i ON c.cd_cliente = i.cd_cliente
+JOIN 
+    t_seguro s ON c.cd_cliente = s.cd_cliente
+JOIN 
+    t_pct_cobertura cob ON s.cd_cobertura = cob.cd_cobertura
+JOIN 
+    t_pct_assistencia ass ON s.cd_assistencia = ass.cd_assistencia
+JOIN 
+    t_corretora corr ON s.cd_corretora = corr.cd_corretora
+WHERE 
+    c.cd_cliente = 1;
