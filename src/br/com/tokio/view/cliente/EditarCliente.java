@@ -168,7 +168,6 @@ public class EditarCliente {
         btnSalvar.setBounds(161, 327, 200, 30); // Posição na janela
         panel.add(btnSalvar);
         
-        
      // Evento para voltar à tela inicial
 		btnLogoTelaInicial.addActionListener(e -> {
 			TelaInicial telaInicial = new TelaInicial();
