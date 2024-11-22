@@ -1,7 +1,11 @@
 package br.com.tokio.view.cliente;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.SystemColor;
+import java.sql.Connection;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -10,14 +14,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import java.awt.Color;
 import javax.swing.SwingConstants;
 
+import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.SeguroDAO;
+import br.com.tokio.model.Seguro;
 import br.com.tokio.view.TelaInicial;
-
-import java.awt.Font;
-import java.awt.SystemColor;
 
 public class AreaCliente {
 
@@ -53,7 +55,6 @@ public class AreaCliente {
 	
 	public AreaCliente() {
 		initialize();
-
 	}
 
 	/**
@@ -170,6 +171,12 @@ public class AreaCliente {
 		textField.setBackground(SystemColor.control);
 		textField.setBounds(173, 257, 196, 30);
 		panel.add(textField);
+		
+		Connection connection = new ConnectionFactory().conectar();
+		SeguroDAO seguroDAO = new SeguroDAO(connection);
+		Seguro seguro = new Seguro();
+		seguro = seguroDAO.select
+		// textField.setText();
 
 		// Evento para abrir a tela EditarCliente
 		btnInformacoes.addActionListener(e -> {
