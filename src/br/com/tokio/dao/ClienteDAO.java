@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.model.Autenticar;
 import br.com.tokio.model.Cliente;
+import br.com.tokio.model.Imovel;
+import br.com.tokio.model.Seguro;
 
 public class ClienteDAO implements Autenticar {
 
@@ -181,6 +182,92 @@ public class ClienteDAO implements Autenticar {
 		System.out.println(cliente.getIdCliente() + " - " + cliente.getNome());
 		return cliente;
 	}
+	
+	public Imovel selectImovelByClienteId(int idCliente) {
+	    Imovel imovel = new Imovel();
+	    String sql = "SELECT * FROM t_imovel WHERE cd_cliente = ?";
+	    try {
+	        PreparedStatement stmt = connection.prepareStatement(sql);
+	        stmt.setLong(1, idCliente);
+	        ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) {
+	            imovel.setIdImovel(rs.getInt("cd_imovel"));
+	            imovel.setCep(rs.getString("cep"));
+	            imovel.setNumero(rs.getInt("numero"));
+	            imovel.setLogradouro(rs.getString("logradouro"));
+	            imovel.setBairro(rs.getString("bairro"));
+	            imovel.setCidade(rs.getString("cidade"));
+	            imovel.setEstado(rs.getString("estado"));
+	            imovel.setPais(rs.getString("pais"));
+	            imovel.setArea(rs.getDouble("vl_area"));
+	            imovel.setValorImovel(rs.getDouble("vl_imovel"));
+	            imovel.setIdCliente(rs.getInt("cd_cliente"));
+	        }
+	        stmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return imovel;
+	}
+	
+	public Seguro selectSeguroByClienteId(int idCliente) {
+	    Seguro seguro = new Seguro();
+	    String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_assistencia, cd_cobertura " +
+	                 "FROM t_seguro WHERE cd_cliente = ?";
+	    try {
+	        PreparedStatement stmt = connection.prepareStatement(sql);
+	        stmt.setInt(1, idCliente);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            seguro.setIdSeguro(rs.getInt("cd_seguro"));
+	            seguro.setValorPremio(rs.getDouble("vl_premio"));
+	            seguro.setDataInicio(rs.getDate("dt_inicio"));
+	            seguro.setDataFim(rs.getDate("dt_fim"));
+	            seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+	            seguro.setIdCobertura(rs.getInt("cd_cobertura"));
+	        }
+	        stmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return seguro;
+	}
+	
+	public double getValorAssistencia(int idAssistencia) {
+        double valor = 0.0;
+        String sql = "SELECT vl_pct_assistencia FROM t_pct_assistencia WHERE cd_assistencia = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idAssistencia);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                valor = rs.getDouble("vl_pct_assistencia");
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return valor;
+    }
+
+    public double getValorCobertura(int idCobertura) {
+        double valor = 0.0;
+        String sql = "SELECT vl_pct_cobertura FROM t_pct_cobertura WHERE cd_cobertura = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idCobertura);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                valor = rs.getDouble("vl_pct_cobertura");
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return valor;
+    }
+
+
 
 	@Override
 	public List<Integer> autenticacao(String cpf, String senha) {

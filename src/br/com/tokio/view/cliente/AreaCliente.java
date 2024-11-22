@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemColor;
 import java.sql.Connection;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,7 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.ClienteDAO;
 import br.com.tokio.dao.SeguroDAO;
+import br.com.tokio.model.Imovel;
 import br.com.tokio.model.Seguro;
 import br.com.tokio.view.TelaInicial;
 
@@ -52,7 +56,7 @@ public class AreaCliente {
 		this.idRecebido = idCliente;
 		initialize();
 	}
-	
+
 	public AreaCliente() {
 		initialize();
 	}
@@ -61,7 +65,9 @@ public class AreaCliente {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		System.out.println("id q chegou aqui na area cliente:"+idRecebido);
+		Connection connection = new ConnectionFactory().conectar();
+
+		System.out.println("id q chegou aqui na area cliente:" + idRecebido);
 		frame = new JFrame();
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,71 +118,98 @@ public class AreaCliente {
 		btnInformacoes.setBackground(new Color(225, 193, 85));
 		btnInformacoes.setBounds(96, 249, 200, 30); // Posição no painel
 		panelInformacoes.add(btnInformacoes);
-		
+
 		JButton btnApolice = new JButton("Sua apólice");
 		btnApolice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnApolice.setBackground(new Color(225, 193, 85));
 		btnApolice.setBounds(96, 156, 200, 30);
 		panelInformacoes.add(btnApolice);
-		
+
 		JButton btnSinistro = new JButton("Solicitar sinistro");
 		btnSinistro.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSinistro.setBackground(new Color(225, 193, 85));
 		btnSinistro.setBounds(96, 63, 200, 30);
 		panelInformacoes.add(btnSinistro);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 139, 393, 344);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		JLabel lblProximoPagto = new JLabel("Próximo Pagamento:");
 		lblProximoPagto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProximoPagto.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblProximoPagto.setBounds(98, 34, 196, 14);
 		panel.add(lblProximoPagto);
-		
+
 		JLabel lblData = new JLabel("Data:");
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblData.setBounds(42, 102, 46, 14);
 		panel.add(lblData);
-		
+
 		JLabel lblValor = new JLabel("Valor:");
 		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblValor.setBounds(42, 154, 46, 14);
 		panel.add(lblValor);
-		
+
 		textFieldValor = new JTextField();
+		textFieldValor.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldValor.setBackground(SystemColor.control);
 		textFieldValor.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textFieldValor.setBounds(98, 146, 196, 30);
+
+		ClienteDAO clienteDAO = new ClienteDAO(connection);
+		Imovel imovel = clienteDAO.selectImovelByClienteId(idRecebido);
+		Seguro seguro = clienteDAO.selectSeguroByClienteId(idRecebido);
+
+		// Buscar valores dos pacotes associados ao seguro
+		double valorAssistencia = clienteDAO.getValorAssistencia(seguro.getIdAssistencia());
+		double valorCobertura = clienteDAO.getValorCobertura(seguro.getIdCobertura());
+
+		// Fatores ajustados para o seguro residencial
+		double fatorArea = 1 + (imovel.getArea() / 1000); // Fator de risco baseado na área
+		double fatorBasePremio = 0.005; // Taxa base de 0,5% sobre o valor do imóvel
+		double premioBase = imovel.getValorImovel() * fatorBasePremio; // Prêmio base calculado
+
+		// Adicionar valores dos pacotes ao prêmio
+		double mensalidade = (premioBase * fatorArea) + valorAssistencia + valorCobertura + 30.00; 
+																								
+		textFieldValor.setText(String.valueOf(mensalidade));
 		panel.add(textFieldValor);
 		textFieldValor.setColumns(10);
-		
+
+		SeguroDAO  seguroDAO = new SeguroDAO(connection);
+		seguro = seguroDAO.selectByCliente(idRecebido);
+
+		Date dataInicio = seguro.getDataInicio();
+		Date dataVencimento = new Date(dataInicio.getTime() + (30L * 24 * 60 * 60 * 1000)); // add um mês na mensalidade
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato modificado
+
 		textFieldData = new JTextField();
+		textFieldData.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldData.setBackground(SystemColor.control);
 		textFieldData.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textFieldData.setColumns(10);
 		textFieldData.setBounds(98, 94, 196, 30);
+		textFieldData.setText(sdf.format(dataVencimento));
+
 		panel.add(textFieldData);
-		
+
 		JLabel lblPlano = new JLabel("Seu plano é válido até:");
 		lblPlano.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblPlano.setBounds(21, 265, 153, 14);
 		panel.add(lblPlano);
-		
+
 		textField = new JTextField();
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textField.setColumns(10);
 		textField.setBackground(SystemColor.control);
-		textField.setBounds(173, 257, 196, 30);
+		textField.setBounds(160, 257, 98, 30);
+		textField.setText(sdf.format(seguro.getDataFim()));
+
 		panel.add(textField);
-		
-		Connection connection = new ConnectionFactory().conectar();
-		SeguroDAO seguroDAO = new SeguroDAO(connection);
-		Seguro seguro = new Seguro();
-		seguro = seguroDAO.select
-		// textField.setText();
 
 		// Evento para abrir a tela EditarCliente
 		btnInformacoes.addActionListener(e -> {
@@ -184,27 +217,26 @@ public class AreaCliente {
 			informacoesCliente.show(); // Mostra a tela de edição
 			frame.dispose(); // Fecha a tela atual
 		});
-		
+
 		btnSinistro.addActionListener(e -> {
 			SolicitarSinistro solicitarSinistro = new SolicitarSinistro(idRecebido);
 			solicitarSinistro.show();
 			frame.dispose();
 		});
-		
+
 		btnApolice.addActionListener(e -> {
 			VisualizarApolice visualizarApolice = new VisualizarApolice(idRecebido);
 			visualizarApolice.show();
 			frame.dispose();
 		});
-		
-		
 
 	}
 
 	/**
 	 * Método para exibir a tela.
-	 */public void show() {
-			frame.setVisible(true);
-		}
-	 
+	 */
+	public void show() {
+		frame.setVisible(true);
+	}
+
 }
