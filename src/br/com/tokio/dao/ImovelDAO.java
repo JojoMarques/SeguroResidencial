@@ -21,6 +21,7 @@ public class ImovelDAO {
     public void insert(Imovel imovel) {
         String sql = "insert into T_IMOVEL (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, imovel.getCep());
@@ -108,6 +109,7 @@ public class ImovelDAO {
                 imovel.setBairro(rs.getString("bairro"));
                 imovel.setCidade(rs.getString("cidade"));
                 imovel.setPais(rs.getString("pais"));
+                imovel.setEstado(rs.getString("estado"));
                 imovel.setArea(rs.getDouble("vl_area"));
                 imovel.setValorImovel(rs.getDouble("vl_imovel"));
                 imovel.setIdCliente(rs.getInt("cd_cliente"));
@@ -143,6 +145,7 @@ public class ImovelDAO {
                 imovel.setBairro(rs.getString("bairro"));
                 imovel.setCidade(rs.getString("cidade"));
                 imovel.setPais(rs.getString("pais"));
+                imovel.setEstado(rs.getString("estado"));
                 imovel.setArea(rs.getDouble("vl_area"));
                 imovel.setValorImovel(rs.getDouble("vl_imovel"));
                 imovel.setIdCliente(rs.getInt("cd_cliente"));
