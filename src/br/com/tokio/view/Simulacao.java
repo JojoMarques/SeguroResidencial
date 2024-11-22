@@ -1,11 +1,23 @@
 package br.com.tokio.view;
 
-import java.awt.EventQueue;
-import javax.swing.*;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.GridLayout;
+import java.awt.Image;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import br.com.tokio.model.Cliente;
+import br.com.tokio.model.Seguro;
 
 public class Simulacao {
 
@@ -41,6 +53,10 @@ public class Simulacao {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		Cliente cliente = new Cliente();
+		Seguro  seguro = new Seguro();
+		
 		frame = new JFrame();
 		frame.setBounds(400, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -166,6 +182,12 @@ public class Simulacao {
 			String telefone = txtTelefone.getText();
 			String email = txtEmail.getText();
 			String cobertura = txtCobertura.getText();
+			
+			
+			cliente.setCpf(cpf);
+			cliente.setTelefone(telefone);
+			cliente.setEmail(email);
+			seguro.setValorPremio(Float.parseFloat(cobertura));
 
 			JOptionPane.showMessageDialog(frame, "Dados enviados com sucesso!\n" + "CPF: " + cpf + "\n" + 
 				 "Telefone: " + telefone + "\n" + "E-mail: " + email + "\n" + "Cobertura: " + cobertura);
@@ -185,7 +207,7 @@ public class Simulacao {
 		});
 		
 		btnAvancar.addActionListener(e -> {
-			TelaCorretora telaCorretora = new TelaCorretora();
+			TelaCorretora telaCorretora = new TelaCorretora(cliente, seguro);
 			telaCorretora.show();
 			frame.dispose();
 		});

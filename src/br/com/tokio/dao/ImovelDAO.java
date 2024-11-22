@@ -19,8 +19,8 @@ public class ImovelDAO {
 
     // insert
     public void insert(Imovel imovel) {
-        String sql = "insert into T_IMOVEL (cep, numero, logradouro, bairro, cidade, pais, estado,"
-        		+ "vl_area, vl_imovel, cd_cliente) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into T_IMOVEL (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
