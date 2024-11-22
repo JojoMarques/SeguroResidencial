@@ -35,6 +35,7 @@ public class SolicitarSinistro {
 	private JTextField txtTipo;
 	private JTextField txtData;
 	private JTextArea txtDescricao;
+	private int idRecebido;
 
 	/**
 	 * Launch the application.
@@ -58,6 +59,12 @@ public class SolicitarSinistro {
 	public SolicitarSinistro() {
 		initialize();
 	}
+	
+	public SolicitarSinistro(int idCliente) {
+		this.idRecebido = idCliente;
+		initialize();
+	}
+
 
 	/**
 	 * Initialize the contents of the frame.
