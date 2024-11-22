@@ -3,26 +3,29 @@ package br.com.tokio.view.funcionario;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
-import java.util.List;
+import java.sql.Connection;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.SeguroDAO;
+import br.com.tokio.model.Impressora;
 import br.com.tokio.view.TelaInicial;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
 public class AreaFuncionario {
 
@@ -96,16 +99,21 @@ public class AreaFuncionario {
 		lblAreaFuncionario.setBounds(248, 18, 287, 63);
 		panelHeader.add(lblAreaFuncionario);
 
+		JTabbedPane tabbedPaneOpcoes = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPaneOpcoes.setBounds(0, 98, 784, 463);
+		frame.getContentPane().add(tabbedPaneOpcoes);
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 98, 784, 463);
-		frame.getContentPane().add(panel);
+		tabbedPaneOpcoes.add(panel);
+		tabbedPaneOpcoes.setTitleAt(0, "Opções");
 		panel.setLayout(null);
 
 		// Botão para gerar Relatório
 		JButton btnGerarRelatorio = new JButton("Gerar Relatório");
 		btnGerarRelatorio.setBackground(new Color(225, 186, 83));
 		btnGerarRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnGerarRelatorio.setBounds(553, 395, 200, 40);
+		btnGerarRelatorio.setBounds(552, 360, 200, 40);
 		panel.add(btnGerarRelatorio);
 		
 
@@ -114,25 +122,7 @@ public class AreaFuncionario {
 		lblRelatorio.setBounds(49, 11, 200, 25);
 		panel.add(lblRelatorio);
 
-		DefaultListModel<String> listModelTabelas = new DefaultListModel<>();
-		// aqui colocamos as tabelas respectivas
-
-		listModelTabelas.addElement("Pacote Cobertura");
-		listModelTabelas.addElement("Pacote Assistência");
-		listModelTabelas.addElement("Clientes"); //listando todos os clientes
-		listModelTabelas.addElement("Campo 4");
-		listModelTabelas.addElement("Campo 5");
-
-		// -----------------------------------------------
-
-		DefaultListModel<String> listModelCampos = new DefaultListModel<>();
-		// aqui colocamos os campos das tabelas respectivas
-
-		listModelCampos.addElement("Campo 1");
-		listModelCampos.addElement("Campo 2");
-		listModelCampos.addElement("Campo 3");
-		listModelCampos.addElement("Campo 4");
-		listModelCampos.addElement("Campo 5");
+	
 		// --------------------------------------------------------
 		
 		JLabel lblOrdenarPor = new JLabel("Ordenar por:");
@@ -154,48 +144,48 @@ public class AreaFuncionario {
 		lblNewLabel.setBounds(6, 0, 283, 14);
 		panel_1.add(lblNewLabel);
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Relatório de Seguros Ativos");
-		rdbtnNewRadioButton.setBounds(6, 33, 283, 23);
-		panel_1.add(rdbtnNewRadioButton);
+		JRadioButton rdbtnAtivos = new JRadioButton("Relatório de Seguros Ativos");
+		rdbtnAtivos.setBounds(6, 33, 283, 23);
+		panel_1.add(rdbtnAtivos);
 
-		JRadioButton rdbtnRelatrioDeSeguros = new JRadioButton("Relatório de Seguros por Cliente");
-		rdbtnRelatrioDeSeguros.setBounds(6, 59, 283, 23);
-		panel_1.add(rdbtnRelatrioDeSeguros);
+		JRadioButton rdbtnCliente = new JRadioButton("Relatório de Seguros por Cliente");
+		rdbtnCliente.setBounds(6, 59, 283, 23);
+		panel_1.add(rdbtnCliente);
 
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Relatório de Seguros por Corretora");
-		rdbtnNewRadioButton_1.setBounds(6, 85, 283, 23);
-		panel_1.add(rdbtnNewRadioButton_1);
+		JRadioButton rdbtnCorretora = new JRadioButton("Relatório de Seguros por Corretora");
+		rdbtnCorretora.setBounds(6, 85, 283, 23);
+		panel_1.add(rdbtnCorretora);
 
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Relatório de Seguros Vencidos");
-		rdbtnNewRadioButton_2.setBounds(6, 111, 283, 23);
-		panel_1.add(rdbtnNewRadioButton_2);
+		JRadioButton rdbtnVencidos = new JRadioButton("Relatório de Seguros Vencidos");
+		rdbtnVencidos.setBounds(6, 111, 283, 23);
+		panel_1.add(rdbtnVencidos);
 
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Relatório de Seguros por Cobertura");
-		rdbtnNewRadioButton_3.setBounds(6, 137, 283, 23);
-		panel_1.add(rdbtnNewRadioButton_3);
+		JRadioButton rdbtnCobertura = new JRadioButton("Relatório de Seguros por Cobertura");
+		rdbtnCobertura.setBounds(6, 137, 283, 23);
+		panel_1.add(rdbtnCobertura);
 
-		JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("Relatório de Seguros por Período");
-		rdbtnNewRadioButton_4.setBounds(6, 163, 283, 23);
-		panel_1.add(rdbtnNewRadioButton_4);
+		JRadioButton rdbtnPeriodo = new JRadioButton("Relatório de Seguros por Período");
+		rdbtnPeriodo.setBounds(6, 163, 283, 23);
+		panel_1.add(rdbtnPeriodo);
 
-		JRadioButton rdbtnNewRadioButton_5 = new JRadioButton("Relatório de Seguros com Assistência Específica");
-		rdbtnNewRadioButton_5.setBounds(6, 189, 283, 23);
-		panel_1.add(rdbtnNewRadioButton_5);
+		JRadioButton rdbtnAssistencia = new JRadioButton("Relatório de Seguros com Assistência Específica");
+		rdbtnAssistencia.setBounds(6, 189, 283, 23);
+		panel_1.add(rdbtnAssistencia);
 
-		JRadioButton rdbtnNewRadioButton_6 = new JRadioButton("Relatório de Total de Prêmios");
-		rdbtnNewRadioButton_6.setBounds(6, 215, 283, 23);
-		panel_1.add(rdbtnNewRadioButton_6);
+		JRadioButton rdbtnPremios = new JRadioButton("Relatório de Total de Prêmios");
+		rdbtnPremios.setBounds(6, 215, 283, 23);
+		panel_1.add(rdbtnPremios);
 
 		// Criando o ButtonGroup para agrupar os radio buttons
 		ButtonGroup group = new ButtonGroup();
-		group.add(rdbtnNewRadioButton);
-		group.add(rdbtnRelatrioDeSeguros);
-		group.add(rdbtnNewRadioButton_1);
-		group.add(rdbtnNewRadioButton_2);
-		group.add(rdbtnNewRadioButton_3);
-		group.add(rdbtnNewRadioButton_4);
-		group.add(rdbtnNewRadioButton_5);
-		group.add(rdbtnNewRadioButton_6);
+		group.add(rdbtnAtivos);
+		group.add(rdbtnCliente);
+		group.add(rdbtnCorretora);
+		group.add(rdbtnVencidos);
+		group.add(rdbtnCobertura);
+		group.add(rdbtnPeriodo);
+		group.add(rdbtnAssistencia);
+		group.add(rdbtnPremios);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(400, 129, 200, 177);
@@ -279,8 +269,42 @@ public class AreaFuncionario {
 		lblNewLabel_3_1.setBounds(0, 0, 200, 14);
 		panelAssistencia.add(lblNewLabel_3_1);
 		
+		// ---------------------------------------
+		// painel que é uma aba
+		JPanel panel2 = new JPanel();
+		panel2.setBounds(0, 100, 564, 461);
+		panel2.setLayout(null);
 		
-		// Adicionar componentes ao panelAssistencia...
+		JPanel panelRelatorio = new JPanel();
+		panelRelatorio.setBounds(0, 100,260, 461);
+
+		JScrollPane scrollPanelInformacoes = new JScrollPane(panelRelatorio);
+		scrollPanelInformacoes.setBounds(184, 36, 431, 314);
+		scrollPanelInformacoes.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPanelInformacoes.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		panel2.add(scrollPanelInformacoes);
+		
+		panelRelatorio.setLayout(new GridLayout(0, 2, 0, 0));
+
+		JLabel lblTitulo = new JLabel("Informações da Apólice");
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblTitulo.setBounds(318, 5, 167, 20);
+		panel2.add(lblTitulo);
+		
+		tabbedPaneOpcoes.add(panel2);
+		
+		JButton btnImprimir = new JButton("Imprimir");
+		btnImprimir.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnImprimir.setBackground(new Color(225, 186, 83));
+		btnImprimir.setBounds(557, 368, 200, 40);
+		panel2.add(btnImprimir);
+		tabbedPaneOpcoes.setTitleAt(1, "Relatório");
+		
+		// --------------------------------------------
+		
+		
+		
 
 	    // Inicialmente, ocultar todos os painéis
 	    panelCobertura.setVisible(false);
@@ -291,19 +315,17 @@ public class AreaFuncionario {
 
 
 	    // ActionListener para os radio buttons
-	    rdbtnNewRadioButton.addActionListener(e -> {
+	    rdbtnAtivos.addActionListener(e -> {
 	        // Esconder todos os painéis
 	        panelCobertura.setVisible(false);
 	        panelCliente.setVisible(false);
 	        panelPeriodo.setVisible(false);
 	        panelCorretora.setVisible(false);
 	        panelAssistencia.setVisible(false);
-	        
-	        // Mostrar o painel específico
-	        panelPeriodo.setVisible(true); // Exemplo: Relatório de Seguros por Período
+	        panelPeriodo.setVisible(false); // Exemplo: Relatório de Seguros por Período
 	    });
 
-	    rdbtnRelatrioDeSeguros.addActionListener(e -> {
+	    rdbtnCliente.addActionListener(e -> {
 	        panelCobertura.setVisible(false);
 	        panelCliente.setVisible(true); // Exemplo: Relatório de Seguros por Cliente
 	        panelPeriodo.setVisible(false);
@@ -311,7 +333,7 @@ public class AreaFuncionario {
 	        panelAssistencia.setVisible(false);
 	    });
 
-	    rdbtnNewRadioButton_1.addActionListener(e -> {
+	    rdbtnCorretora.addActionListener(e -> {
 	        panelCobertura.setVisible(false);
 	        panelCliente.setVisible(false);
 	        panelPeriodo.setVisible(false);
@@ -319,15 +341,15 @@ public class AreaFuncionario {
 	        panelAssistencia.setVisible(false);
 	    });
 
-	    rdbtnNewRadioButton_2.addActionListener(e -> {
+	    rdbtnVencidos.addActionListener(e -> {
 	        panelCobertura.setVisible(false);
 	        panelCliente.setVisible(false);
 	        panelPeriodo.setVisible(false);
 	        panelCorretora.setVisible(false);
-	        panelAssistencia.setVisible(true); // Exemplo: Relatório de Seguros com Assistência Específica
+	        panelAssistencia.setVisible(false); // Exemplo: Relatório de Seguros com Assistência Específica
 	    });
 
-	    rdbtnNewRadioButton_3.addActionListener(e -> {
+	    rdbtnCobertura.addActionListener(e -> {
 	        panelCobertura.setVisible(true); // Exemplo: Relatório de Seguros por Cobertura
 	        panelCliente.setVisible(false);
 	        panelPeriodo.setVisible(false);
@@ -335,7 +357,7 @@ public class AreaFuncionario {
 	        panelAssistencia.setVisible(false);
 	    });
 
-	    rdbtnNewRadioButton_4.addActionListener(e -> {
+	    rdbtnPeriodo.addActionListener(e -> {
 	        panelCobertura.setVisible(false);
 	        panelCliente.setVisible(false);
 	        panelPeriodo.setVisible(true); // Exemplo: Relatório de Seguros por Período
@@ -343,7 +365,7 @@ public class AreaFuncionario {
 	        panelAssistencia.setVisible(false);
 	    });
 
-	    rdbtnNewRadioButton_5.addActionListener(e -> {
+	    rdbtnAssistencia.addActionListener(e -> {
 	        panelCobertura.setVisible(false);
 	        panelCliente.setVisible(false);
 	        panelPeriodo.setVisible(false);
@@ -351,7 +373,7 @@ public class AreaFuncionario {
 	        panelAssistencia.setVisible(true); // Exemplo: Relatório de Seguros com Assistência Específica
 	    });
 
-	    rdbtnNewRadioButton_6.addActionListener(e -> {
+	    rdbtnPremios.addActionListener(e -> {
 	        panelCobertura.setVisible(false);
 	        panelCliente.setVisible(false);
 	        panelPeriodo.setVisible(false);
@@ -363,10 +385,61 @@ public class AreaFuncionario {
 		//--------------------------------------------------
 
 		btnGerarRelatorio.addActionListener(e -> {
+			Connection connection = new ConnectionFactory().conectar();
+			SeguroDAO dao = new SeguroDAO(connection);
+			String selectedOption = "";
+			
+			// Criando um array de botões de rádio e seus nomes
+            JRadioButton[] buttons = {rdbtnAtivos, rdbtnCliente, rdbtnCorretora, rdbtnVencidos, 
+                                       rdbtnCobertura, rdbtnPeriodo, rdbtnAssistencia, rdbtnPremios};
+            String[] labels = {"Ativos", "Cliente", "Corretora", "Vencidos", "Cobertura", 
+                               "Período", "Assistência", "Prêmios"};
 
-			Relatorio relatorio = new Relatorio(idRecebido);
-			relatorio.show(); // Mostra a nova tela
-			frame.dispose(); // Fecha a tela atual
+            // Iterando sobre os botões para encontrar o selecionado
+            for (int i = 0; i < buttons.length; i++) {
+                if (buttons[i].isSelected()) {
+                	selectedOption = labels[i];
+                }
+            }
+
+			// Usando switch para verificar qual opção foi selecionada
+			switch (selectedOption) {
+			case "Ativos":
+				tabbedPaneOpcoes.setSelectedIndex(1);
+				//dao.buscarAtivos();
+				break;
+			case "Cliente":
+				tabbedPaneOpcoes.setSelectedIndex(1);
+				//dao.buscarPorCliente();
+				break;
+			case "Corretora":
+				tabbedPaneOpcoes.setSelectedIndex(1);
+				//dao.buscarPorCorretora();
+				break;
+			case "Vencidos":
+				tabbedPaneOpcoes.setSelectedIndex(1);
+				//dao.buscarVencidos();
+				break;
+			case "Cobertura":
+				tabbedPaneOpcoes.setSelectedIndex(1);
+				//dao.buscarCobertura();
+				break;
+			case "Período":
+				tabbedPaneOpcoes.setSelectedIndex(1);
+				//dao.buscarPorPeriodo();
+				break;
+			case "Assistência":
+				tabbedPaneOpcoes.setSelectedIndex(1);
+				//dao.buscarPorAssistencia();
+				break;
+			case "Prêmios":
+				tabbedPaneOpcoes.setSelectedIndex(1);
+				//dao.buscarPremios();
+				break;
+			default:
+				JOptionPane.showMessageDialog(frame, "Nenhuma opção selecionada.");
+			}
+			
 		});
 
 		// Ação para voltar à tela inicial
@@ -375,7 +448,16 @@ public class AreaFuncionario {
 			telaInicial.show(); // Mostra a nova tela
 			frame.dispose(); // Fecha a tela atual
 		});
+		
+		btnImprimir.addActionListener(e -> {
+			
+			Impressora impressora = new Impressora();
+	        impressora.iniciarImpressao(panelRelatorio);
+			
+			frame.dispose(); // Fecha a tela atual
+		});
 	}
+
 
 	// Exibe a tela (chamado no clique da tela inicial)
 	public void show() {

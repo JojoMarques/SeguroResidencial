@@ -18,31 +18,15 @@ public class DuvidasFrequentes {
         {"O que é seguro residencial?", "O seguro residencial é um tipo de seguro que cobre danos à sua residência, como incêndios, furtos e desastres naturais."},
         {"Quais são as vantagens de contratar um seguro residencial?", "O seguro residencial oferece proteção contra danos, roubos e ajuda a garantir a segurança do seu lar."},
         {"O que o seguro residencial cobre?", "O seguro cobre danos causados por incêndios, desastres naturais, furtos e outros imprevistos."},
-        {"Como posso contratar um seguro residencial?", "Você pode contratar um seguro residencial diretamente pelo nosso site ou com um corretor."},
-        {"O que não é coberto por um seguro residencial?", "O seguro não cobre danos causados por negligência, guerra ou danos em áreas externas não relacionadas à residência."},
-        {"Como posso fazer uma cotação de seguro residencial?", "Você pode solicitar uma cotação através do nosso site, preenchendo um formulário simples."},
-        {"Como funciona o processo de sinistro no seguro residencial?", "Em caso de sinistro, basta entrar em contato conosco para abrir uma solicitação de reparo ou compensação."},
-        {"Qual é o valor do prêmio do seguro residencial?", "O valor do prêmio varia conforme o tipo de cobertura e o valor da residência."},
-        {"Posso incluir itens de valor no meu seguro residencial?", "Sim, você pode incluir itens de valor, como joias, eletrônicos e outros bens valiosos."},
-        {"O que fazer em caso de um sinistro no meu imóvel?", "Em caso de sinistro, entre em contato conosco imediatamente para registrar o ocorrido."},
-
+       
         // Perguntas sobre o sistema
         {"Como faço o login no sistema como cliente?", "Para acessar como cliente, use o seu e-mail e senha cadastrados."},
         {"Como faço o login no sistema como funcionário?", "Para acessar como funcionário, use o login fornecido pela empresa e sua senha."},
-        {"Como posso recuperar minha senha?", "Se você esqueceu sua senha, clique em 'Esqueci minha senha' na página de login."},
-        {"Qual é a diferença entre o login de cliente e o login de funcionário?", "O login de cliente acessa informações relacionadas ao seu seguro, enquanto o login de funcionário tem acesso ao sistema administrativo."},
-        {"Como posso alterar meus dados no sistema?", "Você pode alterar seus dados acessando a seção 'Meus Dados' após o login."},
-        {"O que fazer se eu encontrar um erro no sistema?", "Se encontrar um erro, entre em contato com nossa equipe de suporte para reportar o problema."},
-        {"Onde posso acessar o histórico de sinistros no sistema?", "Você pode acessar o histórico de sinistros na seção 'Meus Sinistros' após o login."},
-        {"Como consultar as apólices de seguro no sistema?", "As apólices de seguro estão disponíveis na seção 'Meus Seguros'."},
-
+        
         // Opções de direcionamento
         {"Deseja fazer login como cliente ou funcionário?", "Por favor, escolha entre 'Cliente' ou 'Funcionário' para prosseguir."},
         {"Deseja contratar um seguro residencial?", "Sim! Clique aqui para começar a contratar seu seguro residencial."},
-        {"Caso precise de assistência com o seu seguro ou tenha dúvidas, posso te direcionar para a área de atendimento ao cliente.", "Por favor, aguarde enquanto direciono você para a área de atendimento."},
-        {"Se você já tem um login no sistema, posso te ajudar a acessar sua conta.", "Por favor, forneça seu login e senha para prosseguir."},
-        {"Caso precise de ajuda para realizar um sinistro, posso te direcionar à área de sinistros do sistema.", "Por favor, aguarde enquanto direciono você para a área de sinistros."}
-    };
+     };
 
     // Arrays para categorizar as perguntas
     private String[] categorias = {"Seguro Residencial", "Sistema", "Opções de Direcionamento"};
@@ -181,7 +165,7 @@ public class DuvidasFrequentes {
                 panelRespostas.add(lblResposta);
             
 				panelRespostas.setPreferredSize(
-						new java.awt.Dimension(panelRespostas.getWidth(), panelRespostas.getComponentCount() * 70
+						new java.awt.Dimension(panelRespostas.getWidth(), panelRespostas.getComponentCount() * 50
 				// Ajuste o valor 70 conforme necessário para espaçamento
 				));
 
