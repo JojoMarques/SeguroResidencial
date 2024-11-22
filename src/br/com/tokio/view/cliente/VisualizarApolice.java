@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ import javax.swing.SwingConstants;
 
 import br.com.tokio.view.SelecaoPacoteAssistencia;
 import br.com.tokio.view.TelaInicial;
+import javax.swing.JScrollPane;
 
 public class VisualizarApolice {
 
@@ -87,13 +89,13 @@ public class VisualizarApolice {
 			telaInicial.show();
 			frame.dispose();
 		});
-		
+
 		JPanel panelNav = new JPanel();
 		panelNav.setBackground(new Color(0, 153, 102));
 		panelNav.setBounds(651, 30, 109, 39);
 		panelHeader.add(panelNav);
 		panelNav.setLayout(new GridLayout(0, 2, 10, 0));
-		
+
 		ImageIcon iconLeft = new ImageIcon(getClass().getResource("/resources/images/chevron_left.png"));
 		Image imgLeft = iconLeft.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
 		iconLeft = new ImageIcon(imgLeft);
@@ -103,95 +105,389 @@ public class VisualizarApolice {
 		btnVoltar.setBackground(new Color(225, 193, 85));
 		panelNav.add(btnVoltar);
 
-		// Painel para as informações do cliente
-		JPanel panelInformacoes = new JPanel();
-		panelInformacoes.setBounds(150, 100, 500, 435); // Posição e tamanho do painel
-		panelInformacoes.setLayout(null); // Layout absoluto dentro do painel
-		frame.getContentPane().add(panelInformacoes);
-
-		// Título do painel
-		JLabel lblTitulo = new JLabel("Apólice");
-		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTitulo.setBounds(150, 35, 200, 30); // Posição no painel
-		panelInformacoes.add(lblTitulo);
-
-		// Campo de exibição de nome
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNome.setBounds(38, 96, 80, 25); // Posição no painel
-		panelInformacoes.add(lblNome);
-
-		JTextField txtNome = new JTextField();
-		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtNome.setBounds(150, 96, 200, 25); // Posição no painel
-		txtNome.setEditable(false); // Campo apenas para exibição
-		txtNome.setText("Nome do Cliente"); // Valor de exemplo
-		panelInformacoes.add(txtNome);
-
-		// Campo de exibição de CPF
-		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCpf.setBounds(38, 136, 80, 25); // Posição no painel
-		panelInformacoes.add(lblCpf);
-
-		JTextField txtCpf = new JTextField();
-		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtCpf.setBounds(150, 136, 200, 25); // Posição no painel
-		txtCpf.setEditable(false); // Campo apenas para exibição
-		txtCpf.setText("123.456.789-00"); // Valor de exemplo
-		panelInformacoes.add(txtCpf);
-
-		// Botão de editar informações
-		JButton btnImprimir = new JButton("Imprimir ");
+		JButton btnImprimir = new JButton("Imprimir");
+		btnImprimir.setBounds(560, 509, 200, 30);
+		frame.getContentPane().add(btnImprimir);
 		btnImprimir.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnImprimir.setBackground(new Color(225, 193, 85));
-		btnImprimir.setBounds(150, 377, 200, 30); // Posição no painel
-		panelInformacoes.add(btnImprimir);
-		
-		JTextField txtEmailtestegmailcom = new JTextField();
-		txtEmailtestegmailcom.setText("email.teste@gmail.com");
-		txtEmailtestegmailcom.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtEmailtestegmailcom.setEditable(false);
-		txtEmailtestegmailcom.setBounds(150, 172, 200, 25);
-		panelInformacoes.add(txtEmailtestegmailcom);
-		
-		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblEmail.setBounds(38, 172, 80, 25);
-		panelInformacoes.add(lblEmail);
-		
-		JTextField textField_1 = new JTextField();
-		textField_1.setText("(11) 9 9546-4421");
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		textField_1.setEditable(false);
-		textField_1.setBounds(150, 208, 200, 25);
-		panelInformacoes.add(textField_1);
-		
-		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTelefone.setBounds(38, 208, 80, 25);
-		panelInformacoes.add(lblTelefone);
-		
 
+		// ------------------------------------------------------
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 100, 564, 461);
+
+		JScrollPane scrollPanelInformacoes = new JScrollPane(panel);
+		scrollPanelInformacoes.setBounds(28, 152, 512, 387);
+		scrollPanelInformacoes.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPanelInformacoes.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+		frame.getContentPane().add(scrollPanelInformacoes);
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
+
+		JLabel lblTitulo = new JLabel("Informações da Apólice");
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblTitulo.setBounds(124, 111, 300, 30);
+		frame.getContentPane().add(lblTitulo);
+		// --------------------------------------------------------------
+
+
+		JLabel lblCdCliente = new JLabel("Código do Cliente:");
+		lblCdCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblCdCliente.setBounds(38, 60, 150, 25);
+		panel.add(lblCdCliente);
+		lblCdCliente.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtCdCliente = new JTextField();
+		txtCdCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtCdCliente.setBounds(182, 60, 200, 25);
+		txtCdCliente.setEditable(false);
+		txtCdCliente.setText("1"); // Valor de exemplo
+		panel.add(txtCdCliente);
+
+		JLabel lblNmCliente = new JLabel("Nome:");
+		lblNmCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNmCliente.setBounds(38, 95, 150, 25);
+		panel.add(lblNmCliente);
+		lblNmCliente.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtNmCliente = new JTextField();
+		txtNmCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtNmCliente.setBounds(182, 95, 200, 25);
+		txtNmCliente.setEditable(false);
+		txtNmCliente.setText("Nome do Cliente");
+		panel.add(txtNmCliente);
+
+		JLabel lblCpfCliente = new JLabel("CPF:");
+		lblCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblCpfCliente.setBounds(38, 130, 150, 25);
+		panel.add(lblCpfCliente);
+		lblCpfCliente.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtCpfCliente = new JTextField();
+		txtCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtCpfCliente.setBounds(182, 130, 200, 25);
+		txtCpfCliente.setEditable(false);
+		txtCpfCliente.setText("123.456.789-00");
+		panel.add(txtCpfCliente);
+
+		JLabel lblTelefoneCliente = new JLabel("Telefone:");
+		lblTelefoneCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblTelefoneCliente.setBounds(38, 165, 150, 25);
+		panel.add(lblTelefoneCliente);
+		lblTelefoneCliente.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtTelefoneCliente = new JTextField();
+		txtTelefoneCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtTelefoneCliente.setBounds(182, 165, 200, 25);
+		txtTelefoneCliente.setEditable(false);
+		txtTelefoneCliente.setText("(11) 91234-5678");
+		panel.add(txtTelefoneCliente);
+
+		JLabel lblEmailCliente = new JLabel("Email:");
+		lblEmailCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblEmailCliente.setBounds(38, 200, 150, 25);
+		panel.add(lblEmailCliente);
+		lblEmailCliente.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtEmailCliente = new JTextField();
+		txtEmailCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtEmailCliente.setBounds(182, 200, 200, 25);
+		txtEmailCliente.setEditable(false);
+		txtEmailCliente.setText("cliente@exemplo.com");
+		panel.add(txtEmailCliente);
+
+		// Imóvel
+		JLabel lblCdImovel = new JLabel("Código do Imóvel:");
+		lblCdImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblCdImovel.setBounds(38, 250, 150, 25);
+		panel.add(lblCdImovel);
+		lblCdImovel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtCdImovel = new JTextField();
+		txtCdImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtCdImovel.setBounds(182, 250, 200, 25);
+		txtCdImovel.setEditable(false);
+		txtCdImovel.setText("101"); // Valor de exemplo
+		panel.add(txtCdImovel);
+
+		JLabel lblLogradouro = new JLabel("Logradouro:");
+		lblLogradouro.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblLogradouro.setBounds(38, 285, 150, 25);
+		panel.add(lblLogradouro);
+		lblLogradouro.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtLogradouro = new JTextField();
+		txtLogradouro.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtLogradouro.setBounds(182, 285, 200, 25);
+		txtLogradouro.setEditable(false);
+		txtLogradouro.setText("Rua Exemplo, 123");
+		panel.add(txtLogradouro);
+
+		JLabel lblBairro = new JLabel("Bairro:");
+		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblBairro.setBounds(38, 320, 150, 25);
+		panel.add(lblBairro);
+		lblBairro.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtBairro = new JTextField();
+		txtBairro.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtBairro.setBounds(182, 320, 200, 25);
+		txtBairro.setEditable(false);
+		txtBairro.setText("Centro");
+		panel.add(txtBairro);
+
+		JLabel lblCidade = new JLabel("Cidade:");
+		lblCidade.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblCidade.setBounds(38, 355, 150, 25);
+		panel.add(lblCidade);
+		lblCidade.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtCidade = new JTextField();
+		txtCidade.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtCidade.setBounds(182, 355, 200, 25);
+		txtCidade.setEditable(false);
+		txtCidade.setText("São Paulo");
+		panel.add(txtCidade);
+
+		JLabel lblEstado = new JLabel("Estado:");
+		lblEstado.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblEstado.setBounds(38, 390, 150, 25);
+		panel.add(lblEstado);
+		lblEstado.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtEstado = new JTextField();
+		txtEstado.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtEstado.setBounds(182, 390, 200, 25);
+		txtEstado.setEditable(false);
+		txtEstado.setText("SP");
+		panel.add(txtEstado);
+
+		JLabel lblVlImovel = new JLabel("Valor do Imóvel:");
+		lblVlImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblVlImovel.setBounds(38, 425, 150, 25);
+		panel.add(lblVlImovel);
+		lblVlImovel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtVlImovel = new JTextField();
+		txtVlImovel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtVlImovel.setBounds(182, 425, 200, 25);
+		txtVlImovel.setEditable(false);
+		txtVlImovel.setText("R$ 500.000,00");
+		panel.add(txtVlImovel);
+
+		// Seguro
+		JLabel lblCdSeguro = new JLabel("Código do Seguro:");
+		lblCdSeguro.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblCdSeguro.setBounds(450, 60, 150, 25);
+		panel.add(lblCdSeguro);
+		lblCdSeguro.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtCdSeguro = new JTextField();
+		txtCdSeguro.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtCdSeguro.setBounds(610, 60, 200, 25);
+		txtCdSeguro.setEditable(false);
+		txtCdSeguro.setText("201"); // Valor de exemplo
+		panel.add(txtCdSeguro);
+
+		JLabel lblVlPremio = new JLabel("Valor do Prêmio:");
+		lblVlPremio.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblVlPremio.setBounds(450, 95, 150, 25);
+		panel.add(lblVlPremio);
+		lblVlPremio.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtVlPremio = new JTextField();
+		txtVlPremio.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtVlPremio.setBounds(610, 95, 200, 25);
+		txtVlPremio.setEditable(false);
+		txtVlPremio.setText("R$ 1.200,00");
+		panel.add(txtVlPremio);
+
+		JLabel lblDtInicio = new JLabel("Data de Início:");
+		lblDtInicio.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDtInicio.setBounds(450, 130, 150, 25);
+		panel.add(lblDtInicio);
+		lblDtInicio.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtDtInicio = new JTextField();
+		txtDtInicio.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtDtInicio.setBounds(610, 130, 200, 25);
+		txtDtInicio.setEditable(false);
+		txtDtInicio.setText("01/01/2024");
+		panel.add(txtDtInicio);
+
+		JLabel lblDtFim = new JLabel("Data de Término:");
+		lblDtFim.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDtFim.setBounds(450, 165, 150, 25);
+		panel.add(lblDtFim);
+		lblDtFim.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtDtFim = new JTextField();
+		txtDtFim.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtDtFim.setBounds(610, 165, 200, 25);
+		txtDtFim.setEditable(false);
+		txtDtFim.setText("31/12/2024");
+		panel.add(txtDtFim);
+
+		JLabel lblCdCobertura = new JLabel("Código da Cobertura:");
+		lblCdCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblCdCobertura.setBounds(450, 200, 150, 25);
+		panel.add(lblCdCobertura);
+		lblCdCobertura.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtCdCobertura = new JTextField();
+		txtCdCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtCdCobertura.setBounds(610, 200, 200, 25);
+		txtCdCobertura.setEditable(false);
+		txtCdCobertura.setText("301");
+		panel.add(txtCdCobertura);
+
+		JLabel lblCdAssistencia = new JLabel("Código da Assistência:");
+		lblCdAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblCdAssistencia.setBounds(450, 235, 150, 25);
+		panel.add(lblCdAssistencia);
+		lblCdAssistencia.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtCdAssistencia = new JTextField();
+		txtCdAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtCdAssistencia.setBounds(610, 235, 200, 25);
+		txtCdAssistencia.setEditable(false);
+		txtCdAssistencia.setText("401");
+		panel.add(txtCdAssistencia);
+
+		// Cobertura
+		JLabel lblTpCobertura = new JLabel("Tipo de Cobertura:");
+		lblTpCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblTpCobertura.setBounds(450, 285, 150, 25);
+		panel.add(lblTpCobertura);
+		lblTpCobertura.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtTpCobertura = new JTextField();
+		txtTpCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtTpCobertura.setBounds(610, 285, 200, 25);
+		txtTpCobertura.setEditable(false);
+		txtTpCobertura.setText("Incêndio");
+		panel.add(txtTpCobertura);
+
+		JLabel lblDsCobertura = new JLabel("Descrição da Cobertura:");
+		lblDsCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDsCobertura.setBounds(450, 320, 150, 25);
+		panel.add(lblDsCobertura);
+		lblDsCobertura.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtDsCobertura = new JTextField();
+		txtDsCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtDsCobertura.setBounds(610, 320, 200, 25);
+		txtDsCobertura.setEditable(false);
+		txtDsCobertura.setText("Cobertura contra danos de incêndio");
+		panel.add(txtDsCobertura);
+
+		JLabel lblVlPctCobertura = new JLabel("Valor do Pacote:");
+		lblVlPctCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblVlPctCobertura.setBounds(450, 355, 150, 25);
+		panel.add(lblVlPctCobertura);
+		lblVlPctCobertura.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtVlPctCobertura = new JTextField();
+		txtVlPctCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtVlPctCobertura.setBounds(610, 355, 200, 25);
+		txtVlPctCobertura.setEditable(false);
+		txtVlPctCobertura.setText("R$ 300,00");
+		panel.add(txtVlPctCobertura);
+
+		// Assistência
+		JLabel lblTpAssistencia = new JLabel("Tipo de Assistência:");
+		lblTpAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblTpAssistencia.setBounds(450, 405, 150, 25);
+		panel.add(lblTpAssistencia);
+		lblTpAssistencia.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtTpAssistencia = new JTextField();
+		txtTpAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtTpAssistencia.setBounds(610, 405, 200, 25);
+		txtTpAssistencia.setEditable(false);
+		txtTpAssistencia.setText("Residencial");
+		panel.add(txtTpAssistencia);
+
+		JLabel lblDsAssistencia = new JLabel("Descrição da Assistência:");
+		lblDsAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDsAssistencia.setBounds(450, 440, 150, 25);
+		panel.add(lblDsAssistencia);
+		lblDsAssistencia.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtDsAssistencia = new JTextField();
+		txtDsAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtDsAssistencia.setBounds(610, 440, 200, 25);
+		txtDsAssistencia.setEditable(false);
+		txtDsAssistencia.setText("Serviços emergenciais");
+		panel.add(txtDsAssistencia);
+
+		JLabel lblVlPctAssistencia = new JLabel("Valor da Assistência:");
+		lblVlPctAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblVlPctAssistencia.setBounds(450, 475, 150, 25);
+		panel.add(lblVlPctAssistencia);
+		lblVlPctAssistencia.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtVlPctAssistencia = new JTextField();
+		txtVlPctAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtVlPctAssistencia.setBounds(610, 475, 200, 25);
+		txtVlPctAssistencia.setEditable(false);
+		txtVlPctAssistencia.setText("R$ 200,00");
+		panel.add(txtVlPctAssistencia);
+
+		// Corretora
+		JLabel lblNmCorretora = new JLabel("Nome da Corretora:");
+		lblNmCorretora.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNmCorretora.setBounds(450, 525, 150, 25);
+		panel.add(lblNmCorretora);
+		lblNmCorretora.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtNmCorretora = new JTextField();
+		txtNmCorretora.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtNmCorretora.setBounds(610, 525, 200, 25);
+		txtNmCorretora.setEditable(false);
+		txtNmCorretora.setText("Corretora Exemplo");
+		panel.add(txtNmCorretora);
+
+		JLabel lblEnderecoCorretora = new JLabel("Endereço da Corretora:");
+		lblEnderecoCorretora.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblEnderecoCorretora.setBounds(450, 560, 150, 25);
+		panel.add(lblEnderecoCorretora);
+		lblEnderecoCorretora.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
+		JTextField txtEnderecoCorretora = new JTextField();
+		txtEnderecoCorretora.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtEnderecoCorretora.setBounds(610, 560, 200, 25);
+		txtEnderecoCorretora.setEditable(false);
+		txtEnderecoCorretora.setText("Av. Paulista, 123");
+		panel.add(txtEnderecoCorretora);
+
+
+
+		// ------------------------------------------
+
+		// Botão de fechar
+		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnFechar.setBackground(new Color(225, 193, 85));
+		btnFechar.setBounds(250, 500, 200, 30);
+		scrollPanelInformacoes.add(btnFechar);
 		// Evento para abrir a tela EditarCliente
 		btnImprimir.addActionListener(e -> {
-			
+
 			// mandar imprimir
-			
+
 			frame.dispose(); // Fecha a tela atual
 		});
-		
+
 		btnVoltar.addActionListener(e -> {
 			AreaCliente areaCliente = new AreaCliente();
 			areaCliente.show();
 			frame.dispose();
 		});
-		
+
 	}
-	
+
 	public void show() {
 		frame.setVisible(true);
 	}
-
 }

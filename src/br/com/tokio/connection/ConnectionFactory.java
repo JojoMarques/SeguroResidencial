@@ -8,7 +8,8 @@ public class ConnectionFactory {
 	
 	public Connection conectar() {
 		try {
-			return DriverManager.getConnection("jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL", "tm09", "07122005");
+			return DriverManager.getConnection("jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL", "tm22", "31102005");
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
