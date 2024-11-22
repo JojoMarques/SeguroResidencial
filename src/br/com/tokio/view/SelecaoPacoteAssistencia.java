@@ -137,7 +137,7 @@ public class SelecaoPacoteAssistencia {
 
 		// Criando um painel para o pacote
 		JPanel panelPacote1 = new JPanel();
-		panelPacote1.setBounds(5, 81, 245, 277);
+		panelPacote1.setBounds(5, 81, 245, 328);
 		panel.add(panelPacote1);
 		panelPacote1.setLayout(new GridLayout(4, 1)); // Dividido em 3 linhas
 		panelPacote1.setBackground(new Color(169, 196, 145));
@@ -189,98 +189,125 @@ public class SelecaoPacoteAssistencia {
 			confirmarDados.show(); 
 			frame.dispose(); 
 		});
+		
+		//----------------------------------------------
 
 		JPanel panelPacote2 = new JPanel();
-		panelPacote2.setBounds(255, 81, 245, 277);
+		panelPacote2.setBounds(255, 81, 245, 328);
 		panel.add(panelPacote2);
 		panelPacote2.setBackground(new Color(145, 189, 148));
 		panelPacote2.setLayout(new GridLayout(4, 1));
-		
-		PacoteAssistencia pacoteAssistencia1 = pacoteAssistenciaDAO.selectById(2);
 
-		JLabel lblNomePacote2 = new JLabel(pacoteAssistencia1.getTipo().toUpperCase(), SwingConstants.CENTER);
+		// Obtem informações do pacote
+		PacoteAssistencia pacoteAssistencia2 = pacoteAssistenciaDAO.selectById(2);
+
+		// Nome do pacote
+		JLabel lblNomePacote2 = new JLabel(pacoteAssistencia2.getTipo().toUpperCase(), SwingConstants.CENTER);
 		lblNomePacote2.setBackground(new Color(151, 204, 136));
 		lblNomePacote2.setFont(new Font("Arial", Font.BOLD, 14));
 		panelPacote2.add(lblNomePacote2);
 
-		JLabel lblValorPacote2 = new JLabel("R$"+ pacoteAssistencia1.getPreco()+"/mês", SwingConstants.CENTER);
+		// Preço do pacote
+		JLabel lblValorPacote2 = new JLabel("R$ " + pacoteAssistencia2.getPreco() + " /mês", SwingConstants.CENTER);
 		lblValorPacote2.setBackground(new Color(151, 204, 136));
 		lblValorPacote2.setFont(new Font("Arial", Font.PLAIN, 12));
 		panelPacote2.add(lblValorPacote2);
 
-		servico = pacoteAssistenciaDAO.selectServicos(2);
-		servicos = Arrays.asList(servico.split(", "));
-		JList<String> listEventos2 = new JList<>(servicos.toArray(new String[0]));
+		// Lista de serviços
+		String servico2 = pacoteAssistenciaDAO.selectServicos(2);
+		List<String> servicos2 = Arrays.asList(servico2.split(", "));
+		JList<String> listEventos2 = new JList<>(servicos2.toArray(new String[0]));
 		listEventos2.setBackground(new Color(216, 216, 216));
-		panelPacote2.add(listEventos2);
+		listEventos2.setFont(new Font("Arial", Font.PLAIN, 12));
+		listEventos2.setFixedCellHeight(20);
+		listEventos2.setVisibleRowCount(5);
 
+		// Adiciona a lista ao JScrollPane
+		JScrollPane scrollPane2 = new JScrollPane(listEventos2);
+		scrollPane2.setBackground(new Color(216, 216, 216));
+		scrollPane2.setBorder(BorderFactory.createEmptyBorder());
+		panelPacote2.add(scrollPane2);
+
+		// Painel para o botão
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(216, 216, 216));
 		panelPacote2.add(panel_2);
 		panel_2.setLayout(null);
 
+		// Botão "ESCOLHER"
 		JButton btnEscolher2 = new JButton("ESCOLHER");
 		btnEscolher2.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnEscolher2.setBounds(33, 16, 185, 36);
 		panel_2.add(btnEscolher2);
 		btnEscolher2.setBackground(new Color(225, 193, 85));
-		
+
+		// Ação do botão
 		btnEscolher2.addActionListener(e -> {
-			ConfirmarDados confirmarDados = new ConfirmarDados(); //aqui tem que passar o id do pacote cobertura :)
-			confirmarDados.show(); 
-			frame.dispose(); 
+		    ConfirmarDados confirmarDados = new ConfirmarDados(); // aqui também é necessário passar o ID do pacote
+		    confirmarDados.show(); 
+		    frame.dispose(); 
 		});
 
 
-		// Criando um painel para o pacote
+		//-------------------------------------------------------------
+		
+		// Criando um painel para o pacote 3
 		JPanel panelPacote3 = new JPanel();
-		panelPacote3.setBounds(505, 81, 245, 277);
+		panelPacote3.setBounds(505, 81, 245, 328);
 		panel.add(panelPacote3);
-		panelPacote3.setLayout(new GridLayout(4, 1)); // Dividido em 3 linhas
+		panelPacote3.setLayout(new GridLayout(4, 1)); // Dividido em 4 linhas
 		panelPacote3.setBackground(new Color(141, 186, 173));
-		
-		PacoteAssistencia pacoteAssistencia2 = pacoteAssistenciaDAO.selectById(3);
-		
+
+		// Obtendo informações do pacote
+		PacoteAssistencia pacoteAssistencia3 = pacoteAssistenciaDAO.selectById(3);
+
 		// Título do pacote
-		JLabel lblNomePacote3 = new JLabel(pacoteAssistencia2.getTipo().toUpperCase(), JLabel.CENTER);
+		JLabel lblNomePacote3 = new JLabel(pacoteAssistencia3.getTipo().toUpperCase(), JLabel.CENTER);
 		lblNomePacote3.setBackground(new Color(151, 204, 136));
-		panelPacote3.add(lblNomePacote3);
 		lblNomePacote3.setFont(new Font("Arial", Font.BOLD, 14));
+		panelPacote3.add(lblNomePacote3);
 
-		// Preço
-		JLabel lblValorPacote3 = new JLabel("R$"+pacoteAssistencia2.getPreco() +"/mês", JLabel.CENTER);
+		// Preço do pacote
+		JLabel lblValorPacote3 = new JLabel("R$ " + pacoteAssistencia3.getPreco() + " /mês", JLabel.CENTER);
 		lblValorPacote3.setBackground(new Color(151, 204, 136));
-		panelPacote3.add(lblValorPacote3);
 		lblValorPacote3.setFont(new Font("Arial", Font.PLAIN, 12));
+		panelPacote3.add(lblValorPacote3);
 
-		servico = pacoteAssistenciaDAO.selectServicos(3);
-		servicos = Arrays.asList(servico.split(", "));
-		JList<String> listEventos3 = new JList<>(servicos.toArray(new String[0]));
+		// Lista de serviços
+		String servico3 = pacoteAssistenciaDAO.selectServicos(3);
+		List<String> servicos3 = Arrays.asList(servico3.split(", "));
+		JList<String> listEventos3 = new JList<>(servicos3.toArray(new String[0]));
 		listEventos3.setBackground(new Color(216, 216, 216));
-		panelPacote3.add(listEventos3);
+		listEventos3.setFont(new Font("Arial", Font.PLAIN, 12));
+		listEventos3.setFixedCellHeight(20);
+		listEventos3.setVisibleRowCount(5);
 
+		// Adiciona a lista ao JScrollPane
+		JScrollPane scrollPane3 = new JScrollPane(listEventos3);
+		scrollPane3.setBackground(new Color(216, 216, 216));
+		scrollPane3.setBorder(BorderFactory.createEmptyBorder());
+		panelPacote3.add(scrollPane3);
+
+		// Painel para o botão
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(216, 216, 216));
 		panelPacote3.add(panel_3);
 		panel_3.setLayout(null);
 
-		// Botão para selecionar
+		// Botão "ESCOLHER"
 		JButton btnEscolher3 = new JButton("ESCOLHER");
 		btnEscolher3.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnEscolher3.setBounds(33, 16, 185, 36);
 		panel_3.add(btnEscolher3);
 		btnEscolher3.setBackground(new Color(225, 193, 85));
-		
+
+		// Ação do botão
 		btnEscolher3.addActionListener(e -> {
-			ConfirmarDados confirmarDados = new ConfirmarDados(); //aqui tem que passar o id do pacote cobertura :)
-			confirmarDados.show();
-			frame.dispose(); 
+		    ConfirmarDados confirmarDados = new ConfirmarDados(); // Passar o ID do pacote como argumento, se necessário
+		    confirmarDados.show();
+		    frame.dispose();
 		});
 
-
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(767, 100, 17, 461);
-		frame.getContentPane().add(scrollBar);
 
 		// ---------------------------------------------
 
