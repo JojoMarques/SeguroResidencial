@@ -427,12 +427,9 @@ public class SeguroDAO {
     
  // Select pacote de cobertura por cliente
     public PacoteCobertura selectCoberturaPorCliente(int idCliente) {
-        String sql = "SELECT c.cd_cobertura, c.ds_cobertura, c.vl_premio_cobertura " +
-                     "FROM T_SEGURO s " +
-                     "JOIN T_COBERTURA c ON s.cd_cobertura = c.cd_cobertura " +
-                     "WHERE s.cd_cliente = ?";
+        String sql = "SELECT c.cd_cobertura, c.ds_cobertura, c.tp_cobertura, c.vl_pct_cobertura FROM T_SEGURO s  JOIN T_PCT_COBERTURA c ON s.cd_cobertura = c.cd_cobertura  WHERE s.cd_cliente = ?";
         
-        PacoteCobertura cobertura = new PacoteCobertura();
+        PacoteCobertura cobertura = null;  // Inicializando como null, para retornar null se não encontrar
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -440,33 +437,42 @@ public class SeguroDAO {
 
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
- 
+            // Usar if ao invés de while, para pegar apenas o primeiro resultado
+            if (rs.next()) {  // Se houver pelo menos um resultado
+                cobertura = new PacoteCobertura();  // Instanciando o objeto apenas se houver resultado
+
                 cobertura.setIdCobertura(rs.getInt("cd_cobertura"));
                 cobertura.setTipo(rs.getString("tp_cobertura"));
-                cobertura.setDescricao(rs.getString("tp_cobertura"));
+                cobertura.setDescricao(rs.getString("ds_cobertura"));  // Corrigido para o campo correto
                 cobertura.setPreco(rs.getDouble("vl_pct_cobertura"));
             }
+
             stmt.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return cobertura;
+
+        return cobertura;  // Retorna a cobertura encontrada ou null se não houver
     }
+   
     
     public PacoteAssistencia selectPacotePorCliente(int idCliente) {
-        String sql = "SELECT pa.cd_assistencia, pa.tp_assistencia, pa.ds_assistencia, pa.vl_pct_assistencia " +
-                     "FROM t_pct_assistencia pa " +
-                     "JOIN t_cliente_assistencia ca ON pa.cd_assistencia = ca.cd_assistencia " +
-                     "WHERE ca.cd_cliente = ?";
-        PacoteAssistencia pacote = new PacoteAssistencia();            
+        String sql = "SELECT a.cd_assistencia, a.tp_assistencia, a.ds_assistencia, a.vl_pct_assistencia " +
+                     "FROM T_SEGURO s " +
+                     "JOIN T_PCT_ASSISTENCIA a ON s.cd_assistencia = a.cd_assistencia " +
+                     "WHERE s.cd_cliente = ?";
+        
+        PacoteAssistencia pacote = null;  // Inicializando a variável como null, caso nenhum pacote seja encontrado
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, idCliente);  // Definindo o ID do cliente como parâmetro da consulta
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
+            // Garantir que apenas o primeiro pacote encontrado seja retornado
+            if (rs.next()) {  // Usando "if" para pegar apenas o primeiro registro
+                pacote = new PacoteAssistencia();
                 pacote.setIdAssistencia(rs.getInt("cd_assistencia"));
                 pacote.setTipo(rs.getString("tp_assistencia"));
                 pacote.setDescricao(rs.getString("ds_assistencia"));
@@ -479,12 +485,13 @@ public class SeguroDAO {
             e.printStackTrace();
         }
 
-        return pacote;  // Retorna a lista de pacotes de assistência
+        return pacote;  // Retorna o pacote de assistência, ou null se não encontrar nenhum
     }
+
     
     public Corretora selectCorretoraByIdSeguro(int idSeguro) {
         // SQL para buscar a corretora associada ao seguro, baseado no ID do seguro
-        String sql = "SELECT c.* FROM T_SINISTRO s "
+        String sql = "SELECT c.* FROM T_SEGURO s "
                    + "JOIN T_CORRETORA c ON s.cd_corretora = c.cd_corretora "
                    + "WHERE s.cd_seguro = ?";
 
