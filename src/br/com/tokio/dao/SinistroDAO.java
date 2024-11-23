@@ -34,7 +34,7 @@ public class SinistroDAO {
             stmt.setString(3, sinistro.getDescricao());
             stmt.setBoolean(4, sinistro.isStatus());
             stmt.setInt(5, sinistro.getIdSeguro());
-            stmt.setInt(6, sinistro.getIdSinistro());
+            stmt.setInt(6, sinistro.getIdCliente());
 
             stmt.execute();
             stmt.close();
@@ -81,7 +81,7 @@ public class SinistroDAO {
             stmt.setBoolean(4, sinistro.isStatus());
             stmt.setInt(5, sinistro.getIdSinistro());
             stmt.setInt(6, sinistro.getIdSeguro());
-            stmt.setInt(7, sinistro.getIdSinistro());
+            stmt.setInt(7, sinistro.getIdCliente());
 
             stmt.execute();
             stmt.close();
@@ -92,7 +92,7 @@ public class SinistroDAO {
     }
 
     /** seleciona todos os sinistros
-	 * @param List<Sinistro> - lista de sinistros
+	 * @return List<Sinistro> - lista de sinistros
 	 * */
     public List<Sinistro> selectAll() {
         String sql = "select * from T_SINISTRO order by cd_sinistro";
@@ -158,4 +158,41 @@ public class SinistroDAO {
         }
         return sinistro;
     }
+    
+    /** seleciona todos os sinistros de um cliente
+     * @param int - id cliente
+	 * @return List<Sinistro> - lista de sinistros
+	 * */
+    public List<Sinistro> selectByCliente(int idCliente) {
+        String sql = "SELECT * FROM T_SINISTRO WHERE cd_cliente = ? ORDER BY cd_sinistro";
+        List<Sinistro> listSinistros = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idCliente);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Sinistro sinistro = new Sinistro();
+
+                sinistro.setIdSinistro(rs.getInt("cd_sinistro"));
+                sinistro.setTipoSinistro(rs.getString("tp_sinistro"));
+                sinistro.setDataSinistro(rs.getDate("dt_sinistro"));
+                sinistro.setDescricao(rs.getString("ds_sinistro"));
+                sinistro.setStatus(rs.getBoolean("status"));
+                sinistro.setIdSeguro(rs.getInt("cd_seguro"));
+                sinistro.setIdCliente(rs.getInt("cd_cliente"));
+
+                listSinistros.add(sinistro);
+            }
+
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listSinistros;
+    }
+
 }

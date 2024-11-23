@@ -121,20 +121,26 @@ public class AreaCliente {
 		JButton btnInformacoes = new JButton("Suas informações");
 		btnInformacoes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnInformacoes.setBackground(new Color(225, 193, 85));
-		btnInformacoes.setBounds(96, 249, 200, 30); // Posição no painel
+		btnInformacoes.setBounds(96, 192, 200, 30); // Posição no painel
 		panelInformacoes.add(btnInformacoes);
 
 		JButton btnApolice = new JButton("Sua apólice");
 		btnApolice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnApolice.setBackground(new Color(225, 193, 85));
-		btnApolice.setBounds(96, 156, 200, 30);
+		btnApolice.setBounds(96, 118, 200, 30);
 		panelInformacoes.add(btnApolice);
 
 		JButton btnSinistro = new JButton("Solicitar sinistro");
 		btnSinistro.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSinistro.setBackground(new Color(225, 193, 85));
-		btnSinistro.setBounds(96, 63, 200, 30);
+		btnSinistro.setBounds(96, 44, 200, 30);
 		panelInformacoes.add(btnSinistro);
+		
+		JButton btnVerSinistro = new JButton("Seus sinistros");
+		btnVerSinistro.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnVerSinistro.setBackground(new Color(225, 193, 85));
+		btnVerSinistro.setBounds(96, 266, 200, 30);
+		panelInformacoes.add(btnVerSinistro);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 139, 393, 344);
@@ -233,6 +239,12 @@ public class AreaCliente {
 			visualizarApolice.show();
 			frame.dispose();
 		});
+		
+		btnVerSinistro.addActionListener(e -> {
+			VisualizarSinistros visualizarSinistros = new VisualizarSinistros(idRecebido);
+			visualizarSinistros.show();
+			frame.dispose();
+		});
 
 	}
 
@@ -240,5 +252,4 @@ public class AreaCliente {
 	public void show() {
 		frame.setVisible(true);
 	}
-
 }

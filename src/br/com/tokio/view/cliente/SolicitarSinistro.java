@@ -51,7 +51,7 @@ public class SolicitarSinistro {
 
 	/**
 	 * Cria a tela 'solicitar sinistro', 
-	 * onde o cliente pode registrar um sinistro no sistema (fica no banco de dados para que a empresa entre em contato depois)
+	 * onde o cliente pode registrar um sinistro no sistema 
 	 */
 	public SolicitarSinistro() {
 		initialize();
@@ -59,7 +59,7 @@ public class SolicitarSinistro {
 	
 	/**
 	 * Cria a tela 'solicitar sinistro', 
-	 * onde o cliente pode registrar um sinistro no sistema (fica no banco de dados para que a empresa entre em contato depois),
+	 * onde o cliente pode registrar um sinistro no sistema 
 	 * agora passando os dados do cliente logado
 	 * @param int - id do cliente
 	 */
