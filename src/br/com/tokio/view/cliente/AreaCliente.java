@@ -180,7 +180,6 @@ public class AreaCliente {
 
 		SeguroDAO  seguroDAO = new SeguroDAO(connection);
 		seguro = seguroDAO.selectByCliente(idRecebido);
-
 		Date dataInicio = seguro.getDataInicio();
 		Date dataVencimento = new Date(dataInicio.getTime() + (30L * 24 * 60 * 60 * 1000)); // add um mês na mensalidade
 

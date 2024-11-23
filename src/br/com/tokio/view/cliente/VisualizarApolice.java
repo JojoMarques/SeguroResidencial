@@ -521,7 +521,7 @@ public class VisualizarApolice {
 		});
 
 		btnVoltar.addActionListener(e -> {
-			AreaCliente areaCliente = new AreaCliente();
+			AreaCliente areaCliente = new AreaCliente(idRecebido);
 			areaCliente.show();
 			frame.dispose();
 		});
