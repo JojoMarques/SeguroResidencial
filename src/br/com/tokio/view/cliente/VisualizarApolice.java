@@ -23,8 +23,11 @@ import br.com.tokio.dao.ImovelDAO;
 import br.com.tokio.dao.PacoteCoberturaDAO;
 import br.com.tokio.dao.SeguroDAO;
 import br.com.tokio.model.Cliente;
+import br.com.tokio.model.Corretora;
 import br.com.tokio.model.Imovel;
 import br.com.tokio.model.Impressora;
+import br.com.tokio.model.PacoteAssistencia;
+import br.com.tokio.model.PacoteCobertura;
 import br.com.tokio.model.Seguro;
 import br.com.tokio.view.TelaInicial;
 
@@ -341,7 +344,7 @@ public class VisualizarApolice {
 		txtDtInicio.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtDtInicio.setBounds(610, 130, 200, 25);
 		txtDtInicio.setEditable(false);
-		txtDtInicio.setText("01/01/2024");
+		txtDtInicio.setText(String.valueOf(seguro.getDataInicio()));
 		panel.add(txtDtInicio);
 
 		JLabel lblDtFim = new JLabel("Data de Término:");
@@ -354,11 +357,12 @@ public class VisualizarApolice {
 		txtDtFim.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtDtFim.setBounds(610, 165, 200, 25);
 		txtDtFim.setEditable(false);
-		txtDtFim.setText("31/12/2024");
+		txtDtFim.setText(String.valueOf(seguro.getDataFim()));
 		panel.add(txtDtFim);
 		
-		
-		
+		PacoteCobertura pacoteCobertura = seguroDAO.selectCoberturaPorCliente(idRecebido);
+		PacoteAssistencia pacoteAsssistencia = seguroDAO.selectPacotePorCliente(idRecebido);
+		Corretora corretora = seguroDAO.selectCorretoraByIdSeguro(idRecebido) ;
 		JLabel lblCdCobertura = new JLabel("Código da Cobertura:");
 		lblCdCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblCdCobertura.setBounds(450, 200, 150, 25);
@@ -369,7 +373,8 @@ public class VisualizarApolice {
 		txtCdCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCdCobertura.setBounds(610, 200, 200, 25);
 		txtCdCobertura.setEditable(false);
-		txtCdCobertura.setText("301");
+		String idCobertura = String.valueOf(pacoteCobertura.getIdCobertura());
+		txtCdCobertura.setText(idCobertura);
 		panel.add(txtCdCobertura);
 
 		JLabel lblCdAssistencia = new JLabel("Código da Assistência:");
@@ -382,7 +387,9 @@ public class VisualizarApolice {
 		txtCdAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCdAssistencia.setBounds(610, 235, 200, 25);
 		txtCdAssistencia.setEditable(false);
-		txtCdAssistencia.setText("401");
+		String idAssistencia = String.valueOf(pacoteAsssistencia.getIdAssistencia());
+		System.out.println(idAssistencia);
+		txtCdAssistencia.setText(idAssistencia);
 		panel.add(txtCdAssistencia);
 
 		// Cobertura
@@ -396,7 +403,7 @@ public class VisualizarApolice {
 		txtTpCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtTpCobertura.setBounds(610, 285, 200, 25);
 		txtTpCobertura.setEditable(false);
-		txtTpCobertura.setText("Incêndio");
+		txtTpCobertura.setText(pacoteCobertura.getTipo());
 		panel.add(txtTpCobertura);
 
 		JLabel lblDsCobertura = new JLabel("Descrição da Cobertura:");
@@ -409,7 +416,7 @@ public class VisualizarApolice {
 		txtDsCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtDsCobertura.setBounds(610, 320, 200, 25);
 		txtDsCobertura.setEditable(false);
-		txtDsCobertura.setText("Cobertura contra danos de incêndio");
+		txtDsCobertura.setText(pacoteCobertura.getDescricao());
 		panel.add(txtDsCobertura);
 
 		JLabel lblVlPctCobertura = new JLabel("Valor da Cobertura:");
@@ -422,7 +429,7 @@ public class VisualizarApolice {
 		txtVlPctCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtVlPctCobertura.setBounds(610, 355, 200, 25);
 		txtVlPctCobertura.setEditable(false);
-		txtVlPctCobertura.setText("R$ 300,00");
+		txtVlPctCobertura.setText("R$" + pacoteCobertura.getPreco());
 		panel.add(txtVlPctCobertura);
 
 		// Assistência
@@ -436,7 +443,7 @@ public class VisualizarApolice {
 		txtTpAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtTpAssistencia.setBounds(610, 405, 200, 25);
 		txtTpAssistencia.setEditable(false);
-		txtTpAssistencia.setText("Residencial");
+		txtTpAssistencia.setText(pacoteAsssistencia.getTipo());
 		panel.add(txtTpAssistencia);
 
 		JLabel lblDsAssistencia = new JLabel("Descrição da Assistência:");
@@ -449,7 +456,7 @@ public class VisualizarApolice {
 		txtDsAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtDsAssistencia.setBounds(610, 440, 200, 25);
 		txtDsAssistencia.setEditable(false);
-		txtDsAssistencia.setText("Serviços emergenciais");
+		txtDsAssistencia.setText(pacoteAsssistencia.getDescricao());
 		panel.add(txtDsAssistencia);
 
 		JLabel lblVlPctAssistencia = new JLabel("Valor da Assistência:");
@@ -462,7 +469,7 @@ public class VisualizarApolice {
 		txtVlPctAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtVlPctAssistencia.setBounds(610, 475, 200, 25);
 		txtVlPctAssistencia.setEditable(false);
-		txtVlPctAssistencia.setText("R$ 200,00");
+		txtVlPctAssistencia.setText("R$" + pacoteAsssistencia.getPreco());
 		panel.add(txtVlPctAssistencia);
 
 		// Corretora
@@ -476,7 +483,7 @@ public class VisualizarApolice {
 		txtNmCorretora.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtNmCorretora.setBounds(610, 525, 200, 25);
 		txtNmCorretora.setEditable(false);
-		txtNmCorretora.setText("Corretora Exemplo");
+		txtNmCorretora.setText(corretora.getNomeCorretora());
 		panel.add(txtNmCorretora);
 
 		JLabel lblEnderecoCorretora = new JLabel("Endereço da Corretora:");
@@ -489,7 +496,7 @@ public class VisualizarApolice {
 		txtEnderecoCorretora.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtEnderecoCorretora.setBounds(610, 560, 200, 25);
 		txtEnderecoCorretora.setEditable(false);
-		txtEnderecoCorretora.setText("Av. Paulista, 123");
+		txtEnderecoCorretora.setText(corretora.getEndereco());
 		panel.add(txtEnderecoCorretora);
 
 
