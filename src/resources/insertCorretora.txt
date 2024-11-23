@@ -4,5 +4,13 @@ VALUES ('Segura Tudo Ltda', 'Avenida Brasil, 1234, Centro, São Paulo, SP');
 INSERT INTO t_corretora (nm_corretora, ds_endereco_corretora)
 VALUES ('Protege Bem Corretora', 'Rua das Flores, 456, Jardim das Rosas, Rio de Janeiro, RJ');
 
+INSERT INTO t_corretora (nm_corretora, ds_endereco_corretora)
+VALUES ('Blindagem Total Seguros', 'Avenida Independência, 789, Bairro Liberdade, Belo Horizonte, MG');
 
-select * from t_corretora;
+INSERT INTO t_corretora (nm_corretora, ds_endereco_corretora)
+VALUES ('Escudo Forte Corretora', 'Rua do Progresso, 321, Centro, Curitiba, PR');
+
+INSERT INTO t_corretora (nm_corretora, ds_endereco_corretora)
+VALUES ('Ponto Seguro Corretora', 'Travessa da Esperança, 654, Vila Nova, Salvador, BA');
+
+commit;
