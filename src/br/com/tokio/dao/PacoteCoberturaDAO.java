@@ -169,5 +169,29 @@ public class PacoteCoberturaDAO {
 		return eventos;
     
 	}
+	
+	public int selectIdByNome(String nomeCobertura) {
+	    int idCobertura = 0;
+	    String sql = "SELECT cd_cobertura FROM t_pct_cobertura WHERE tp_cobertura = ?";
+
+	    try {
+	        PreparedStatement stmt = connection.prepareStatement(sql);
+	        stmt.setString(1, nomeCobertura);  // Passando o nome da cobertura como parâmetro
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            idCobertura = rs.getInt("cd_cobertura");  // Obtendo o ID da cobertura
+	        }
+
+	        stmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return idCobertura;  // Retorna o ID da cobertura encontrado ou 0 caso não exista
+	}
+
+
 
 }

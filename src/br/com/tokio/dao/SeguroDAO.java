@@ -145,7 +145,7 @@ public class SeguroDAO {
     }
     
  // Relatório de Seguros Ativos
-    public List<Seguro> relatorioSegurosAtivos() {
+    public List<Seguro> buscarAtivos() {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
                      "WHERE dt_inicio <= CURRENT_DATE AND dt_fim >= CURRENT_DATE";
@@ -176,7 +176,7 @@ public class SeguroDAO {
     }
 
     // Relatório de Seguros por Cliente
-    public List<Seguro> relatorioSegurosPorCliente(int idCliente) {
+    public List<Seguro> buscarPorCliente(int idCliente) {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
                      "WHERE cd_cliente = ?";
@@ -208,7 +208,7 @@ public class SeguroDAO {
     }
 
     // Relatório de Seguros por Corretora
-    public List<Seguro> relatorioSegurosPorCorretora(int idCorretora) {
+    public List<Seguro> buscarPorCorretora(int idCorretora) {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia " +
                      "FROM T_SEGURO " +
                      "WHERE cd_corretora = ?";
@@ -239,7 +239,7 @@ public class SeguroDAO {
     }
 
     // Relatório de Seguros Vencidos
-    public List<Seguro> relatorioSegurosVencidos() {
+    public List<Seguro> buscarVencidos() {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
                      "WHERE dt_fim < CURRENT_DATE";
@@ -270,7 +270,7 @@ public class SeguroDAO {
     }
 
     // Relatório de Seguros por Cobertura
-    public List<Seguro> relatorioSegurosPorCobertura(int idCobertura) {
+    public List<Seguro> buscarCobertura(int idCobertura) {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
                      "WHERE cd_cobertura = ?";
@@ -302,7 +302,7 @@ public class SeguroDAO {
     }
 
     // Relatório de Seguros por Período
-    public List<Seguro> relatorioSegurosPorPeriodo(java.sql.Date dataInicio, java.sql.Date dataFim) {
+    public List<Seguro> buscarPorPeriodo(java.sql.Date dataInicio, java.sql.Date dataFim) {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
                      "WHERE dt_inicio >= ? AND dt_fim <= ?";
@@ -335,8 +335,8 @@ public class SeguroDAO {
     }
 
     // Relatório de Seguros com Assistência Específica
-    public List<Seguro> relatorioSegurosComAssistenciaEspecifica(int idAssistencia) {
-        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_corretora " +
+    public List<Seguro> buscarPorAssistencia(int idAssistencia) {
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_corretora, cd_assistencia " +
                      "FROM T_SEGURO " +
                      "WHERE cd_assistencia = ?";
         List<Seguro> listSeguros = new ArrayList<>();
@@ -367,7 +367,7 @@ public class SeguroDAO {
     }
 
     // Relatório de Total de Prêmios por Corretora
-    public List<Seguro> relatorioTotalPremioPorCorretora() {
+    public List<Seguro> buscarPremios() {
         String sql = "SELECT cd_corretora, SUM(vl_premio) AS totalPremio " +
                      "FROM T_SEGURO " +
                      "GROUP BY cd_corretora";

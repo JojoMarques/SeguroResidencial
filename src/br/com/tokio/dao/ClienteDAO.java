@@ -308,4 +308,27 @@ public class ClienteDAO implements Autenticar {
 		return resultado;
 
 	}
+	
+	public int selectIdByCpf(String cpf) {
+	    int idCliente = 0;
+	    String sql = "SELECT cd_cliente FROM t_cliente WHERE cpf_cliente = ?";
+	    
+	    try {
+	        PreparedStatement stmt = connection.prepareStatement(sql);
+	        stmt.setString(1, cpf);  // Definindo o parâmetro CPF
+	        
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            idCliente = rs.getInt("cd_cliente");  // Obtendo o ID do cliente
+	        }
+	        
+	        stmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return idCliente;  // Retorna o ID do cliente encontrado ou 0 caso não exista
+	}
+
 }
