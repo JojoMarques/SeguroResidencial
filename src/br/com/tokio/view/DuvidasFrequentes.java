@@ -14,26 +14,20 @@ public class DuvidasFrequentes {
 
     // Perguntas e respostas
     private String[][] perguntasRespostas = {
-        // Perguntas sobre o seguro residencial
-        {"O que é seguro residencial?", "O seguro residencial é um tipo de seguro que cobre danos à sua residência, como incêndios, furtos e desastres naturais."},
-        {"Quais são as vantagens de contratar um seguro residencial?", "O seguro residencial oferece proteção contra danos, roubos e ajuda a garantir a segurança do seu lar."},
-        {"O que o seguro residencial cobre?", "O seguro cobre danos causados por incêndios, desastres naturais, furtos e outros imprevistos."},
-       
-        // Perguntas sobre o sistema
-        {"Como faço o login no sistema como cliente?", "Para acessar como cliente, use o seu e-mail e senha cadastrados."},
+        {"O que é seguro residencial?", "O seguro residencial é um tipo de seguro que cobre danos à sua residência, como incêndios , desastres naturais e imprevistos domésticos."},
+        {"Quais são as vantagens de contratar um seguro residencial?", "O seguro residencial oferece uma ampla gama de benefícios que ajudam a proteger sua casa, seus bens e proporcionar tranquilidade para você e sua família. Ele é uma forma de proteção contra imprevistos, cobrindo danos causados por eventos como incêndios, explosões, alagamentos, quedas de raios e vendavais. Dessa forma, você garante que sua casa esteja protegida contra adversidades que podem ocorrer a qualquer momento. \nAlém disso, nossos seguros incluem serviços de assistência emergencial, como chaveiro, encanador, eletricista e até reparos em eletrodomésticos. Esses serviços ajudam a resolver problemas do dia a dia com rapidez e eficiência, sem que você precise buscar por especialistas por conta própria."},
+        {"O que o seguro residencial cobre?", "O seguro cobre danos causados por incêndios, desastres naturais e outros imprevistos."},
+        {"Como faço o login no sistema como cliente?", "Para acessar como cliente, use o seu cpf e senha cadastrados."},
         {"Como faço o login no sistema como funcionário?", "Para acessar como funcionário, use o login fornecido pela empresa e sua senha."},
-        
-        // Opções de direcionamento
-        {"Deseja fazer login como cliente ou funcionário?", "Por favor, escolha entre 'Cliente' ou 'Funcionário' para prosseguir."},
-        {"Deseja contratar um seguro residencial?", "Sim! Clique aqui para começar a contratar seu seguro residencial."},
-     };
+        {"Deseja fazer login como cliente ou funcionário?", "Por favor, retorne a tela inicial e escolha se logar na área do cliente ou na área do funcionário."},
+        {"Deseja contratar um seguro residencial?", "Retorne a tela inicial e clique no botão \"Contrate Aqui\"."},
+    };
 
-    // Arrays para categorizar as perguntas
     private String[] categorias = {"Seguro Residencial", "Sistema", "Opções de Direcionamento"};
     private String[][] perguntasCategorias = {
-        {"O que é seguro residencial?", "Quais são as vantagens de contratar um seguro residencial?", "O que o seguro residencial cobre?", "Como posso contratar um seguro residencial?", "O que não é coberto por um seguro residencial?", "Como posso fazer uma cotação de seguro residencial?", "Como funciona o processo de sinistro no seguro residencial?", "Qual é o valor do prêmio do seguro residencial?", "Posso incluir itens de valor no meu seguro residencial?", "O que fazer em caso de um sinistro no meu imóvel?"},
-        {"Como faço o login no sistema como cliente?", "Como faço o login no sistema como funcionário?", "Como posso recuperar minha senha?", "Qual é a diferença entre o login de cliente e o login de funcionário?", "Como posso alterar meus dados no sistema?", "O que fazer se eu encontrar um erro no sistema?", "Onde posso acessar o histórico de sinistros no sistema?", "Como consultar as apólices de seguro no sistema?"},
-        {"Deseja fazer login como cliente ou funcionário?", "Deseja contratar um seguro residencial?", "Caso precise de assistência com o seu seguro ou tenha dúvidas, posso te direcionar para a área de atendimento ao cliente.", "Se você já tem um login no sistema, posso te ajudar a acessar sua conta.", "Caso precise de ajuda para realizar um sinistro, posso te direcionar à área de sinistros do sistema."}
+        {"O que é seguro residencial?", "Quais são as vantagens de contratar um seguro residencial?", "O que o seguro residencial cobre?"},
+        {"Como faço o login no sistema como cliente?", "Como faço o login no sistema como funcionário?"},
+        {"Deseja fazer login como cliente ou funcionário?", "Deseja contratar um seguro residencial?"}
     };
 
     /**
@@ -64,7 +58,7 @@ public class DuvidasFrequentes {
      */
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100,100, 800, 600);
+        frame.setBounds(100, 100, 800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
@@ -98,24 +92,26 @@ public class DuvidasFrequentes {
         frame.getContentPane().add(panel);
         panel.setLayout(null);
 
-        JPanel panelPerguntas = new JPanel();
-        panelPerguntas.setBounds(0, 302, 569, 159);
-        panel.add(panelPerguntas);
-
         // ScrollPane para respostas
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBounds(0, 0, 569, 291);
         panel.add(scrollPane);
-        
-        JPanel panelRespostas = new JPanel();
-        scrollPane.setViewportView(panelRespostas);
-        panelRespostas.setLayout(new BoxLayout(panelRespostas, BoxLayout.Y_AXIS)); // Organiza as respostas verticalmente
-        panelRespostas.setPreferredSize(new java.awt.Dimension(550, 200));
+
+        // JLabel para exibir as respostas
+        JLabel lblResposta = new JLabel();
+        lblResposta.setVerticalAlignment(SwingConstants.TOP);
+        lblResposta.setOpaque(true);
+        lblResposta.setBackground(new Color(240, 240, 240));
+        lblResposta.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1, true));
+        lblResposta.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        scrollPane.setViewportView(lblResposta);
+
+        JPanel panelPerguntas = new JPanel();
+        panelPerguntas.setBounds(0, 302, 569, 159);
+        panel.add(panelPerguntas);
         panelPerguntas.setLayout(null);
 
-
-        // ComboBoxes para as categorias
         JComboBox<String> comboCategorias = new JComboBox<>(categorias);
         comboCategorias.setBounds(60, 11, 194, 23);
         comboCategorias.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -126,7 +122,6 @@ public class DuvidasFrequentes {
         comboPerguntas.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panelPerguntas.add(comboPerguntas);
 
-        // Botão para mostrar a resposta
         JButton btnMostrarResposta = new JButton("Mostrar Resposta");
         btnMostrarResposta.setBounds(314, 10, 194, 25);
         btnMostrarResposta.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -143,35 +138,13 @@ public class DuvidasFrequentes {
             }
         });
 
-        // Ação ao selecionar uma pergunta
-        comboPerguntas.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Apenas seleciona a pergunta sem mostrar a resposta
-            }
-        });
-
         // Evento para mostrar a resposta
         btnMostrarResposta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String perguntaSelecionada = (String) comboPerguntas.getSelectedItem();
                 String resposta = getResposta(perguntaSelecionada);
-                JLabel lblResposta = new JLabel("<html><p style='width: 410px;padding:5px;'>" + resposta + "</p></html>");
-                lblResposta.setOpaque(true);
-                lblResposta.setBackground(new Color(240, 240, 240));
-                lblResposta.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1, true));
-                lblResposta.setBounds(10, 10 + panelRespostas.getComponentCount() * 60, 550, 60);
-                lblResposta.setBackground(new Color(230, 230, 250));
-                lblResposta.setFont(new Font("Tahoma", Font.PLAIN, 14));
-                panelRespostas.add(lblResposta);
-            
-				panelRespostas.setPreferredSize(
-						new java.awt.Dimension(panelRespostas.getWidth(), panelRespostas.getComponentCount() * 50
-				// Ajuste o valor 70 conforme necessário para espaçamento
-				));
-
-				
-				scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
-				
+                lblResposta.setText("<html><p style='width: 410px; padding: 5px;'>" + resposta + "</p></html>");
+                SwingUtilities.invokeLater(() -> scrollPane.getVerticalScrollBar().setValue(0));
             }
         });
 
