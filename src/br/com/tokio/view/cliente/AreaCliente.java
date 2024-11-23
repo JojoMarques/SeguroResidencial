@@ -62,7 +62,8 @@ public class AreaCliente {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'área do cliente', onde ele pode ser direcionado para o vizualizar dados, vizualizar apólice
+	 * e solicitar sinistro [o sinistro é registrado no banco de dados]
 	 */
 	private void initialize() {
 		Connection connection = new ConnectionFactory().conectar();
@@ -231,9 +232,7 @@ public class AreaCliente {
 
 	}
 
-	/**
-	 * Método para exibir a tela.
-	 */
+	
 	public void show() {
 		frame.setVisible(true);
 	}

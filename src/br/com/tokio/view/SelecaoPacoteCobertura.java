@@ -64,7 +64,7 @@ public class SelecaoPacoteCobertura {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'seleção pacote cobertura', onde, no processo de cotação/contratação, se escolhe o pacote de cobertura (no momento são 3)
 	 */
 	private void initialize() {
 		Connection connection = new ConnectionFactory().conectar();

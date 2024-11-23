@@ -62,7 +62,7 @@ public class LoginCliente {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'login cliente' onde um usuário acessar a área do cliente com CPF e senha
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -168,14 +168,7 @@ public class LoginCliente {
 			} else
 				JOptionPane.showMessageDialog(frame, "Dados inválidos", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);
-			/*
-			 * if (resultadoAutenticacao.get(0) == 1) { // Se CPF e Senha estiverem
-			 * corretos, direciona para a próxima tela AreaCliente areaCliente = new
-			 * AreaCliente(resultadoAutenticacao.get(1)); System.out.println(cpf + " " +
-			 * senha); areaCliente.show(); // Mostra a nova tela frame.dispose(); // Fecha a
-			 * tela atual } else JOptionPane.showMessageDialog(frame, "Dados inválidos",
-			 * "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
-			 */
+			
 		});
 
 	}

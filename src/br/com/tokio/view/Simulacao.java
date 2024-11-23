@@ -51,7 +51,7 @@ public class Simulacao {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'simulação', a primeira tela do processo de cotação/contratação, onde o usuário insere seus dados pessoais
 	 */
 	private void initialize() {
 		

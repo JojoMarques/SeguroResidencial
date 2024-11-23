@@ -69,7 +69,7 @@ public class SelecaoPacoteAssistencia {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'seleção pacote assistencia', onde, no processo de cotação/contratação, se escolhe o pacote de assistencia (no momento são 3)
 	 */
 	private void initialize() {
 		Connection connection = new ConnectionFactory().conectar();

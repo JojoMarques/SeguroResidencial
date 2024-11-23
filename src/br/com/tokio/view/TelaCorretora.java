@@ -62,7 +62,7 @@ public class TelaCorretora {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'tela corretora', onde, no processo de cotação/contratação, se escolhe a corretora 
 	 */
 	private void initialize() {
 		frame = new JFrame();

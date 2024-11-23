@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-	/*
+	/** gera uma conexao com o banco de dados oracle
 	 * @return Connection
 	 * */
 	public Connection conectar() {

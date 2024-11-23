@@ -63,7 +63,8 @@ public class SolicitarSinistro {
 
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'solicitar sinistro', 
+	 * onde o cliente pode registrar um sinistro no sistema (fica no banco de dados para que a empresa entre em contato depois)
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -166,8 +167,6 @@ public class SolicitarSinistro {
 			String data = txtData.getText();
 			String descricao = txtDescricao.getText();
 
-//			JOptionPane.showMessageDialog(frame, "Dados enviados com sucesso!\n" + "tipo: " + tipo + "\n" + "data: "
-//					+ data + "\n" + "descricao: " + descricao);
 
 			Connection connection = new ConnectionFactory().conectar();
 

@@ -67,7 +67,7 @@ public class VisualizarApolice {
 		initialize();
 	}
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela vizualizar apólice, onde o cliente pode ver e também solicitar a impressão ou o download do pdf do documento
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -517,7 +517,7 @@ public class VisualizarApolice {
 			Impressora impressora = new Impressora();
 	        impressora.iniciarImpressao(panel);
 			
-			frame.dispose(); // Fecha a tela atual
+			frame.dispose(); 
 		});
 
 		btnVoltar.addActionListener(e -> {

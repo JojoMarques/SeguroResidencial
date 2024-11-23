@@ -9,6 +9,8 @@ import br.com.tokio.model.Seguro;
 
 public class TesteSeguro {
 
+	/** teste de seguro
+	 * */
 	public static void main(String[] args) {
 
 		Connection connection = new ConnectionFactory().conectar();

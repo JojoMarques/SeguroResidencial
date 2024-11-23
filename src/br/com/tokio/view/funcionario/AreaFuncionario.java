@@ -27,6 +27,7 @@ import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ClienteDAO;
+import br.com.tokio.dao.CorretoraDAO;
 import br.com.tokio.dao.PacoteAssistenciaDAO;
 import br.com.tokio.dao.PacoteCoberturaDAO;
 import br.com.tokio.dao.SeguroDAO;
@@ -74,7 +75,7 @@ public class AreaFuncionario {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'area do funcionario' onde ele pode solicitar relatórios e também imprimir na aba em que este for gerado
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -529,15 +530,15 @@ public class AreaFuncionario {
 
 		btnSair.addActionListener(e -> {
 			TelaInicial telaInicial = new TelaInicial();
-			telaInicial.show(); // Mostra a nova tela
-			frame.dispose(); // Fecha a tela atual
+			telaInicial.show(); 
+			frame.dispose(); 
 		});
 		
 		// Ação para voltar à tela inicial
 		btnLogoTelaInicial.addActionListener(e -> {
 			TelaInicial telaInicial = new TelaInicial();
-			telaInicial.show(); // Mostra a nova tela
-			frame.dispose(); // Fecha a tela atual
+			telaInicial.show(); 
+			frame.dispose();
 		});
 		
 		btnImprimir.addActionListener(e -> {
@@ -554,21 +555,38 @@ public class AreaFuncionario {
 	}
 
 
+	/**formata uma linha com dados relacionados ao seguro para colocar no relatorio
+	 * @param Seguro - seguro
+	 * @return String - tupla do seguro
+	 * */
     private String formatarSeguro(Seguro seguro) {
+    	Connection connection = new ConnectionFactory().conectar();
+		
+        SeguroDAO dao = new SeguroDAO(connection);
+		ClienteDAO clienteDAO = new ClienteDAO(connection);
+		PacoteAssistenciaDAO assistenciaDAO = new PacoteAssistenciaDAO(connection);
+		PacoteCoberturaDAO coberturaDAO = new PacoteCoberturaDAO(connection);
+		CorretoraDAO corretoraDAO = new CorretoraDAO(connection);
+		
         return String.format(
-            "ID: %d | Prêmio: R$ %.2f | Início: %s | Fim: %s | Cliente: %d | Cobertura: %d | Assistência: %d | Corretora: %d",
+            "ID: %d | Prêmio: R$ %.2f | Início: %s | Fim: %s | Id do cliente: %d | Nome do Cliente: %s | CPF do Cliente: %s |"
+            + " id da cobertura: %d | Tipo de Cobertura: %s | id da assistência: %d | Tipo de Assistência: %s | id da corretora: %d | Nome da Corretora: %s |",
             seguro.getIdSeguro(),
             seguro.getValorPremio(),
             seguro.getDataInicio(),
             seguro.getDataFim(),
             seguro.getIdCliente(),
+            clienteDAO.selectById(seguro.getIdCliente()).getNome(),
+            clienteDAO.selectById(seguro.getIdCliente()).getCpf(),
             seguro.getIdCobertura(),
+            coberturaDAO.selectById(seguro.getIdCobertura()).getTipo(),
             seguro.getIdAssistencia(),
-            seguro.getIdCorretora()
+            assistenciaDAO.selectById(seguro.getIdAssistencia()).getTipo(),
+            seguro.getIdCorretora(),
+            corretoraDAO.selectById(seguro.getIdCorretora()).getNomeCorretora()
         );
     }
 
-	// Exibe a tela (chamado no clique da tela inicial)
 	public void show() {
 		frame.setVisible(true);
 	}

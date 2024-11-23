@@ -14,6 +14,8 @@ import br.com.tokio.connection.ConnectionFactory;
 
 public class TesteSemInsert {
 
+	/** teste sem a criação de seguro para testar sinistro
+	 * */
     public static void main(String[] args) {
         // Criação da conexão com o banco
         var connection = new ConnectionFactory().conectar();

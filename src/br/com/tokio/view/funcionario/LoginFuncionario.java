@@ -63,7 +63,7 @@ public class LoginFuncionario {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'login funcionario' onde este pode acessar a área do funcionário utilizando o acesso ('user name') e a senha
 	 */
 	private void initialize() {
 		frame = new JFrame();

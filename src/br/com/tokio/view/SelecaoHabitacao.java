@@ -60,7 +60,7 @@ public class SelecaoHabitacao {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'seleção de habitação', onde, no processo de cotação/contratação, se escolhe o tipo de habitação (moradia / veraneio)
 	 */
 	private void initialize() {
 		frame = new JFrame();

@@ -27,6 +27,8 @@ import br.com.tokio.connection.ConnectionFactory;
 
 public class Teste {
 
+	/** teste geral
+	 * */
     public static void main(String[] args) {
         // Criação da conexão com o banco
         Connection connection = new ConnectionFactory().conectar();

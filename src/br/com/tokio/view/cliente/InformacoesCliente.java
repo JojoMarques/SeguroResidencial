@@ -59,7 +59,7 @@ public class InformacoesCliente {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'informações cliente', onde o cliente pode ver seus dados de cadastro, e pode ser direcionado para a edição deles
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -205,9 +205,7 @@ public class InformacoesCliente {
 		
 	}
 
-	/**
-	 * Método para exibir a tela.
-	 */
+	
 	public void show() {
 		frame.setVisible(true);
 	}

@@ -83,7 +83,7 @@ public class InserirImovel {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'inserir imóvel', onde, no processo de cotação/abertura de conta se registra o imóvel
 	 */
 	private void initialize() {
 
@@ -241,12 +241,8 @@ public class InserirImovel {
 
 			String nomeEstado = estadoSelecionado.name();
 
-//			JOptionPane.showMessageDialog(frame,
-//					"Dados enviados com sucesso!\n" + "CEP: " + cep + "\n" + "Logradouro: " + logradouro + "\n"
-//							+ "Número " + numero + "\n" + "Cidade: " + cidade + "\n" + "Estado: " + estado + "\n"
-//							+ "Área do imóvel: " + areaImovel + "\n" + "Valor imóvel: " + valorImovel);
-
-			// verifica se todos tem valor.
+			
+			// verifica se todos tem valor
 			if (!cep.isEmpty() && !logradouro.isEmpty() && !numero.isEmpty() && !cidade.isEmpty() && !bairro.isEmpty()
 					&& !areaImovel.isEmpty() && !valorImovel.isEmpty() && !nomeEstado.isEmpty()) {
 
@@ -257,8 +253,7 @@ public class InserirImovel {
 				System.out.println(clienteRecebido.getIdUsuario() + "-" + clienteRecebido.getNome());
 
 				Imovel imovel = new Imovel();
-				// Imovel imovel = new Imovel(valor, area, "Brasil", nomeEstado, cidade, bairro,
-				// logradouro, num, cep,clienteRecebido.getIdCliente() );
+				
 				imovel.setValorImovel(valor);
 				imovel.setArea(area);
 				imovel.setPais("Brasil");
@@ -273,16 +268,16 @@ public class InserirImovel {
 				System.out.println(imovel.getIdCliente());
 				imovel.setIdCliente(clienteRecebido.getIdCliente());
 
-				// Obtém a data atual usando System.currentTimeMillis() e cria um objeto Date
+				// pega a data atual usando System.currentTimeMillis() e cria um objeto Date
 				Date dataInicio = new Date(System.currentTimeMillis());
 				seguroRecebido.setDataInicio(dataInicio);
 
-				// Adiciona 12 meses (1 ano) à data de início
+				// adiciona 12 meses (1 ano) à data de início
 				Date dataFim = new Date(dataInicio.getTime() + (365L * 24 * 60 * 60 * 1000)); // 12 meses em
 																								// milissegundos
 				seguroRecebido.setDataFim(dataFim);
 
-				// Exibindo as datas para verificação
+				// exibindo as datas - teste
 				System.out.println("Data Início: " + dataInicio);
 				System.out.println("Data Fim: " + dataFim);
 

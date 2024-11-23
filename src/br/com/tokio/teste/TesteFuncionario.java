@@ -10,7 +10,8 @@ import br.com.tokio.model.Cliente;
 import br.com.tokio.model.Funcionario;
 
 public class TesteFuncionario {
-
+	/** teste para funcionario
+	 * */
 	public static void main(String[] args) {
         Connection connection = new ConnectionFactory().conectar();
 

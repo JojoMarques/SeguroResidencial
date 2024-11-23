@@ -48,7 +48,8 @@ public class TelaInicial {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'tela inicial', que direciona para o login do cliente, 
+	 * login do funcionário, duvidas frequentes e cotação/ 'contrate aqui'
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -135,43 +136,37 @@ public class TelaInicial {
 
 		// Evento que direciona para o login do funcionário
 		btnFuncionario.addActionListener(e -> {
-			// Abre a tela AreaCliente
 			LoginFuncionario areaFuncionario = new LoginFuncionario();
-			areaFuncionario.show(); // Mostra a nova tela
-			// Fecha a tela atual (opcional)
+			areaFuncionario.show(); 
 			frame.dispose();
 		});
 
 		// Evento que direciona para o login do cliente
 		btnCliente.addActionListener(e -> {
-			// Abre a tela AreaCliente
 			LoginCliente loginCliente = new LoginCliente();
-			loginCliente.show(); // Mostra a nova tela
-			// Fecha a tela atual (opcional)
+			loginCliente.show(); 
 			frame.dispose();
 		});
 
 		// Evento que direciona para o contrate aqui
 		btnContrate.addActionListener(e -> {
-			// Abre a tela AreaCliente
 			Simulacao simulacao = new Simulacao();
-			simulacao.show(); // Mostra a nova tela
-
-			// Fecha a tela atual (opcional)
+			simulacao.show(); 
+			
 			frame.dispose();
 		});
 		
 		// Evento que direciona para as duvidas frequentes o login do funcionário
 		btnDuvidas.addActionListener(e -> {
-			// Abre a tela AreaCliente
+			
 			DuvidasFrequentes duvidasFrequentes = new DuvidasFrequentes();
-			duvidasFrequentes.show(); // Mostra a nova tela
-			// Fecha a tela atual (opcional)
+			duvidasFrequentes.show(); 
+			
 			frame.dispose();
 		});
 	}
 
-	// vai exibir a tela (é chamado no click da tela inicial)
+	
 	public void show() {
 		frame.setVisible(true);
 	}

@@ -54,7 +54,7 @@ public class DuvidasFrequentes {
     }
 
     /**
-     * Initialize the contents of the frame.
+     * Inicializa a tela 'duvidas frequentes' onde o usuário pode selecionar entre 3 categorias de perguntas relacionadas ao seguro e ao sistema
      */
     private void initialize() {
         frame = new JFrame();
@@ -87,6 +87,8 @@ public class DuvidasFrequentes {
         lblAreaDoCliente.setBounds(249, 15, 286, 69);
         panelHeader.add(lblAreaDoCliente);
 
+        // -------------------------------------------
+        
         JPanel panel = new JPanel();
         panel.setBounds(107, 100, 569, 461);
         frame.getContentPane().add(panel);
@@ -160,7 +162,9 @@ public class DuvidasFrequentes {
         });
     }
 
-    // Método que retorna a resposta da pergunta selecionada
+    /** retorna a resposta para a pergunta
+     * @return String - resposta
+	 * */
     private String getResposta(String pergunta) {
         for (String[] pr : perguntasRespostas) {
             if (pr[0].equals(pergunta)) {

@@ -76,7 +76,8 @@ public class ConfirmarDados {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa a tela 'confirmar dados', onde, no processo de cotação/contratação, se olha pela última vez os dados
+	 * e se insere a senha antes de concluir o cadastro
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -254,6 +255,9 @@ public class ConfirmarDados {
 
 	}
 
+	/**confirma se a senha digitada nos campos de senha e confirmar senha são iguais
+	 * @return boolean 
+	 * */
 	public boolean confirmarSenha() {
 		String senha1 = new String(password1.getPassword());
 		String senha2 = new String(passwordConfirmar.getPassword());

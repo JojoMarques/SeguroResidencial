@@ -61,7 +61,7 @@ public class EditarCliente {
     }
 
     /**
-     * Initialize the contents of the frame.
+     * Inicializa a tela 'editar dados' onde o cliente, após a tela 'informações cliente', pode editar os dados de sua conta
      */
     private void initialize() {
         frame = new JFrame();
@@ -105,7 +105,7 @@ public class EditarCliente {
         JLabel lblTitulo = new JLabel("Editar Informações:");
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblTitulo.setBounds(161, 36, 200, 30); // Posição na janela
+        lblTitulo.setBounds(161, 36, 200, 30); 
         panel.add(lblTitulo);
         
     	Connection connection = new ConnectionFactory().conectar();
@@ -116,48 +116,48 @@ public class EditarCliente {
         // Campo para editar Nome
         JLabel lblNome = new JLabel("Nome:");
         lblNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNome.setBounds(82, 106, 80, 25); // Posição na janela
+        lblNome.setBounds(82, 106, 80, 25); 
         panel.add(lblNome);
 
         txtNome = new JTextField();
         txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        txtNome.setBounds(161, 106, 200, 25); // Posição na janela
+        txtNome.setBounds(161, 106, 200, 25); 
         txtNome.setText(cliente.getNome());
         panel.add(txtNome);
 
         // Campo para editar E-mail
         JLabel lblEmail = new JLabel("E-mail:");
         lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblEmail.setBounds(82, 156, 80, 25); // Posição na janela
+        lblEmail.setBounds(82, 156, 80, 25);
         panel.add(lblEmail);
 
         txtEmail = new JTextField();
         txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        txtEmail.setBounds(161, 156, 200, 25); // Posição na janela
+        txtEmail.setBounds(161, 156, 200, 25); 
         txtEmail.setText(cliente.getEmail());
         panel.add(txtEmail);
 
         // Campo para editar Senha
         JLabel lblSenha = new JLabel("Senha:");
         lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblSenha.setBounds(82, 206, 80, 25); // Posição na janela
+        lblSenha.setBounds(82, 206, 80, 25); 
         panel.add(lblSenha);
 
         txtSenha = new JPasswordField();
         txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        txtSenha.setBounds(161, 206, 200, 25); // Posição na janela
+        txtSenha.setBounds(161, 206, 200, 25); 
         txtSenha.setText(cliente.getSenhaCliente());
         panel.add(txtSenha);
 
         // Campo para editar Telefone
         JLabel lblTelefone = new JLabel("Telefone:");
         lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblTelefone.setBounds(82, 256, 80, 25); // Posição na janela
+        lblTelefone.setBounds(82, 256, 80, 25); 
         panel.add(lblTelefone);
 
         txtTelefone = new JTextField();
         txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        txtTelefone.setBounds(161, 256, 200, 25); // Posição na janela
+        txtTelefone.setBounds(161, 256, 200, 25);
         txtTelefone.setText(cliente.getTelefone());
         panel.add(txtTelefone);
 
@@ -165,10 +165,10 @@ public class EditarCliente {
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.setBackground(new Color(225, 193, 85));
         btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        btnSalvar.setBounds(161, 327, 200, 30); // Posição na janela
+        btnSalvar.setBounds(161, 327, 200, 30); 
         panel.add(btnSalvar);
         
-     // Evento para voltar à tela inicial
+    	// Evento para voltar à tela inicial
 		btnLogoTelaInicial.addActionListener(e -> {
 			TelaInicial telaInicial = new TelaInicial();
 			telaInicial.show(); // Mostra a nova tela
@@ -178,7 +178,7 @@ public class EditarCliente {
         // Evento do botão "Salvar"
         btnSalvar.addActionListener(e -> {
         	Cliente c = clienteDAO.selectById(idRecebido);
-            // Simulação de atualização dos dados
+            
         	c.setNome(txtNome.getText());
             c.setEmail(txtEmail.getText());
             c.setSenhaCliente(new String(txtSenha.getPassword()));
@@ -190,9 +190,7 @@ public class EditarCliente {
         });
     }
 
-    /**
-     * Método para exibir a tela.
-     */
+    
     public void show() {
         frame.setVisible(true);
     }
