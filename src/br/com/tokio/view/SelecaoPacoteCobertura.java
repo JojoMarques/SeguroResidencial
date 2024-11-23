@@ -49,12 +49,17 @@ public class SelecaoPacoteCobertura {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'seleção pacote cobertura', onde, no processo de cotação/contratação, se escolhe o pacote de cobertura (no momento são 3)
 	 */
 	public SelecaoPacoteCobertura() {
 		initialize();
 	}
 
+	/**
+	 * Cria a tela 'seleção pacote cobertura', onde, no processo de cotação/contratação, se escolhe o pacote de cobertura (no momento são 3)
+	 * agora passando os dados das telas anteriores
+	 *
+	 */
 	public SelecaoPacoteCobertura(Cliente cliente, Seguro seguro, String corretora, String habitacao) {
 		this.clienteRecebido = cliente;
 		this.seguroRecebido = seguro;
@@ -63,9 +68,7 @@ public class SelecaoPacoteCobertura {
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'seleção pacote cobertura', onde, no processo de cotação/contratação, se escolhe o pacote de cobertura (no momento são 3)
-	 */
+	
 	private void initialize() {
 		Connection connection = new ConnectionFactory().conectar();
 		PacoteCoberturaDAO pacoteCoberturaDAO = new PacoteCoberturaDAO(connection);

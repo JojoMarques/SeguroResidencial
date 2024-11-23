@@ -47,15 +47,13 @@ public class DuvidasFrequentes {
     }
 
     /**
-     * Create the application.
+     * Cria a tela 'duvidas frequentes' onde o usuário pode selecionar entre 3 categorias de perguntas relacionadas ao seguro e ao sistema
      */
     public DuvidasFrequentes() {
         initialize();
     }
 
-    /**
-     * Inicializa a tela 'duvidas frequentes' onde o usuário pode selecionar entre 3 categorias de perguntas relacionadas ao seguro e ao sistema
-     */
+    
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 800, 600);

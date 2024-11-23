@@ -52,19 +52,22 @@ public class LoginFuncionario {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'login funcionario' onde este pode acessar a área do funcionário utilizando o acesso ('user name') e a senha,
+	 * agora com o id do funcionário logado
+	 * @param int - id funcionario
 	 */
 	public LoginFuncionario(int idFuncionario) {
 		initialize();
 	}
 
+	/**
+	 * Cria a tela 'login funcionario' onde este pode acessar a área do funcionário utilizando o acesso ('user name') e a senha
+	 */
 	public LoginFuncionario() {
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'login funcionario' onde este pode acessar a área do funcionário utilizando o acesso ('user name') e a senha
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);

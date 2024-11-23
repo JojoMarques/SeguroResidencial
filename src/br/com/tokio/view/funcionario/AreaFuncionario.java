@@ -63,20 +63,23 @@ public class AreaFuncionario {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'area do funcionario' onde ele pode solicitar relatórios e também imprimir na aba em que este for gerado
 	 */
 	public AreaFuncionario() {
 		initialize();
 	}
 	
+	/**
+	 * Cria a tela 'area do funcionario' onde ele pode solicitar relatórios e também imprimir na aba em que este for gerado,
+	 * agora com o id do funcionário logado
+	 * @param int - id funcionario
+	 */
 	public AreaFuncionario(int idFuncionario) {
 		this.idRecebido = idFuncionario;
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'area do funcionario' onde ele pode solicitar relatórios e também imprimir na aba em que este for gerado
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);

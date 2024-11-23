@@ -50,21 +50,25 @@ public class AreaCliente {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'área do cliente', onde ele pode ser direcionado para o visualizar dados, vizualizar apólice
+	 * e solicitar sinistro [o sinistro é registrado no banco de dados],
+	 * agora passando os dados do cliente logado
+	 * @param int - id do cliente
 	 */
 	public AreaCliente(int idCliente) {
 		this.idRecebido = idCliente;
 		initialize();
 	}
 
+	/**
+	 * Cria a tela 'área do cliente', onde ele pode ser direcionado para o visualizar dados, vizualizar apólice
+	 * e solicitar sinistro [o sinistro é registrado no banco de dados]
+	 */
 	public AreaCliente() {
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'área do cliente', onde ele pode ser direcionado para o vizualizar dados, vizualizar apólice
-	 * e solicitar sinistro [o sinistro é registrado no banco de dados]
-	 */
+	
 	private void initialize() {
 		Connection connection = new ConnectionFactory().conectar();
 

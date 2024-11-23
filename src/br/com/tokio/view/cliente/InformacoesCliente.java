@@ -47,20 +47,23 @@ public class InformacoesCliente {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'informações cliente', onde o cliente pode ver seus dados de cadastro, e pode ser direcionado para a edição deles
 	 */
 	public InformacoesCliente() {
 		initialize();
 	}
 	
+	/**
+	 * Cria a tela 'informações cliente', onde o cliente pode ver seus dados de cadastro, e pode ser direcionado para a edição deles,
+	 * agora passando os dados do cliente logado
+	 * @param int - id do cliente
+	 */
 	public InformacoesCliente(int idCliente) {
 		this.idRecebido = idCliente; 
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'informações cliente', onde o cliente pode ver seus dados de cadastro, e pode ser direcionado para a edição deles
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);

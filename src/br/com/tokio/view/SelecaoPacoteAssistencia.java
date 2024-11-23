@@ -51,12 +51,21 @@ public class SelecaoPacoteAssistencia {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'seleção pacote assistencia', onde, no processo de cotação/contratação, se escolhe o pacote de assistencia (no momento são 3)
 	 */
 	public SelecaoPacoteAssistencia() {
 		initialize();
 	}
 
+	/**
+	 * Cria a tela 'seleção pacote assistencia', onde, no processo de cotação/contratação, se escolhe o pacote de assistencia (no momento são 3)
+	 * agora passando os dados das telas anteriores
+	 * @param Cliente - o cliente do seguro
+	 * @param Seguro - o seguro contratado
+	 * @param String - a corretora responsável
+	 * @param String - o tipo de habitação do cliente
+	 * @param int - o pacote de cobertura escolhido
+	 */
 	public SelecaoPacoteAssistencia(Cliente cliente, Seguro seguro, String corretora,
 			String habitacao, int pacoteCobertura) {
 		this.clienteRecebido = cliente;
@@ -65,12 +74,9 @@ public class SelecaoPacoteAssistencia {
 		this.habitacaoRecebida = habitacao;
 		this.pacoteCoberturaSelecionada = pacoteCobertura;
 		initialize();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * Inicializa a tela 'seleção pacote assistencia', onde, no processo de cotação/contratação, se escolhe o pacote de assistencia (no momento são 3)
-	 */
+	
 	private void initialize() {
 		Connection connection = new ConnectionFactory().conectar();
 		PacoteAssistenciaDAO pacoteAssistenciaDAO = new PacoteAssistenciaDAO(connection);

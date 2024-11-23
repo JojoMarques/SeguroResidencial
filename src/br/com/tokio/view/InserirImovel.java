@@ -64,12 +64,22 @@ public class InserirImovel {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'inserir imóvel', onde, no processo de cotação/abertura de conta se registra o imóvel
 	 */
 	public InserirImovel() {
 		initialize();
 	}
 
+	/**
+	 * Cria a tela 'inserir imóvel', onde, no processo de cotação/abertura de conta se registra o imóvel,
+	 * agora passando os dados recolhidos antes para criar imovel e depois o seguro
+	 * @param Cliente - o cliente do seguro
+	 * @param Seguro - o seguro contratado
+	 * @param Corretora - a corretora responsável
+	 * @param Habitacao - o tipo de habitação do cliente
+	 * @param PacoteCobertura - o pacote de cobertura escolhido
+	 * @param PacoteAssistencia - o pacote de assistência escolhido
+	 */
 	public InserirImovel(Cliente cliente, Seguro seguro, String corretora, String habitacao, int pacoteCobertura,
 			int pacoteAssistencia) {
 		this.clienteRecebido = cliente;
@@ -82,9 +92,7 @@ public class InserirImovel {
 
 	}
 
-	/**
-	 * Inicializa a tela 'inserir imóvel', onde, no processo de cotação/abertura de conta se registra o imóvel
-	 */
+	
 	private void initialize() {
 
 		Connection connection = new ConnectionFactory().conectar();

@@ -46,12 +46,20 @@ public class SelecaoHabitacao {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'seleção de habitação', onde, no processo de cotação/contratação, se escolhe o tipo de habitação (moradia / veraneio)
 	 */
 	public SelecaoHabitacao() {
 		initialize();
 	}
 
+	/**
+	 * Cria a tela 'seleção de habitação', onde, no processo de cotação/contratação, se escolhe o tipo de habitação (moradia / veraneio),
+	 * agora passando os dados das telas anteriores
+	 * @param Cliente - o cliente do seguro
+	 * @param Seguro - o seguro contratado
+	 * @param String - a corretora responsável
+	 * @param String - o tipo de habitação do cliente
+	 */
 	public SelecaoHabitacao(Cliente cliente, Seguro seguro, String corretora) {
 		this.clienteRecebido = cliente;
 		this.seguroRecebido = seguro;
@@ -59,9 +67,7 @@ public class SelecaoHabitacao {
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'seleção de habitação', onde, no processo de cotação/contratação, se escolhe o tipo de habitação (moradia / veraneio)
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);

@@ -50,20 +50,23 @@ public class LoginCliente {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'login cliente' onde um usuário acessar a área do cliente com CPF e senha
 	 */
 	public LoginCliente() {
 		initialize();
 	}
 
+	/**
+	 * Cria a tela 'login cliente' onde um usuário acessar a área do cliente com CPF e senha,
+	 * agora passando os dados do cliente logado
+	 * @param int - id do cliente
+	 */
 	public LoginCliente(int idCliente) {
 		this.idClienteRecebido = idCliente;
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'login cliente' onde um usuário acessar a área do cliente com CPF e senha
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);

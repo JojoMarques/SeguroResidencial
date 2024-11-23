@@ -50,22 +50,26 @@ public class SolicitarSinistro {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'solicitar sinistro', 
+	 * onde o cliente pode registrar um sinistro no sistema (fica no banco de dados para que a empresa entre em contato depois)
 	 */
 	public SolicitarSinistro() {
 		initialize();
 	}
 	
+	/**
+	 * Cria a tela 'solicitar sinistro', 
+	 * onde o cliente pode registrar um sinistro no sistema (fica no banco de dados para que a empresa entre em contato depois),
+	 * agora passando os dados do cliente logado
+	 * @param int - id do cliente
+	 */
 	public SolicitarSinistro(int idCliente) {
 		this.idRecebido = idCliente;
 		initialize();
 	}
 
 
-	/**
-	 * Inicializa a tela 'solicitar sinistro', 
-	 * onde o cliente pode registrar um sinistro no sistema (fica no banco de dados para que a empresa entre em contato depois)
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);

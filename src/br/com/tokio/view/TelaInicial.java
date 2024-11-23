@@ -41,16 +41,14 @@ public class TelaInicial {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'tela inicial', que direciona para o login do cliente, 
+	 * login do funcionário, duvidas frequentes e cotação/ 'contrate aqui'
 	 */
 	public TelaInicial() {
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'tela inicial', que direciona para o login do cliente, 
-	 * login do funcionário, duvidas frequentes e cotação/ 'contrate aqui'
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);

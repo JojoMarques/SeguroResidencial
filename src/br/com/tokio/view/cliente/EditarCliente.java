@@ -49,20 +49,23 @@ public class EditarCliente {
     }
 
     /**
-     * Create the application.
+     * Cria a tela 'editar dados' onde o cliente, após a tela 'informações cliente', pode editar os dados de sua conta
      */
     public EditarCliente() {
         initialize();
     }
     
+    /**
+	 * Cria a tela 'editar dados' onde o cliente, após a tela 'informações cliente', pode editar os dados de sua conta,
+	 * agora passando os dados do cliente logado
+	 * @param int - id do cliente
+	 */
     public EditarCliente(int idCliente) {
     	this.idRecebido = idCliente;
         initialize();
     }
 
-    /**
-     * Inicializa a tela 'editar dados' onde o cliente, após a tela 'informações cliente', pode editar os dados de sua conta
-     */
+   
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100,100, 800, 600);

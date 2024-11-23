@@ -59,12 +59,24 @@ public class ConfirmarDados {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'confirmar dados', onde, no processo de cotação/contratação, se olha pela última vez os dados
+	 * e se insere a senha antes de concluir o cadastro
 	 */
 	public ConfirmarDados() {
 		initialize();
 	}
 
+	/**
+	 * Cria a tela 'confirmar dados', onde, no processo de cotação/contratação, se olha pela última vez os dados
+	 * e se insere a senha antes de concluir o cadastro,
+	 * agora com os dados das telas anteriores
+	 * @param Cliente - o cliente do seguro
+	 * @param Seguro - o seguro contratado
+	 * @param String - a corretora responsável
+	 * @param String - o tipo de habitação do cliente
+	 * @param int - o pacote de cobertura escolhido
+	 * @param int - o pacote de assistência escolhido
+	 */
 	public ConfirmarDados(Cliente cliente, Seguro seguro, String corretora, String habitacao, int pacoteCobertura, int pacoteAssistencia) {
 		this.clienteRecebido = cliente;
 		this.seguroRecebido = seguro;
@@ -75,10 +87,7 @@ public class ConfirmarDados {
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'confirmar dados', onde, no processo de cotação/contratação, se olha pela última vez os dados
-	 * e se insere a senha antes de concluir o cadastro
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);

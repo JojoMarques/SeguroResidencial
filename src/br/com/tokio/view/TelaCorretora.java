@@ -49,21 +49,25 @@ public class TelaCorretora {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela 'tela corretora', onde, no processo de cotação/contratação, se escolhe a corretora 
 	 */
 	public TelaCorretora() {
 		initialize();
 	}
 
+	/**
+	 * Cria a tela 'tela corretora', onde, no processo de cotação/contratação, se escolhe a corretora,
+	 * agora passando os dados das telas anteriores
+	  * @param Cliente - o cliente do seguro
+	  * @param Seguro - o seguro contratado
+	 */
 	public TelaCorretora(Cliente cliente, Seguro seguro) {
 		this.clienteRecebido = cliente;
 		this.seguroRecebido = seguro;
 		initialize();		
 	}
 
-	/**
-	 * Inicializa a tela 'tela corretora', onde, no processo de cotação/contratação, se escolhe a corretora 
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);

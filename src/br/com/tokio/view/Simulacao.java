@@ -42,17 +42,15 @@ public class Simulacao {
 		});
 	}
 
-//
+
 	/**
-	 * Create the application.
+	 * Cria a tela 'simulação', a primeira tela do processo de cotação/contratação, onde o usuário insere seus dados pessoais
 	 */
 	public Simulacao() {
 		initialize();
 	}
 
-	/**
-	 * Inicializa a tela 'simulação', a primeira tela do processo de cotação/contratação, onde o usuário insere seus dados pessoais
-	 */
+	
 	private void initialize() {
 		
 		Cliente cliente = new Cliente();

@@ -56,19 +56,23 @@ public class VisualizarApolice {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a tela visualizar apólice, onde o cliente pode ver e também solicitar a impressão ou o download do pdf do documento
 	 */
 	public VisualizarApolice() {
 		initialize();
 	}
 	
+	
+	/**
+	 * Cria a tela visualizar apólice, onde o cliente pode ver e também solicitar a impressão ou o download do pdf do documento
+	 * agora passando os dados do cliente logado
+	 * @param int - id do cliente
+	 */
 	public VisualizarApolice(int idCliente) {
 		this.idRecebido = idCliente;
 		initialize();
 	}
-	/**
-	 * Inicializa a tela vizualizar apólice, onde o cliente pode ver e também solicitar a impressão ou o download do pdf do documento
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);
