@@ -1,16 +1,16 @@
 INSERT INTO t_funcionario (nm_func, cpf_func, telefone_func, email_func, ds_acesso_func, dt_admissao, senha)
-VALUES ('João Félix', '12345678901', '11987654321', 'joao.felix@tokio.com.br', 'joao.felix', TO_DATE('2020-05-15', 'YYYY-MM-DD'), 'senha1907');
+VALUES ('João Félix', '12345678901', '11987654321', 'joao.felix@tokio.com.br', 'j1907', TO_DATE('2020-05-15', 'YYYY-MM-DD'), 'Jo1907');
 
 INSERT INTO t_funcionario (nm_func, cpf_func, telefone_func, email_func, ds_acesso_func, dt_admissao, senha)
-VALUES ('Jossana Tavares', '23456789012', '21987654321', 'jossana.tavares@tokio.com.br', 'jossana.tavares', TO_DATE('2019-03-20', 'YYYY-MM-DD'), 'senha0308');
+VALUES ('Jossana Tavares', '23456789012', '21987654321', 'jossana.tavares@tokio.com.br', 'j0308', TO_DATE('2019-03-20', 'YYYY-MM-DD'), 'Jo0308');
 
 INSERT INTO t_funcionario (nm_func, cpf_func, telefone_func, email_func, ds_acesso_func, dt_admissao, senha)
-VALUES ('Marisa Morita', '34567890123', '31987654321', 'marisa.morita@tokio.com.br', 'marisa.morita', TO_DATE('2021-07-10', 'YYYY-MM-DD'), 'senha2606');
+VALUES ('Marisa Morita', '34567890123', '31987654321', 'marisa.morita@tokio.com.br', 'm2606', TO_DATE('2021-07-10', 'YYYY-MM-DD'), 'Ma2606');
 
 INSERT INTO t_funcionario (nm_func, cpf_func, telefone_func, email_func, ds_acesso_func, dt_admissao, senha)
-VALUES ('Millena Cupolillo', '45678901234', '41987654321', 'millena.cupolillo@tokio.com.br', 'millena.cupolillo', TO_DATE('2022-01-25', 'YYYY-MM-DD'), 'senha2405');
+VALUES ('Millena Cupolillo', '45678901234', '41987654321', 'millena.cupolillo@tokio.com.br', 'm2405', TO_DATE('2022-01-25', 'YYYY-MM-DD'), 'Mi2405');
 
 INSERT INTO t_funcionario (nm_func, cpf_func, telefone_func, email_func, ds_acesso_func, dt_admissao, senha)
-VALUES ('Sophia Barros', '56789012345', '51987654321', 'sophia.barros@tokio.com.br', 'sophia.barros', TO_DATE('2023-11-01', 'YYYY-MM-DD'), 'senha1601');
+VALUES ('Sophia Barros', '56789012345', '51987654321', 'sophia.barros@tokio.com.br', 's1601', TO_DATE('2023-11-01', 'YYYY-MM-DD'), 'So1601');
 
-commit;
+COMMIT;
