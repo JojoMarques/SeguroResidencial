@@ -69,7 +69,7 @@ public class AreaCliente {
 
 		System.out.println("id q chegou aqui na area cliente:" + idRecebido);
 		frame = new JFrame();
-		frame.setBounds(400, 200, 800, 600);
+		frame.setBounds(100,100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
