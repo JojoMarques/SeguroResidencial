@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import br.com.tokio.connection.ConnectionFactory;
+import br.com.tokio.dao.SeguroDAO;
 import br.com.tokio.dao.SinistroDAO;
 import br.com.tokio.model.Sinistro;
 import br.com.tokio.view.TelaInicial;
@@ -171,11 +172,13 @@ public class SolicitarSinistro {
 			Connection connection = new ConnectionFactory().conectar();
 
 			SinistroDAO sinistroDAO = new SinistroDAO(connection);
+			SeguroDAO seguroDAO = new SeguroDAO(connection);
 
-			Sinistro sinistro = new Sinistro(tipo,Date.valueOf(data),descricao,false, 1, 1);
+			Sinistro sinistro = new Sinistro(tipo,Date.valueOf(data),descricao,false,seguroDAO.selectByCliente(idRecebido).getIdSeguro(),idRecebido);
+			System.out.println(sinistro.getTipoSinistro());
 			sinistroDAO.insert(sinistro);
 
-			AreaCliente areaCliente = new AreaCliente();
+			AreaCliente areaCliente = new AreaCliente(idRecebido);
 			areaCliente.show();
 			frame.dispose();
 		});
@@ -188,7 +191,7 @@ public class SolicitarSinistro {
 		});
 
 		btnVoltar.addActionListener(e -> {
-			AreaCliente areaCliente = new AreaCliente();
+			AreaCliente areaCliente = new AreaCliente(idRecebido);
 			areaCliente.show();
 			frame.dispose();
 		});

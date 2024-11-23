@@ -299,7 +299,7 @@ public class SeguroDAO {
 	 * @return List<Seguro> - lista de seguros
 	 * */
     public List<Seguro> buscarCobertura(int idCobertura) {
-        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_assistencia, cd_corretora " +
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_assistencia, cd_corretora, cd_cobertura " +
                      "FROM T_SEGURO " +
                      "WHERE cd_cobertura = ?";
         List<Seguro> listSeguros = new ArrayList<>();
