@@ -1,6 +1,7 @@
 package br.com.tokio.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,11 +17,16 @@ public class SeguroDAO {
 
     private Connection connection;
 
+    /** construtor de SeguroDAO
+	 * @param Connection - connection
+	 * */
     public SeguroDAO(Connection connection) {
         this.connection = connection;
     }
 
-    // insert
+    /** insere um seguro
+	 * @param Seguro - seguro
+	 * */
     public void insert(Seguro seguro) {
     	String sql = "INSERT INTO t_seguro (vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora) VALUES (?, TO_DATE(?, 'YYYY-MM-DD'), TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?)";
         	
@@ -44,8 +50,10 @@ public class SeguroDAO {
         }
     }
 
-    // delete
-    public void delete(int idSeguro, int idCliente) {
+    /** deleta um seguro
+	 * @param int - id do seguro
+	 * */
+    public void delete(int idSeguro) {
         String sql = "delete from T_SEGURO where cd_seguro =?";
 
         try {
@@ -60,7 +68,9 @@ public class SeguroDAO {
         }
     }
 
-    // update
+    /** atualiza um seguro
+	 * @param Seguro - seguro
+	 * */
     public void update(Seguro seguro) {
         String sql = "update T_SEGURO set vl_premio = ?, cd_cobertura = ?, cd_assistencia = ? where cd_seguro = ?";
 
@@ -81,7 +91,9 @@ public class SeguroDAO {
         }
     }
 
-    // select all
+    /** busca todos os seguros no banco
+	 * @return List<Seguro> - lista de seguros
+	 * */
     public List<Seguro> selectAll() {
         String sql = "select * from T_SEGURO";
         List<Seguro> listSeguros = new ArrayList<>();
@@ -114,8 +126,11 @@ public class SeguroDAO {
         return listSeguros;
     }
 
-    // select by id
-    public Seguro selectById(int idSeguro, int idCliente) {
+    /** busca um seguro pelo id
+     * @param int - id do seguro
+	 * @return Seguro - seguro
+	 * */
+    public Seguro selectById(int idSeguro) {
         String sql = "select * from T_SEGURO where cd_seguro = ? ";
         Seguro seguro = new Seguro();
 
@@ -144,7 +159,9 @@ public class SeguroDAO {
         return seguro;
     }
     
- // Relatório de Seguros Ativos
+    /** relatorio : busca todos os seguros ativos
+	 * @return List<Seguro> - lista de seguros
+	 * */
     public List<Seguro> buscarAtivos() {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
@@ -175,7 +192,10 @@ public class SeguroDAO {
         return listSeguros;
     }
 
-    // Relatório de Seguros por Cliente
+    /** relatorio : busca todos os seguros de um cliente
+     * @param int - id do cliente
+	 * @return List<Seguro> - lista de seguros
+	 * */
     public List<Seguro> buscarPorCliente(int idCliente) {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
@@ -207,7 +227,10 @@ public class SeguroDAO {
         return listSeguros;
     }
 
-    // Relatório de Seguros por Corretora
+    /** relatorio : busca todos os seguros de uma corretora
+     * @param int - id da corretora 
+	 * @return List<Seguro> - lista de seguros
+	 * */
     public List<Seguro> buscarPorCorretora(int idCorretora) {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia " +
                      "FROM T_SEGURO " +
@@ -238,7 +261,9 @@ public class SeguroDAO {
         return listSeguros;
     }
 
-    // Relatório de Seguros Vencidos
+    /** relatorio : busca todos os seguros vencidos
+	 * @return List<Seguro> - lista de seguros
+	 * */
     public List<Seguro> buscarVencidos() {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
@@ -269,7 +294,10 @@ public class SeguroDAO {
         return listSeguros;
     }
 
-    // Relatório de Seguros por Cobertura
+    /** relatorio : busca todos os seguros que tem um pacote de cobertura
+     * @param int - id do pacote de cobertura
+	 * @return List<Seguro> - lista de seguros
+	 * */
     public List<Seguro> buscarCobertura(int idCobertura) {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
@@ -301,8 +329,12 @@ public class SeguroDAO {
         return listSeguros;
     }
 
-    // Relatório de Seguros por Período
-    public List<Seguro> buscarPorPeriodo(java.sql.Date dataInicio, java.sql.Date dataFim) {
+    /** relatorio : busca todos os seguros dentro de um período
+     * @param Date - data inicial
+     * @param Date - data final
+	 * @return List<Seguro> - lista de seguros
+	 * */
+    public List<Seguro> buscarPorPeriodo(Date dataInicio, Date dataFim) {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
                      "WHERE dt_inicio >= ? AND dt_fim <= ?";
@@ -334,7 +366,10 @@ public class SeguroDAO {
         return listSeguros;
     }
 
-    // Relatório de Seguros com Assistência Específica
+    /** relatorio : busca todos os seguros que tem um pacote de assistencia
+     * @param int - id do pacote de assistencia
+	 * @return List<Seguro> - lista de seguros
+	 * */
     public List<Seguro> buscarPorAssistencia(int idAssistencia) {
         String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_corretora, cd_assistencia " +
                      "FROM T_SEGURO " +
@@ -366,42 +401,20 @@ public class SeguroDAO {
         return listSeguros;
     }
 
-    // Relatório de Total de Prêmios por Corretora
-    public List<Seguro> buscarPremios() {
-        String sql = "SELECT cd_corretora, SUM(vl_premio) AS totalPremio " +
-                     "FROM T_SEGURO " +
-                     "GROUP BY cd_corretora";
-        List<Seguro> listSeguros = new ArrayList<>();
-
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Seguro seguro = new Seguro();
-                seguro.setIdCorretora(rs.getInt("cd_corretora"));
-                seguro.setValorPremio(rs.getDouble("totalPremio"));
-                
-                listSeguros.add(seguro);
-            }
-            stmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listSeguros;
-    }
-    
- // Select seguros por cliente (considerando a associação com imóveis)
+    /** busca seguros por cliente, considerando a associação com imoveis
+     * @param int - id do cliente
+	 * @return Seguro - seguro
+	 * */
     public Seguro selectByCliente(int idCliente) {
         String sql = "SELECT s.cd_seguro, s.vl_premio, s.dt_inicio, s.dt_fim, s.cd_cliente, s.cd_cobertura, s.cd_assistencia, s.cd_corretora " +
                      "FROM T_SEGURO s " +
-                     "JOIN T_IMOVEL i ON s.cd_cliente = i.cd_cliente " +  // Join entre seguro e imóvel pela chave cliente
-                     "WHERE s.cd_cliente = ?"; // Filtro de cliente
+                     "JOIN T_IMOVEL i ON s.cd_cliente = i.cd_cliente " +  
+                     "WHERE s.cd_cliente = ?"; 
 
         Seguro seguro = new Seguro();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idCliente);  // Passa o ID do cliente
+            stmt.setInt(1, idCliente);  
 
             ResultSet rs = stmt.executeQuery();
 
@@ -425,25 +438,28 @@ public class SeguroDAO {
         return seguro;
     }
     
- // Select pacote de cobertura por cliente
+    /** busca pacote de cobertura pelo cliente
+     * @param int - id do cliente
+	 * @return PacoteCobertura - pacoteCobertura
+	 * */
     public PacoteCobertura selectCoberturaPorCliente(int idCliente) {
         String sql = "SELECT c.cd_cobertura, c.ds_cobertura, c.tp_cobertura, c.vl_pct_cobertura FROM T_SEGURO s  JOIN T_PCT_COBERTURA c ON s.cd_cobertura = c.cd_cobertura  WHERE s.cd_cliente = ?";
         
-        PacoteCobertura cobertura = null;  // Inicializando como null, para retornar null se não encontrar
-
+        PacoteCobertura cobertura = null;  
+        
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idCliente);  // Passa o ID do cliente como parâmetro
+            stmt.setInt(1, idCliente);  
 
             ResultSet rs = stmt.executeQuery();
 
-            // Usar if ao invés de while, para pegar apenas o primeiro resultado
-            if (rs.next()) {  // Se houver pelo menos um resultado
-                cobertura = new PacoteCobertura();  // Instanciando o objeto apenas se houver resultado
+            
+            if (rs.next()) { 
+                cobertura = new PacoteCobertura();  
 
                 cobertura.setIdCobertura(rs.getInt("cd_cobertura"));
                 cobertura.setTipo(rs.getString("tp_cobertura"));
-                cobertura.setDescricao(rs.getString("ds_cobertura"));  // Corrigido para o campo correto
+                cobertura.setDescricao(rs.getString("ds_cobertura"));  
                 cobertura.setPreco(rs.getDouble("vl_pct_cobertura"));
             }
 
@@ -453,25 +469,29 @@ public class SeguroDAO {
             e.printStackTrace();
         }
 
-        return cobertura;  // Retorna a cobertura encontrada ou null se não houver
+        return cobertura; 
     }
    
     
+    /** busca pacote de assistencia pelo cliente
+     * @param int - id do cliente
+	 * @return PacoteAssistencia - pacoteAssistencia
+	 * */
     public PacoteAssistencia selectPacotePorCliente(int idCliente) {
         String sql = "SELECT a.cd_assistencia, a.tp_assistencia, a.ds_assistencia, a.vl_pct_assistencia " +
                      "FROM T_SEGURO s " +
                      "JOIN T_PCT_ASSISTENCIA a ON s.cd_assistencia = a.cd_assistencia " +
                      "WHERE s.cd_cliente = ?";
         
-        PacoteAssistencia pacote = null;  // Inicializando a variável como null, caso nenhum pacote seja encontrado
-
+        PacoteAssistencia pacote = null; 
+        
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idCliente);  // Definindo o ID do cliente como parâmetro da consulta
+            stmt.setInt(1, idCliente);  
             ResultSet rs = stmt.executeQuery();
 
-            // Garantir que apenas o primeiro pacote encontrado seja retornado
-            if (rs.next()) {  // Usando "if" para pegar apenas o primeiro registro
+            
+            if (rs.next()) {  
                 pacote = new PacoteAssistencia();
                 pacote.setIdAssistencia(rs.getInt("cd_assistencia"));
                 pacote.setTipo(rs.getString("tp_assistencia"));
@@ -485,12 +505,15 @@ public class SeguroDAO {
             e.printStackTrace();
         }
 
-        return pacote;  // Retorna o pacote de assistência, ou null se não encontrar nenhum
+        return pacote;  
     }
 
-    
+    /** busca corretora pelo id do seguro
+     * @param int - id do seguro
+	 * @return Corretora - corretora
+	 * */
     public Corretora selectCorretoraByIdSeguro(int idSeguro) {
-        // SQL para buscar a corretora associada ao seguro, baseado no ID do seguro
+        
         String sql = "SELECT c.* FROM T_SEGURO s "
                    + "JOIN T_CORRETORA c ON s.cd_corretora = c.cd_corretora "
                    + "WHERE s.cd_seguro = ?";
@@ -499,17 +522,17 @@ public class SeguroDAO {
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idSeguro);  // Definindo o ID do seguro como parâmetro da consulta
+            stmt.setInt(1, idSeguro);  
 
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Preenche o objeto corretora com os dados retornados
+                
                 corretora = new Corretora();
                 corretora.setIdCorretora(rs.getInt("cd_corretora"));
                 corretora.setNomeCorretora(rs.getString("nm_corretora"));
                 corretora.setEndereco(rs.getString("ds_endereco_corretora"));
-                // Preenchendo outros campos da corretora, se necessário...
+               
             }
 
             stmt.close();
@@ -518,7 +541,7 @@ public class SeguroDAO {
             e.printStackTrace();
         }
 
-        return corretora;  // Retorna a corretora associada ao seguro
+        return corretora;  
     }
 }
 

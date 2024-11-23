@@ -16,11 +16,16 @@ public class ClienteDAO implements Autenticar {
 
 	private Connection connection;
 
+	/** construtor do ClienteDAO
+	 * @param Connection - connection
+	 * */
 	public ClienteDAO(Connection connection) {
 		this.connection = connection;
 	}
 
-	// Insert
+	/** insere cliente
+	 * @param Cliente - cliente
+	 * */
 	public void insert(Cliente cliente) {
 		String sql = "insert into t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) values (?, ?, ?, ?, ?)";
 
@@ -40,7 +45,9 @@ public class ClienteDAO implements Autenticar {
 		}
 	}
 
-	// Delete
+	/** deleta cliente
+	 * @param int - id do cliente
+	 * */
 	public void delete(int idCliente) {
 		String sql = "delete from t_cliente where cd_cliente = ?";
 
@@ -56,7 +63,9 @@ public class ClienteDAO implements Autenticar {
 		}
 	}
 
-	// Update
+	/** atualiza cliente
+	 * @param Cliente - cliente
+	 * */
 	public void update(Cliente cliente) {
 		String sql = "update t_cliente set nm_cliente = ?, cpf_cliente = ?, telefone_cliente = ?, email_cliente = ?, ds_senha_cliente = ? where cd_cliente = ?";
 
@@ -79,7 +88,9 @@ public class ClienteDAO implements Autenticar {
 		}
 	}
 
-	// Select all
+	/** busca todos os clientes
+	 * @return List<Cliente> - cliente
+	*/
 	public List<Cliente> selectAll() {
 		List<Cliente> listaClientes = new ArrayList<Cliente>();
 		String sql = "select * from t_cliente";
@@ -109,7 +120,10 @@ public class ClienteDAO implements Autenticar {
 		return listaClientes;
 	}
 
-	// Select by id
+	/** busca um cliente com id específico
+	 * @param int - id do cliente
+	 * @return Cliente - cliente
+	 * */
 	public Cliente selectById(int idCliente) {
 		Cliente cliente = new Cliente();
 		String sql = "select * from t_cliente where cd_cliente = ?";
@@ -134,6 +148,11 @@ public class ClienteDAO implements Autenticar {
 		return cliente;
 	}
 
+	/** busca um cliente com base nos dados de login
+	 * @param String - CPF
+	 * @param String - senha
+	 * @return Cliente - cliente
+	 * */
 	public Cliente selectLogin(String cpf, String senha) {
 		Cliente cliente = new Cliente();
 		String sql = "select * from t_cliente where cpf_cliente = ? and ds_senha_cliente = ?";
@@ -160,6 +179,9 @@ public class ClienteDAO implements Autenticar {
 		return cliente;
 	}
 	
+	/** busca o último cliente inserido no banco de dados
+	 * @return Cliente - cliente
+	 * */
 	public Cliente getLastCliente() {
 		Cliente cliente = new Cliente();
 		String sql = "SELECT * FROM t_cliente WHERE cd_cliente = (SELECT MAX(cd_cliente) FROM t_cliente)";
@@ -183,6 +205,10 @@ public class ClienteDAO implements Autenticar {
 		return cliente;
 	}
 	
+	/** busca um imovel de um cliente específicado pelo id
+	 * @param int - id do cliente
+	 * @return Imovel - imovel
+	 * */
 	public Imovel selectImovelByClienteId(int idCliente) {
 	    Imovel imovel = new Imovel();
 	    String sql = "SELECT * FROM t_imovel WHERE cd_cliente = ?";
@@ -210,6 +236,10 @@ public class ClienteDAO implements Autenticar {
 	    return imovel;
 	}
 	
+	/** busca um seguro de um cliente específicado pelo id
+	 * @param int - id do cliente
+	 * @return Seguro - seguro
+	 * */
 	public Seguro selectSeguroByClienteId(int idCliente) {
 	    Seguro seguro = new Seguro();
 	    String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_assistencia, cd_cobertura " +
@@ -233,6 +263,10 @@ public class ClienteDAO implements Autenticar {
 	    return seguro;
 	}
 	
+	/** busca o valor do pacote de assistencia pelo id dele
+	 * @param int - id do pacote assistencia
+	 * @return double - valor
+	 * */
 	public double getValorAssistencia(int idAssistencia) {
         double valor = 0.0;
         String sql = "SELECT vl_pct_assistencia FROM t_pct_assistencia WHERE cd_assistencia = ?";
@@ -250,6 +284,10 @@ public class ClienteDAO implements Autenticar {
         return valor;
     }
 
+	/** busca o valor do pacote de cobertura pelo id dele
+	 * @param int - id do pacote cobertura
+	 * @return double - valor
+	 * */
     public double getValorCobertura(int idCobertura) {
         double valor = 0.0;
         String sql = "SELECT vl_pct_cobertura FROM t_pct_cobertura WHERE cd_cobertura = ?";
@@ -268,59 +306,55 @@ public class ClienteDAO implements Autenticar {
     }
 
 
-
+    /** autentica o login de cliente
+	 * @param String - cpf
+	 * @param String - senha
+	 * @return List<Integer> - resultado [status, idCliente]
+	 * */
 	@Override
 	public List<Integer> autenticacao(String cpf, String senha) {
-		// Buscar todos os clientes
+		
 		Cliente cliente = new Cliente();
 		cliente = selectLogin(cpf, senha);
 		List<Integer> resultado = new ArrayList<>();
-		// Status padrão: CPF e senha incorretos
+		
 		int status = 0;
 		int idCliente = 0;
-		// Verificar os clientes
-
-		/*
-		if(cliente.getCpf().equals(cpf) && cliente.getSenhaCliente().equals(senha)) {
-			status = 1;
-			idCliente = cliente.getIdCliente();
-		} else if ((cliente.getCpf() != cpf) || (cliente.getSenhaCliente() != senha)) {
-			status = 2;
-			idCliente = 0;
-		}else if (cliente.getCpf() == null && cliente.getSenhaCliente() == null) {
-			status = 0; // Cliente sem CPF e senha
-			idCliente = 0;
-		}*/
-
+		
+		// verifica se os campos estao vazios
 		if (cliente.getCpf() == null && cliente.getSenhaCliente() == null) {
-			status = 0; // Cliente sem CPF e senha
+			status = 0;
 			idCliente = 0;
 		} else {
+			// valida se estao corretos
 			if (cliente.getCpf().equals(cpf) && cliente.getSenhaCliente().equals(senha)) {
-				status = 1; // CPF e senha corretos
+				status = 1; 
 				idCliente = cliente.getIdCliente();
 			}
 		}
 
-		// Adicionar resultados na lista
-		resultado.add(status); // Status da autenticação
-		resultado.add(idCliente); // ID do cliente (ou 0)
+		resultado.add(status); 
+		resultado.add(idCliente); 
 		return resultado;
 
 	}
 	
+	 /** busca o id de um cliente pelo cpf
+		 * @param String - cpf
+		 * @return int - id do cliente
+		 * */
 	public int selectIdByCpf(String cpf) {
 	    int idCliente = 0;
 	    String sql = "SELECT cd_cliente FROM t_cliente WHERE cpf_cliente = ?";
 	    
 	    try {
 	        PreparedStatement stmt = connection.prepareStatement(sql);
-	        stmt.setString(1, cpf);  // Definindo o parâmetro CPF
+	        stmt.setString(1, cpf); 
 	        
 	        ResultSet rs = stmt.executeQuery();
 	        
 	        if (rs.next()) {
-	            idCliente = rs.getInt("cd_cliente");  // Obtendo o ID do cliente
+	            idCliente = rs.getInt("cd_cliente");
 	        }
 	        
 	        stmt.close();
@@ -328,7 +362,7 @@ public class ClienteDAO implements Autenticar {
 	        e.printStackTrace();
 	    }
 	    
-	    return idCliente;  // Retorna o ID do cliente encontrado ou 0 caso não exista
+	    return idCliente;  
 	}
 
 }

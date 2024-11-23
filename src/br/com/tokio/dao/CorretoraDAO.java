@@ -14,11 +14,16 @@ public class CorretoraDAO {
 
 	private Connection connection;
 
+	/** construtor do CorretoraDAO
+	 * @param Connection - connection
+	 * */
 	public CorretoraDAO(Connection connection) {
 		this.connection = connection;
 	}
 
-	// select all
+	/** busca todas as corretoras
+	 * @return List<Corretora> - lista de corretoras
+	 * */
 	public List<Corretora> selectAll() {
 		String sql = "select * from t_corretora";
 		List<Corretora> listCorretoras = new ArrayList<>();
@@ -46,9 +51,10 @@ public class CorretoraDAO {
 		return listCorretoras;
 	}
 	
-	
-
-	// select by id
+	/** busca uma corretora com id específico
+	 * @param int - id da corretora
+	 * @return Corretora - corretora
+	 * */
 	public Corretora selectById(int idCorretora) {
 		String sql = "select * from t_corretora where cd_corretora = ?";
 		Corretora corretora = new Corretora();
@@ -73,6 +79,10 @@ public class CorretoraDAO {
 		return corretora;
 	}
 	
+	/** busca uma corretora pelo nome
+	 * @param String - nome da corretora
+	 * @return Corretora - corretora
+	 * */
 	public int selectByName(String nome) {
 		String sql = "select cd_corretora from t_corretora where nm_corretora = ?";
 		Corretora corretora = new Corretora();

@@ -185,10 +185,7 @@ public class AreaFuncionario {
 		rdbtnAssistencia.setBounds(6, 189, 283, 23);
 		panel_1.add(rdbtnAssistencia);
 
-		JRadioButton rdbtnPremios = new JRadioButton("Relatório de Total de Prêmios");
-		rdbtnPremios.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rdbtnPremios.setBounds(6, 215, 283, 23);
-		panel_1.add(rdbtnPremios);
+	
 
 		// Criando o ButtonGroup para agrupar os radio buttons
 		ButtonGroup group = new ButtonGroup();
@@ -199,7 +196,6 @@ public class AreaFuncionario {
 		group.add(rdbtnCobertura);
 		group.add(rdbtnPeriodo);
 		group.add(rdbtnAssistencia);
-		group.add(rdbtnPremios);
 
 		// ------------------------------------------------------
 		
@@ -411,14 +407,7 @@ public class AreaFuncionario {
 	        panelAssistencia.setVisible(true); // Exemplo: Relatório de Seguros com Assistência Específica
 	    });
 
-	    rdbtnPremios.addActionListener(e -> {
-	        panelCobertura.setVisible(false);
-	        panelCliente.setVisible(false);
-	        panelPeriodo.setVisible(false);
-	        panelCorretora.setVisible(false);
-	        panelAssistencia.setVisible(false);
-	    });
-
+	   
 	    
 	    JButton btnVoltar = new JButton("Voltar");
         btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -443,7 +432,7 @@ public class AreaFuncionario {
 			
 			// Criando um array de botões de rádio e seus nomes
             JRadioButton[] buttons = {rdbtnAtivos, rdbtnCliente, rdbtnCorretora, rdbtnVencidos, 
-                                       rdbtnCobertura, rdbtnPeriodo, rdbtnAssistencia, rdbtnPremios};
+                                       rdbtnCobertura, rdbtnPeriodo, rdbtnAssistencia};
             String[] labels = {"Ativos", "Cliente", "Corretora", "Vencidos", "Cobertura", 
                                "Período", "Assistência", "Prêmios"};
 
@@ -509,9 +498,6 @@ public class AreaFuncionario {
             	}else {
             		seguros = List.of();
             	}
-            	break;
-            case "Prêmios":
-            	seguros = dao.buscarPremios();  // Preenchendo a lista com os resultados da consulta
             	break;
             default:
             	seguros = List.of();

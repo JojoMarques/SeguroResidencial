@@ -16,11 +16,16 @@ public class FuncionarioDAO implements Autenticar {
 
 	private Connection connection;
 
+	/** construtor de FuncionarioDAO
+	 * @param Connection - connection
+	 * */
 	public FuncionarioDAO(Connection connection) {
 		this.connection = connection;
 	}
 
-	// Insert
+	/** insere um funcionario
+	 * @param Funcionario - funcionario
+	 * */
 	public void insert(Funcionario funcionario) {
 		String sql = "insert into t_funcionario (nm_func, cpf_func, telefone_func, email_func, ds_acesso_func, dt_admissao, senha) values (?, ?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?)";
 
@@ -42,7 +47,9 @@ public class FuncionarioDAO implements Autenticar {
 		}
 	}
 
-	// Delete
+	/** deleta um funcionario
+	 * @param int - id do funcionario
+	 * */
 	public void delete(int idFuncionario) {
 		String sql = "delete from t_funcionario where cd_funcionario = ?";
 
@@ -58,7 +65,9 @@ public class FuncionarioDAO implements Autenticar {
 		}
 	}
 
-	// Update
+	/** atualiza um funcionario
+	 * @param Funcionario - funcionario
+	 * */
 	public void update(Funcionario funcionario) {
 		String sql = "update t_funcionario set nm_func = ?, cpf_func = ?, telefone_func = ?, email_func = ?, ds_acesso_func = ?, dt_admissao = ?, senha = ? where cd_funcionario";
 
@@ -81,7 +90,9 @@ public class FuncionarioDAO implements Autenticar {
 		}
 	}
 
-	/// Select all:
+	/** busca todos os funcionarios
+	 * @return List<Funcionario> - lista de funcionarios
+	 * */
 	public List<Funcionario> selectAll() {
 		List<Funcionario> listaFuncionarios = new ArrayList<Funcionario>();
 		String sql = "select * from t_funcionario order by cd_funcionario";
@@ -112,7 +123,10 @@ public class FuncionarioDAO implements Autenticar {
 		return listaFuncionarios;
 	}
 
-	// Select by id:
+	/** busca um funcionario pelo id
+	 * @param int - id do funcionario
+	 * @return Funcionario - funcionario
+	 * */
 	public Funcionario selectById(int idFuncionario) {
 		Funcionario funcionario = new Funcionario();
 		String sql = "select * from t_funcionario where cd_funcionario = ?";
@@ -138,6 +152,12 @@ public class FuncionarioDAO implements Autenticar {
 		return funcionario;
 	}
 	
+	
+	/** busca um funcionario com base nos dados de login
+	 * @param String - acesso
+	 * @param String - senha
+	 * @return Funcionario - funcionario
+	 * */
 	public Funcionario selectLogin(String acesso, String senha) {
 		Funcionario funcionario = new Funcionario();
 		String sql = "select * from t_funcionario where ds_acesso_func = ? and senha = ?";
@@ -165,26 +185,33 @@ public class FuncionarioDAO implements Autenticar {
 		return funcionario;
 	}
 
+	
+	/** autentica o login de funcionario
+	 * @param String - acesso
+	 * @param String - senha
+	 * @return List<Integer> - resultado [status, idFuncionario]
+	 * */
 	@Override
 	public List<Integer> autenticacao(String acesso, String senha) {
-		// Buscar todos os funcionarios
+		
 		Funcionario funcionario = selectLogin(acesso, senha);
 		List<Integer> resultado = new ArrayList<>();
-		// Status padrão: acesso e senha incorretos
+		
 		int status = 0;
 		int idFuncionario = 0;
-		// Verificar os funcionarios
-
+		
+		// verifica se os campos estao vazios
 		if (funcionario.getAcessoFunc() == null && funcionario.getSenhaFunc() == null) {
-			status = 0; // funcionario sem acesso e senha
+			status = 0; 
 			idFuncionario = 0;
 		} else if (funcionario.getAcessoFunc().equals(acesso) && funcionario.getSenhaFunc().equals(senha)) {
-				status = 1; // acesso e senha corretos
+			//valida se estao corretos
+				status = 1; 
 				idFuncionario = funcionario.getIdFuncionario();
 			}
-		// Adicionar resultados na lista
-		resultado.add(status); // Status da autenticação
-		resultado.add(idFuncionario); // ID do cliente (ou 0)
+		
+		resultado.add(status); 
+		resultado.add(idFuncionario); 
 		return resultado;
 
 	}

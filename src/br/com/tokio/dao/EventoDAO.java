@@ -12,11 +12,16 @@ import java.util.List;
 public class EventoDAO {
 	private Connection connection;
 
+	/** construtor de EventoDAO
+	 * @param Connection - connection
+	 * */
 	public EventoDAO(Connection connection) {
 		this.connection = connection;
 	}
 
-	// Método para inserir
+	/** insere um evento
+	 * @param Evento - evento
+	 * */
 	public void insert(Evento evento) {
 		String sql = "INSERT INTO t_evento (nm_evento, ds_evento) VALUES (?, ?)";
 		try {
@@ -30,7 +35,9 @@ public class EventoDAO {
 		}
 	}
 
-	// Método para deletar
+	/** deleta um evento
+	 * @param int - id do evento
+	 * */
 	public void delete(int idEvento) {
 		String sql = "DELETE FROM t_evento WHERE cd_evento = ?";
 		try {
@@ -43,7 +50,9 @@ public class EventoDAO {
 		}
 	}
 
-	// Método para atualizar
+	/** atualiza um evento
+	 * @param Evento - evento
+	 * */
 	public void update(Evento evento) {
 		String sql = "UPDATE t_evento SET nm_evento = ?, ds_evento = ? WHERE cd_evento = ?";
 		try {
@@ -58,7 +67,9 @@ public class EventoDAO {
 		}
 	}
 
-	// Método para selecionar todos os registros
+	/** busca todos os eventos
+	 * @return List<Evento> - lista de eventos
+	 * */
 	public List<Evento> selectAll() {
 		List<Evento> eventos = new ArrayList<>();
 		String sql = "SELECT * FROM t_evento ORDER BY nm_evento";
@@ -81,7 +92,10 @@ public class EventoDAO {
 		return eventos;
 	}
 
-	// Método para selecionar um registro por ID
+	/** busca um evento pelo id
+	 * @param int - id do evento
+	 * @return Evento - evento
+	 * */
 	public Evento selectById(int idEvento) {
 		Evento evento = null;
 		String sql = "SELECT * FROM t_evento WHERE cd_evento = ?";

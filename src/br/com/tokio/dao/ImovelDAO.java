@@ -12,15 +12,19 @@ import br.com.tokio.model.Imovel;
 public class ImovelDAO {
 
     private Connection connection;
-
+    
+    /** construtor de ImovelDAO
+	 * @param Connection - connection
+	 * */
     public ImovelDAO(Connection connection) {
         this.connection = connection;
     }
 
-    // insert
+    /** insere um imovel
+	 * @param Imovel - imovel
+	 * */
     public void insert(Imovel imovel) {
         String sql = "insert into T_IMOVEL (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -43,7 +47,9 @@ public class ImovelDAO {
         }
     }
 
-    // delete
+    /** deleta um imovel
+	 * @param Imovel - imovel
+	 * */
     public void delete(int idImovel, int idCliente) {
         String sql = "delete from T_IMOVEL where cd_imovel = ? and cd_cliente = ?";
 
@@ -60,7 +66,9 @@ public class ImovelDAO {
         }
     }
 
-    // update
+    /** atualiza um imovel
+	 * @param Imovel - imovel
+	 * */
     public void update(Imovel imovel) {
         String sql = "update T_IMOVEL set cep = ?, numero = ?, logradouro = ?, bairro = ?, "
         		+ "cidade = ?, pais = ?, estado=?,vl_area = ?, vl_imovel = ? where cd_imovel = ? and cd_cliente = ?";
@@ -88,7 +96,9 @@ public class ImovelDAO {
         }
     }
 
-    // select all
+    /** busca todos os imoveis
+	 * @return List<Imovel> - lista de imoveis
+	 * */
     public List<Imovel> selectAll() {
         String sql = "select * from T_IMOVEL";
         
@@ -125,7 +135,10 @@ public class ImovelDAO {
         return listImoveis;
     }
 
-    // select by id
+    /** busca um imovel pelo id
+	 * @param int - id do imovel
+	 * @return Imovel - imovel
+	 * */
     public Imovel selectById(int idImovel) {
         String sql = "select * from T_IMOVEL where cd_imovel = ?";
         Imovel imovel = new Imovel();
@@ -158,6 +171,10 @@ public class ImovelDAO {
         return imovel;
     }
     
+    /** busca um imovel pelo id do cliente que o tem
+	 * @param int - id do cliente
+	 * @return Imovel - imovel
+	 * */
     public Imovel selectByClienteId(int idCliente) {
         String sql = "select * from T_IMOVEL where cd_cliente = ?";
         Imovel imovel = new Imovel();

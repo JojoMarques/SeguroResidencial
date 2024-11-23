@@ -12,13 +12,18 @@ public class PacoteAssistenciaServicoDAO {
 	private Connection connection;
 	
 	
-
+	/** construtor de PacoteAssistenciaServicoDAO - tabela resultante do relacionamento n:n de pacotes de assistencia e servicos
+	 * @param Connection - connection
+	 * */
 	public PacoteAssistenciaServicoDAO(Connection connection) {
 		this.connection = connection;
 	}
 
 
-
+	/** insere um servico no pacote de assistencia
+	 * @param PacoteAssistencia - pacoteAssistencia
+	 * @param Servico servico
+	 * */
 	public void insert(PacoteAssistencia pacoteAssistencia, Servico servico) {
 		String sql = "INSERT INTO t_servico_assistencia (cd_assistencia, cd_servico) VALUES (?, ?)";
 		

@@ -14,11 +14,16 @@ import java.util.Map;
 public class PacoteCoberturaDAO {
 	private Connection connection;
 
-	// Construtor que inicializa a conexão
+	/** construtor de PacoteCoberturaDAO
+	 * @param Connection - connection
+	 * */
 	public PacoteCoberturaDAO(Connection connection) {
 		this.connection = connection;
 	}
 
+	/** insere um pacote de cobertura
+	 * @param PacoteCobertura - pacoteCobertura
+	 * */
 	public void insert(PacoteCobertura pacoteCobertura) {
 		PacoteCoberturaEventoDAO pacoteCoberturaEventoDAO = new PacoteCoberturaEventoDAO(connection);
 
@@ -39,6 +44,8 @@ public class PacoteCoberturaDAO {
 		}
 	}
 
+	/** insere uma lista de eventos no pacote de cobertura
+	 * */
 	public void insertEventos(List<Evento> eventos) {
 		PacoteCoberturaDAO pacoteCoberturaDAO = new PacoteCoberturaDAO(connection);
 		PacoteCoberturaEventoDAO pacoteCoberturaEventoDAO = new PacoteCoberturaEventoDAO(connection);
@@ -50,6 +57,9 @@ public class PacoteCoberturaDAO {
 		}
 	}
 
+	/** busca o ultimo pacote inserido
+	 * @return PacoteCobertura - pacoteCobertura
+	 * */
 	public PacoteCobertura getLastPacoteCobertura() {
 		String sql = "SELECT * FROM t_pct_cobertura WHERE cd_cobertura = (SELECT MAX(cd_cobertura) FROM t_pct_cobertura)";
 		PacoteCobertura pacote = new PacoteCobertura();
@@ -73,7 +83,9 @@ public class PacoteCoberturaDAO {
 		return pacote;
 	}
 
-	// Método para deletar
+	/** deleta um pacote de cobertura
+	 * @param int - id do pacote de cobertura
+	 * */
 	public void delete(int idCobertura) {
 		String sql = "DELETE FROM t_pct_cobertura WHERE cd_cobertura = ?";
 		try {
@@ -86,7 +98,9 @@ public class PacoteCoberturaDAO {
 		}
 	}
 
-	// Método para atualizar
+	/** atualiza um pacote de cobertura
+	 * @param PacoteCobertura - pacoteCobertura
+	 * */
 	public void update(PacoteCobertura pacoteCobertura) {
 		String sql = "UPDATE t_pct_cobertura SET tp_cobertura = ?, ds_cobertura = ?, vl_pct_cobertura = ? WHERE cd_cobertura = ?";
 		try {
@@ -102,7 +116,9 @@ public class PacoteCoberturaDAO {
 		}
 	}
 
-	// Método para selecionar todos os registros
+	/** busca todos os pacotes de cobertura
+	 * @return List<PacoteCobertura> - lista de pacotes de cobertura
+	 * */
 	public List<PacoteCobertura> selectAll() {
 		List<PacoteCobertura> pacotes = new ArrayList<>();
 		String sql = "SELECT * FROM t_pct_cobertura ORDER BY tp_cobertura";
@@ -126,7 +142,10 @@ public class PacoteCoberturaDAO {
 		return pacotes;
 	}
 
-	// Método para selecionar um registro por ID
+	/** busca um pacote de cobertura pelo id dele
+	 * @param int - id do pacote
+	 * @return PacoteCobertura - pacoteCobertura
+	 * */
 	public PacoteCobertura selectById(int idCobertura) {
 		PacoteCobertura pacote = null;
 		String sql = "SELECT * FROM t_pct_cobertura WHERE cd_cobertura = ?";
@@ -150,6 +169,10 @@ public class PacoteCoberturaDAO {
 		return pacote;
 	}
 
+	/** busca todos os eventos do pacote
+	 * @param int - id do pacote de cobertura
+     * @return String - eventos separados por virgula
+	 * */
 	public String selectEventos(int idCobertura){
 		String eventos = "";
 		String sql = "SELECT LISTAGG(e.nm_evento, ', ') WITHIN GROUP (ORDER BY e.nm_evento) AS eventos FROM t_pct_cobertura c JOIN t_evento_cobertura ec ON c.cd_cobertura = ec.cd_cobertura JOIN t_evento e ON ec.cd_evento = e.cd_evento WHERE c.cd_cobertura = ? GROUP BY c.cd_cobertura";
@@ -170,18 +193,22 @@ public class PacoteCoberturaDAO {
     
 	}
 	
+	/** busca o id de um pacote de cobertura pelo nome
+	 * @param String - nome do pacote
+	 * @return int - id do pacote de cobertura
+	 * */
 	public int selectIdByNome(String nomeCobertura) {
 	    int idCobertura = 0;
 	    String sql = "SELECT cd_cobertura FROM t_pct_cobertura WHERE tp_cobertura = ?";
 
 	    try {
 	        PreparedStatement stmt = connection.prepareStatement(sql);
-	        stmt.setString(1, nomeCobertura);  // Passando o nome da cobertura como parâmetro
+	        stmt.setString(1, nomeCobertura);  
 
 	        ResultSet rs = stmt.executeQuery();
 
 	        if (rs.next()) {
-	            idCobertura = rs.getInt("cd_cobertura");  // Obtendo o ID da cobertura
+	            idCobertura = rs.getInt("cd_cobertura");  
 	        }
 
 	        stmt.close();
@@ -189,7 +216,7 @@ public class PacoteCoberturaDAO {
 	        e.printStackTrace();
 	    }
 
-	    return idCobertura;  // Retorna o ID da cobertura encontrado ou 0 caso não exista
+	    return idCobertura;  
 	}
 
 

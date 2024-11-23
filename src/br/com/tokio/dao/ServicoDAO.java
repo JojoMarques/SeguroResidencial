@@ -12,12 +12,17 @@ import br.com.tokio.model.Servico;
 public class ServicoDAO {
 
 	private Connection connection;
-
+	
+	 /** construtor de ServicoDAO
+		 * @param Connection - connection
+		 * */
 	public ServicoDAO(Connection connection) {
 		this.connection = connection;
 	}
 
-	// Inserir um novo serviço
+	/** insere um servico
+	 * @param Servico - servico
+	 * */
 	public void insert(Servico servico) {
 		String sql = "INSERT INTO t_servico (nm_servico, ds_servico) VALUES (?, ?)";
 
@@ -32,7 +37,9 @@ public class ServicoDAO {
 		}
 	}
 
-	// Deletar um serviço por ID
+	/** deletar um servico
+	 * @param int - id do servico
+	 * */
 	public void delete(int idServico) {
 		String sql = "DELETE FROM t_servico WHERE cd_servico = ?";
 		try {
@@ -45,7 +52,9 @@ public class ServicoDAO {
 		}
 	}
 
-	// Atualizar um serviço existente
+	/** atualiza um servico
+	 * @param Servico - servico
+	 * */
 	public void update(Servico servico) {
 		String sql = "UPDATE t_servico SET nm_servico = ?, ds_servico = ? WHERE cd_servico = ?";
 		try {
@@ -60,7 +69,9 @@ public class ServicoDAO {
 		}
 	}
 
-	// Listar todos os serviços
+	/** listar todos os servicos
+	 * @param List<Servico> - lista de servicos
+	 * */
 	public List<Servico> selectAll() {
 		List<Servico> listaServicos = new ArrayList<>();
 		String sql = "SELECT * FROM t_servico ORDER BY nm_servico";
@@ -86,7 +97,10 @@ public class ServicoDAO {
 		return listaServicos;
 	}
 
-	// Buscar um serviço por ID
+	/** busca um servico pelo id
+	 * @param int - id do servico
+	 * @return Servico - servico
+	 * */
 	public Servico selectById(int idServico) {
 		Servico servico = new Servico();
 		String sql = "SELECT * FROM t_servico WHERE cd_servico = ?";

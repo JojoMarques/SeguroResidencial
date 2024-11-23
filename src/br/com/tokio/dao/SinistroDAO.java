@@ -14,11 +14,16 @@ public class SinistroDAO {
 
     private Connection connection;
 
+    /** construtor de SinistroDAO
+	 * @param Connection - connection
+	 * */
     public SinistroDAO(Connection connection) {
         this.connection = connection;
     }
 
-    // insert
+    /** insere um sinistro
+	 * @param Sinistro - sinistro
+	 * */
     public void insert(Sinistro sinistro) {
     	String sql = "insert into T_SINISTRO (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente) values (?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?)";
 
@@ -39,7 +44,11 @@ public class SinistroDAO {
         }
     }
 
-    // delete
+    /** deleta um servico
+	 * @param int - id do sinistro
+	 * @param int - id do seguro
+	 * @param int - id do cliente
+	 * */
     public void delete(int idSinistro, int idSeguro, int idCliente) {
         String sql = "delete from T_SINISTRO where cd_sinistro = ? and cd_seguro = ? and cd_cliente = ?";
 
@@ -57,7 +66,9 @@ public class SinistroDAO {
         }
     }
 
-    // update
+    /** atualiza um sinistro
+	 * @param Sinistro - sinistro
+	 * */
     public void update(Sinistro sinistro) {
         String sql = "update T_SINISTRO set tp_sinistro = ?, dt_sinistro = ?, ds_sinistro = ?, status = ? where cd_sinistro = ? and cd_seguro = ? and cd_cliente = ?";
 
@@ -80,7 +91,9 @@ public class SinistroDAO {
         }
     }
 
-    // select all
+    /** seleciona todos os sinistros
+	 * @param List<Sinistro> - lista de sinistros
+	 * */
     public List<Sinistro> selectAll() {
         String sql = "select * from T_SINISTRO order by cd_sinistro";
         List<Sinistro> listSinistros = new ArrayList<>();
@@ -111,7 +124,12 @@ public class SinistroDAO {
         return listSinistros;
     }
 
-    // select by id
+    /** seleciona um servico pelo id do sinistro, seguro e cliente
+	 * @param int - id do sinistro
+	 * @param int - id do seguro
+	 * @param int - id do cliente
+	 * @return Sinistro - sinistro
+	 * */
     public Sinistro selectById(int idSinistro, int idSeguro, int idCliente) {
         String sql = "select * from T_SINISTRO where cd_sinistro = ? and cd_seguro = ? and cd_cliente = ?";
         Sinistro sinistro = new Sinistro();

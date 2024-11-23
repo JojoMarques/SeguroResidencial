@@ -14,10 +14,16 @@ import br.com.tokio.model.Servico;
 public class PacoteAssistenciaDAO {
 	private Connection connection;
 
+	/** construtor de PacoteAssistenciaDAO
+	 * @param Connection - connection
+	 * */
 	public PacoteAssistenciaDAO(Connection connection) {
 		this.connection = connection;
 	}
 
+	/** insere um pacote de assistencia
+	 * @param PacoteAssistencia - pacoteAssistencia
+	 * */
 	public void insert(PacoteAssistencia pacoteAssistencia) {
         PacoteAssistenciaServicoDAO pacoteAssistenciaServicoDAO = new PacoteAssistenciaServicoDAO(connection);
 
@@ -38,6 +44,8 @@ public class PacoteAssistenciaDAO {
         }
     }
 
+	/** insere uma lista de servico no pacote assistencia
+	 * */
     public void insertServicos(List<Servico> servicos) {
         PacoteAssistenciaDAO pacoteAssistenciaDAO = new PacoteAssistenciaDAO(connection);
         PacoteAssistenciaServicoDAO pacoteAssistenciaServicoDAO = new PacoteAssistenciaServicoDAO(connection);
@@ -49,6 +57,9 @@ public class PacoteAssistenciaDAO {
         }
     }
 
+    /** busca o ultimo pacote assistencia adicionado
+	 * @param PacoteAssistencia - pacoteAssistencia
+	 * */
     public PacoteAssistencia getLastPacoteAssistencia() {
         String sql = "SELECT * FROM t_pct_assistencia WHERE cd_assistencia = (SELECT MAX(cd_assistencia) FROM t_pct_assistencia)";
         PacoteAssistencia pacote = new PacoteAssistencia();
@@ -72,7 +83,9 @@ public class PacoteAssistenciaDAO {
         return pacote;
     }
 
-	// Deletar um serviço por ID
+    /** deleta um pacote de assistencia pelo id
+     * @param int - id do pacote de assistencia
+	 * */
 	public void delete(int idAssistencia) {
 		String sql = "DELETE FROM  t_pct_assistencia WHERE cd_assistencia = ?";
 		try {
@@ -85,7 +98,9 @@ public class PacoteAssistenciaDAO {
 		}
 	}
 
-	// Atualizar um serviço existente
+	/** atualiza um pacote de assistencia 
+     * @param PacoteAssistencia - pacoteAssistencia
+	 * */
 	public void update(PacoteAssistencia pacote) {
 		String sql = "UPDATE t_pct_assistencia SET   tp_assistencia  = ?,  ds_assistencia = ?, vl_pct_assistencia = ? WHERE cd_assistencia = ?";
 		try {
@@ -100,7 +115,9 @@ public class PacoteAssistenciaDAO {
 		}
 	}
 
-	// Listar todos os serviços
+	/** busca todos os pacotes
+     * @return List<PacoteAssistencia> - lista de pacotes
+	 * */
 	public List<PacoteAssistencia> selectAll() {
 		List<PacoteAssistencia> listaPacotes = new ArrayList<>();
 		String sql = "SELECT * FROM  t_pct_assistencia ";
@@ -127,7 +144,10 @@ public class PacoteAssistenciaDAO {
 		return listaPacotes;
 	}
 
-	// Buscar um serviço por ID
+	/** busca um pacote por id
+	 * @param int - id do pacote assistencia
+     * @return PacoteAssistencia - pacote de assistencia
+	 * */
 	public PacoteAssistencia selectById(int idAssistencia) {
 		PacoteAssistencia pacote = new PacoteAssistencia();
 		String sql = "SELECT * FROM  t_pct_assistencia where cd_assistencia = ?";
@@ -155,6 +175,10 @@ public class PacoteAssistenciaDAO {
 		return pacote;
 	}
 	
+	/** busca todos os servicos do pacote
+	 * @param int - id do pacote assistencia
+     * @return String - servicos separados por virgula
+	 * */
 	public String selectServicos(int idAssistencia){
 		String servicos = "";
 		String sql = "SELECT LISTAGG(s.nm_servico, ', ') WITHIN GROUP (ORDER BY s.nm_servico) AS servicos FROM t_pct_assistencia pa JOIN t_servico_assistencia sa ON pa.cd_assistencia = sa.cd_assistencia JOIN t_servico s ON sa.cd_servico = s.cd_servico WHERE pa.cd_assistencia = ? GROUP BY pa.cd_assistencia";
@@ -175,6 +199,10 @@ public class PacoteAssistenciaDAO {
     
 	}
 	
+	/** busca o id do pacote pelo nome dele
+	 * @param String - nome do pacote assistencia
+     * @return int - id do pacote
+	 * */
 	public int selectIdByNome(String nomeAssistencia) {
 	    int idAssistencia = 0;
 	    String sql = "SELECT cd_assistencia FROM t_pct_assistencia WHERE tp_assistencia = ?";
