@@ -88,7 +88,7 @@ COMMENT ON COLUMN t_cliente.email_cliente IS
 ALTER TABLE t_cliente ADD CONSTRAINT t_cliente_pk PRIMARY KEY ( cd_cliente );
 
 CREATE TABLE t_corretora (
-    cd_corretora          NUMBER NOT NULL,
+    cd_corretora          NUMBER(5) NOT NULL,
     nm_corretora          VARCHAR2(50),
     ds_endereco_corretora VARCHAR2(100)
 );
