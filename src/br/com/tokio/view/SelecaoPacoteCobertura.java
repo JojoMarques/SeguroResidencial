@@ -70,7 +70,7 @@ public class SelecaoPacoteCobertura {
 		Connection connection = new ConnectionFactory().conectar();
 		PacoteCoberturaDAO pacoteCoberturaDAO = new PacoteCoberturaDAO(connection);
 		frame = new JFrame("Seleção de Pacote");
-		frame.setBounds(400, 200, 800, 600); // Tamanho menor
+		frame.setBounds(100,100, 800, 600); // Tamanho menor
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null); // Usando layout nulo para posicionamento manual
 

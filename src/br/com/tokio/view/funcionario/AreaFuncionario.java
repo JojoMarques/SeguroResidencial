@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -77,7 +78,7 @@ public class AreaFuncionario {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(400, 200, 800, 600);
+		frame.setBounds(100,100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -145,39 +146,47 @@ public class AreaFuncionario {
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Selecione o relatório a ser gerado:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel.setBounds(6, 0, 283, 14);
 		panel_1.add(lblNewLabel);
 
 		JRadioButton rdbtnAtivos = new JRadioButton("Relatório de Seguros Ativos");
+		rdbtnAtivos.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnAtivos.setBounds(6, 33, 283, 23);
 		panel_1.add(rdbtnAtivos);
 
 		JRadioButton rdbtnCliente = new JRadioButton("Relatório de Seguros por Cliente");
+		rdbtnCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnCliente.setBounds(6, 59, 283, 23);
 		panel_1.add(rdbtnCliente);
 
 		JRadioButton rdbtnCorretora = new JRadioButton("Relatório de Seguros por Corretora");
+		rdbtnCorretora.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnCorretora.setBounds(6, 85, 283, 23);
 		panel_1.add(rdbtnCorretora);
 
 		JRadioButton rdbtnVencidos = new JRadioButton("Relatório de Seguros Vencidos");
+		rdbtnVencidos.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnVencidos.setBounds(6, 111, 283, 23);
 		panel_1.add(rdbtnVencidos);
 
 		JRadioButton rdbtnCobertura = new JRadioButton("Relatório de Seguros por Cobertura");
+		rdbtnCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnCobertura.setBounds(6, 137, 283, 23);
 		panel_1.add(rdbtnCobertura);
 
 		JRadioButton rdbtnPeriodo = new JRadioButton("Relatório de Seguros por Período");
+		rdbtnPeriodo.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnPeriodo.setBounds(6, 163, 283, 23);
 		panel_1.add(rdbtnPeriodo);
 
 		JRadioButton rdbtnAssistencia = new JRadioButton("Relatório de Seguros por Assistência");
+		rdbtnAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnAssistencia.setBounds(6, 189, 283, 23);
 		panel_1.add(rdbtnAssistencia);
 
 		JRadioButton rdbtnPremios = new JRadioButton("Relatório de Total de Prêmios");
+		rdbtnPremios.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnPremios.setBounds(6, 215, 283, 23);
 		panel_1.add(rdbtnPremios);
 
@@ -205,10 +214,12 @@ public class AreaFuncionario {
 		panelCobertura.setLayout(null);
 		
 		JLabel lblCobertura = new JLabel("Selecione o tipo de cobertura:");
+		lblCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblCobertura.setBounds(0, 0, 200, 14);
 		panelCobertura.add(lblCobertura);
 		
 		JComboBox comboBoxCobertura = new JComboBox();
+		comboBoxCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		comboBoxCobertura.setBounds(0, 25, 200, 22);
 		panelCobertura.add(comboBoxCobertura);
 		
@@ -222,10 +233,12 @@ public class AreaFuncionario {
 		panelCliente.setLayout(null);
 		
 		JLabel lblCliente = new JLabel("CPF do cliente a ser consultado:");
+		lblCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblCliente.setBounds(0, 11, 200, 14);
 		panelCliente.add(lblCliente);
 		
 		textClienteCPF = new JTextField();
+		textClienteCPF.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textClienteCPF.setBounds(0, 30, 200, 20);
 		panelCliente.add(textClienteCPF);
 		textClienteCPF.setColumns(10);
@@ -236,20 +249,24 @@ public class AreaFuncionario {
 		panelPeriodo.setLayout(null);
 		
 		JLabel lblInicial = new JLabel("Data inicial:");
+		lblInicial.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblInicial.setBounds(0, 0, 200, 14);
 		panelPeriodo.add(lblInicial);
 		
 		textDataInicial = new JTextField();
+		textDataInicial.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textDataInicial.setBounds(0, 25, 200, 20);
 		panelPeriodo.add(textDataInicial);
 		textDataInicial.setColumns(10);
 		
 		textFinal = new JTextField();
+		textFinal.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textFinal.setColumns(10);
 		textFinal.setBounds(0, 103, 200, 20);
 		panelPeriodo.add(textFinal);
 		
 		JLabel lblFinal = new JLabel("Data final:");
+		lblFinal.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblFinal.setBounds(0, 78, 200, 14);
 		panelPeriodo.add(lblFinal);
 		
@@ -259,11 +276,13 @@ public class AreaFuncionario {
 		panelCorretora.setLayout(null);
 		
 		textCorretora = new JTextField();
+		textCorretora.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textCorretora.setBounds(0, 25, 200, 20);
 		textCorretora.setColumns(10);
 		panelCorretora.add(textCorretora);
 		
 		JLabel lblCorretora = new JLabel("ID da corretora:");
+		lblCorretora.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblCorretora.setBounds(0, 0, 200, 14);
 		panelCorretora.add(lblCorretora);
 		
@@ -273,6 +292,7 @@ public class AreaFuncionario {
 		panelAssistencia.setLayout(null);
 		
 		JComboBox comboBoxAssistencia = new JComboBox();
+		comboBoxAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		comboBoxAssistencia.setBounds(0, 25, 200, 22);
 		panelAssistencia.add(comboBoxAssistencia);
 		
@@ -281,8 +301,15 @@ public class AreaFuncionario {
 		comboBoxAssistencia.addItem("VIP");
 		
 		JLabel lblAssistencia = new JLabel("Selecione o tipo de assistencia");
+		lblAssistencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblAssistencia.setBounds(0, 0, 200, 14);
 		panelAssistencia.add(lblAssistencia);
+		
+		JButton btnSair = new JButton("Voltar");
+		btnSair.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnSair.setBackground(new Color(225, 186, 83));
+		btnSair.setBounds(49, 360, 132, 40);
+		panel.add(btnSair);
 		
 		// ---------------------------------------
 		// painel que é uma aba
@@ -296,16 +323,14 @@ public class AreaFuncionario {
 		panelRelatorio.setBounds(0, 100,260, 461);
 
 		JScrollPane scrollPanelInformacoes = new JScrollPane(panelRelatorio);
-		scrollPanelInformacoes.setBounds(10, 36, 747, 314);
+		scrollPanelInformacoes.setBounds(16, 36, 747, 314);
 		scrollPanelInformacoes.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		panel2.add(scrollPanelInformacoes);
-		
-		panelRelatorio.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JLabel lblTitulo = new JLabel("Informações da Apólice");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTitulo.setBounds(318, 5, 167, 20);
+		lblTitulo.setBounds(306, 5, 167, 20);
 		panel2.add(lblTitulo);
 		
 		tabbedPaneOpcoes.add(panel2);
@@ -313,7 +338,7 @@ public class AreaFuncionario {
 		JButton btnImprimir = new JButton("Imprimir");
 		btnImprimir.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnImprimir.setBackground(new Color(225, 186, 83));
-		btnImprimir.setBounds(557, 368, 200, 40);
+		btnImprimir.setBounds(563, 368, 200, 40);
 		panel2.add(btnImprimir);
 		tabbedPaneOpcoes.setTitleAt(1, "Relatório");
 		
@@ -394,6 +419,12 @@ public class AreaFuncionario {
 	        panelAssistencia.setVisible(false);
 	    });
 
+	    
+	    JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        btnVoltar.setBackground(new Color(225, 186, 83));
+        btnVoltar.setBounds(415, 368, 132, 40);
+        panel2.add(btnVoltar);
 
 		//--------------------------------------------------
 
@@ -409,13 +440,6 @@ public class AreaFuncionario {
 			String dataFinal = textFinal.getText();
 			String corretoraID = textCorretora.getText();
 			String assistenciaSelecionada = (String) comboBoxAssistencia.getSelectedItem();
-			
-			System.out.println("Cobertura Selecionada: " + coberturaSelecionada);
-			System.out.println("CPF Cliente: " + clienteCPF);
-			System.out.println("Data Inicial: " + dataInicial);
-			System.out.println("Data Final: " + dataFinal);
-			System.out.println("Corretora ID: " + corretoraID);
-			System.out.println("Assistência Selecionada: " + assistenciaSelecionada);
 			
 			// Criando um array de botões de rádio e seus nomes
             JRadioButton[] buttons = {rdbtnAtivos, rdbtnCliente, rdbtnCorretora, rdbtnVencidos, 
@@ -440,27 +464,51 @@ public class AreaFuncionario {
             	break;
             case "Cliente":
             	int idCliente = clienteDAO.selectIdByCpf(textClienteCPF.getText());  // Pegando o CPF do cliente do campo de texto
-            	seguros = dao.buscarPorCliente(idCliente);  // Preenchendo a lista com os resultados da consulta
+            	
+            	if (idCliente != 0) {
+            		seguros = dao.buscarPorCliente(idCliente);  // Preenchendo a lista com os resultados da consulta
+            	}else {
+            		seguros = List.of();
+            	}
             	break;
             case "Corretora":
             	int idCorretora = Integer.parseInt(textCorretora.getText());  // Pegando o ID da corretora do campo de texto
-            	seguros = dao.buscarPorCorretora(idCorretora);  // Preenchendo a lista com os resultados da consulta
+            	
+            	if (idCorretora != 0) {
+            		seguros = dao.buscarPorCorretora(idCorretora);  // Preenchendo a lista com os resultados da consulta
+            	}else {
+            		seguros = List.of();
+            	}
             	break;
             case "Vencidos":
             	seguros = dao.buscarVencidos();  // Preenchendo a lista com os resultados da consulta
             	break;
             case "Cobertura":
-            	int idCobertura = coberturaDAO.selectIdByNome(comboBoxCobertura.getSelectedItem().toString().trim());  // Pegando o ID da cobertura do combo box
-            	seguros = dao.buscarCobertura(idCobertura);  // Preenchendo a lista com os resultados da consulta
+            	int idCobertura = coberturaDAO.selectIdByNome(comboBoxCobertura.getSelectedItem().toString().trim()); 
+            	
+            	if (idCobertura != 0) {
+            		seguros = dao.buscarCobertura(idCobertura);  // Preenchendo a lista com os resultados da consulta
+            	}else {
+            		seguros = List.of();
+            	}
             	break;
             case "Período":
-            	java.sql.Date dataInicio = java.sql.Date.valueOf(textDataInicial.getText().trim());  // Pegando a data inicial do campo de texto
-            	java.sql.Date dataFim = java.sql.Date.valueOf(textFinal.getText().trim());  // Pegando a data final do campo de texto
-            	seguros = dao.buscarPorPeriodo(dataInicio, dataFim);  // Preenchendo a lista com os resultados da consulta
+            	if (textDataInicial.getText().trim() != "" && textFinal.getText().trim() != "") {
+            		Date dataInicio = Date.valueOf(textDataInicial.getText().trim());  // Pegando a data inicial do campo de texto
+            		Date dataFim = Date.valueOf(textFinal.getText().trim());  // Pegando a data final do campo de texto
+            		seguros = dao.buscarPorPeriodo(dataInicio, dataFim);  // Preenchendo a lista com os resultados da consulta
+            	} else {
+            		seguros = List.of();
+            	}
             	break;
             case "Assistência":
             	int idAssistencia = assistenciaDAO.selectIdByNome(comboBoxAssistencia.getSelectedItem().toString().trim());  // Pegando o ID da assistência do combo box
-            	seguros = dao.buscarPorAssistencia(idAssistencia);  // Preenchendo a lista com os resultados da consulta
+            	
+            	if (idAssistencia != 0) {
+            		seguros = dao.buscarPorAssistencia(idAssistencia);  // Preenchendo a lista com os resultados da consulta
+            	}else {
+            		seguros = List.of();
+            	}
             	break;
             case "Prêmios":
             	seguros = dao.buscarPremios();  // Preenchendo a lista com os resultados da consulta
@@ -471,13 +519,14 @@ public class AreaFuncionario {
             
             // Adicionar os itens ao painel
             if (seguros.isEmpty()) {
-            	
             	JOptionPane.showMessageDialog(frame, "nada foi encontrado", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);
             } else {
             	for (Seguro seguro : seguros) {
+            		panelRelatorio.setLayout(new GridLayout(0, 1, 0, 0));
             		JLabel lblSeguro = new JLabel(formatarSeguro(seguro));
-            		lblSeguro.setFont(new Font("Tahoma", Font.PLAIN, 12));
+            		lblSeguro.setHorizontalAlignment(SwingConstants.CENTER);
+            		lblSeguro.setFont(new Font("Tahoma", Font.PLAIN, 14));
             		lblSeguro.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
             		lblSeguro.setAlignmentX(Component.LEFT_ALIGNMENT);
             		panelRelatorio.add(lblSeguro);
@@ -492,6 +541,12 @@ public class AreaFuncionario {
 		});
 		
 
+		btnSair.addActionListener(e -> {
+			TelaInicial telaInicial = new TelaInicial();
+			telaInicial.show(); // Mostra a nova tela
+			frame.dispose(); // Fecha a tela atual
+		});
+		
 		// Ação para voltar à tela inicial
 		btnLogoTelaInicial.addActionListener(e -> {
 			TelaInicial telaInicial = new TelaInicial();
@@ -503,8 +558,12 @@ public class AreaFuncionario {
 			
 			Impressora impressora = new Impressora();
 	        impressora.iniciarImpressao(panelRelatorio);
-			
+	        
 			frame.dispose(); // Fecha a tela atual
+		});
+		
+		btnVoltar.addActionListener(e -> {
+			tabbedPaneOpcoes.setSelectedIndex(0);
 		});
 	}
 

@@ -64,7 +64,7 @@ public class DuvidasFrequentes {
      */
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(400, 200, 800, 600);
+        frame.setBounds(100,100, 800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
@@ -117,7 +117,7 @@ public class DuvidasFrequentes {
 
         // ComboBoxes para as categorias
         JComboBox<String> comboCategorias = new JComboBox<>(categorias);
-        comboCategorias.setBounds(78, 11, 194, 23);
+        comboCategorias.setBounds(60, 11, 194, 23);
         comboCategorias.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panelPerguntas.add(comboCategorias);
 
@@ -128,7 +128,7 @@ public class DuvidasFrequentes {
 
         // Botão para mostrar a resposta
         JButton btnMostrarResposta = new JButton("Mostrar Resposta");
-        btnMostrarResposta.setBounds(350, 10, 139, 25);
+        btnMostrarResposta.setBounds(314, 10, 194, 25);
         btnMostrarResposta.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panelPerguntas.add(btnMostrarResposta);
 
