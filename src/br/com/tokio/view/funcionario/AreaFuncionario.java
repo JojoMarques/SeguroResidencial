@@ -493,7 +493,7 @@ public class AreaFuncionario {
             	}
             	break;
             case "Período":
-            	if (textDataInicial.getText().trim() != "" && textFinal.getText().trim() != "") {
+            	if (!textDataInicial.getText().isBlank() && !textFinal.getText().isBlank()) {
             		Date dataInicio = Date.valueOf(textDataInicial.getText().trim());  // Pegando a data inicial do campo de texto
             		Date dataFim = Date.valueOf(textFinal.getText().trim());  // Pegando a data final do campo de texto
             		seguros = dao.buscarPorPeriodo(dataInicio, dataFim);  // Preenchendo a lista com os resultados da consulta
@@ -567,8 +567,6 @@ public class AreaFuncionario {
 		});
 	}
 
-    	
- 
 
     private String formatarSeguro(Seguro seguro) {
         return String.format(

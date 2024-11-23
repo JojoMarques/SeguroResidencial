@@ -154,6 +154,7 @@ CREATE TABLE t_imovel (
     logradouro VARCHAR2(100),
     bairro     VARCHAR2(50),
     cidade     VARCHAR2(30),
+    estado     VARCHAR2(30),
     pais       VARCHAR2(30),
     vl_area    NUMBER(*, 2),
     vl_imovel  NUMBER(*, 2),
@@ -177,6 +178,9 @@ COMMENT ON COLUMN t_imovel.bairro IS
 
 COMMENT ON COLUMN t_imovel.cidade IS
     'cidade do endere�o do imovel';
+
+COMMENT ON COLUMN t_imovel.estado IS
+'estado do endere�o do imovel';
 
 COMMENT ON COLUMN t_imovel.pais IS
     'pais do endere�o do imovel';
