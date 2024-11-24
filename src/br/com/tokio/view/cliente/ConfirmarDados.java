@@ -229,7 +229,6 @@ public class ConfirmarDados {
 		passwordConfirmar = new JPasswordField();
 		passwordConfirmar.setBounds(150, 322, 200, 25);
 		panelInformacoes.add(passwordConfirmar);
-		System.out.println(passwordConfirmar.getPassword());
 		
 		
 
@@ -239,7 +238,7 @@ public class ConfirmarDados {
 			if (confirmarSenha()) {
 				String senhaFinal = new String(passwordConfirmar.getPassword());
 				clienteRecebido.setSenhaCliente(senhaFinal);
-				System.out.println(senhaFinal);
+				
 				Connection connection = new ConnectionFactory().conectar();
 				ClienteDAO novoCliente = new ClienteDAO(connection);
 				novoCliente.insert(clienteRecebido);
@@ -248,8 +247,8 @@ public class ConfirmarDados {
 				clienteCriado = novoCliente.getLastCliente();
 				
 				InserirImovel inserirImovel = new InserirImovel(clienteCriado, seguroRecebido, corretoraRecebida, habitacaoRecebida, pacoteCoberturaSelecionada, pacoteAssistenciaSelecionada );
-				inserirImovel.show(); // Mostra a tela de edição
-				frame.dispose(); // Fecha a tela atual
+				inserirImovel.show(); 
+				frame.dispose();
 			} else {
 				JOptionPane.showMessageDialog(frame, "As senhas estão diferentes", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);
@@ -270,7 +269,7 @@ public class ConfirmarDados {
 	public boolean confirmarSenha() {
 		String senha1 = new String(password1.getPassword());
 		String senha2 = new String(passwordConfirmar.getPassword());
-		System.out.println(senha1 +" tester "+senha2);
+		
 		if (senha1.equals(senha2))
 			return true;
 		else

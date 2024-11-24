@@ -164,7 +164,17 @@ public class SelecaoHabitacao {
 		btnExibir.addActionListener(e -> {
 			// variavel selecionada
 			habitacaoSelecionada = (String) comboBox.getSelectedItem();
-			JOptionPane.showMessageDialog(frame, "Você selecionou: " + habitacaoSelecionada);
+			
+			if (!habitacaoSelecionada.isBlank()) {
+				SelecaoPacoteCobertura selecaoPacoteCobertura = new SelecaoPacoteCobertura(clienteRecebido,seguroRecebido,corretoraRecebida,habitacaoSelecionada);
+				
+				selecaoPacoteCobertura.show();
+				frame.dispose();
+			} else {
+				
+				JOptionPane.showMessageDialog(frame, "Escolha uma corretora", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		});
 
 		// -------------------------------------------------------------
@@ -184,7 +194,7 @@ public class SelecaoHabitacao {
 
 		btnAvancar.addActionListener(e -> {
 			SelecaoPacoteCobertura selecaoPacoteCobertura = new SelecaoPacoteCobertura(clienteRecebido,seguroRecebido,corretoraRecebida,habitacaoSelecionada);
-			// 
+			
 			selecaoPacoteCobertura.show();
 			frame.dispose();
 		});

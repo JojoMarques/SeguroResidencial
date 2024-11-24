@@ -258,7 +258,7 @@ public class InserirImovel {
 				double area = Double.parseDouble(areaImovel);
 				double valor = Double.parseDouble(valorImovel);
 
-				System.out.println(clienteRecebido.getIdUsuario() + "-" + clienteRecebido.getNome());
+				
 
 				Imovel imovel = new Imovel();
 				
@@ -271,9 +271,9 @@ public class InserirImovel {
 				imovel.setLogradouro(logradouro);
 				imovel.setNumero(num);
 				imovel.setCep(cep);
-				System.out.println("id cliente aq na inserir imovel: " + clienteRecebido.getIdCliente());
-				System.out.println(imovel.getValorImovel());
-				System.out.println(imovel.getIdCliente());
+				
+				
+				
 				imovel.setIdCliente(clienteRecebido.getIdCliente());
 
 				// pega a data atual usando System.currentTimeMillis() e cria um objeto Date
@@ -285,9 +285,7 @@ public class InserirImovel {
 																								// milissegundos
 				seguroRecebido.setDataFim(dataFim);
 
-				// exibindo as datas - teste
-				System.out.println("Data Início: " + dataInicio);
-				System.out.println("Data Fim: " + dataFim);
+				
 
 				seguroRecebido.setIdCliente(clienteRecebido.getIdCliente());
 				seguroRecebido.setIdAssistencia(pacoteAssistenciaSelecionada);
@@ -297,6 +295,8 @@ public class InserirImovel {
 				int idCorretora = corretoraDAO.selectByName(corretoraRecebida);
 				seguroRecebido.setIdCorretora(idCorretora);
 
+				
+				
 				SeguroDAO seguroDAO = new SeguroDAO(connection);
 				seguroDAO.insert(seguroRecebido);
 
@@ -311,6 +311,30 @@ public class InserirImovel {
 			}
 
 		});
+		
+		
+		// Adicione um botão "Preencher" ao painel
+		JButton btnPreencher = new JButton("");
+		btnPreencher.setBackground(new Color(240, 240, 240));
+		btnPreencher.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnPreencher.setBounds(85, 380, 116, 39);
+		btnPreencher.setFocusPainted(false); 
+		btnPreencher.setBorder(BorderFactory.createEmptyBorder());
+		panel.add(btnPreencher);
+
+
+		// Ação do botão de preenchimento
+		btnPreencher.addActionListener(e -> {
+		    txtCEP.setText("12345678");
+		    txtLogradouro.setText("Rua Borba");
+		    txtNumero.setText("123");
+		    txtCidade.setText("Mauá");
+		    txtBairro.setText("São Paulo");
+		    txtArea.setText("100"); 
+		    txtValorImovel.setText("250000");
+		    comboBoxEstado.setSelectedItem("SP");
+		});
+
 
 		// Evento para retornar à tela inicial
 		btnLogoTelaInicial.addActionListener(e -> {

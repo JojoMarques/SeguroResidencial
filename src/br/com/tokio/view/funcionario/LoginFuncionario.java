@@ -171,7 +171,7 @@ public class LoginFuncionario {
 			if (resultadoAutenticacao.get(0) == 1) {
 				// Se CPF e Senha estiverem corretos, direciona para a próxima tela
 				AreaFuncionario areaFuncionario = new AreaFuncionario(resultadoAutenticacao.get(1));
-				System.out.println(acesso + " " + senha);
+				
 				areaFuncionario.show(); // Mostra a nova tela
 				frame.dispose(); // Fecha a tela atual
 			} else

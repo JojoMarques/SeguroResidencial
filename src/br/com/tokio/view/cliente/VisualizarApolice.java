@@ -367,6 +367,7 @@ public class VisualizarApolice {
 		PacoteCobertura pacoteCobertura = seguroDAO.selectCoberturaPorCliente(idRecebido);
 		PacoteAssistencia pacoteAsssistencia = seguroDAO.selectPacotePorCliente(idRecebido);
 		Corretora corretora = seguroDAO.selectCorretoraByIdSeguro(idRecebido) ;
+		
 		JLabel lblCdCobertura = new JLabel("Código da Cobertura:");
 		lblCdCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblCdCobertura.setBounds(450, 200, 150, 25);
@@ -392,7 +393,7 @@ public class VisualizarApolice {
 		txtCdAssistencia.setBounds(610, 235, 200, 25);
 		txtCdAssistencia.setEditable(false);
 		String idAssistencia = String.valueOf(pacoteAsssistencia.getIdAssistencia());
-		System.out.println(idAssistencia);
+		
 		txtCdAssistencia.setText(idAssistencia);
 		panel.add(txtCdAssistencia);
 

@@ -1,20 +1,24 @@
 package br.com.tokio.view.cliente;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.SystemColor;
 import java.sql.Connection;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -22,8 +26,11 @@ import javax.swing.SwingConstants;
 import br.com.tokio.connection.ConnectionFactory;
 import br.com.tokio.dao.ClienteDAO;
 import br.com.tokio.dao.SeguroDAO;
+import br.com.tokio.dao.SinistroDAO;
+import br.com.tokio.model.Cliente;
 import br.com.tokio.model.Imovel;
 import br.com.tokio.model.Seguro;
+import br.com.tokio.model.Sinistro;
 import br.com.tokio.view.TelaInicial;
 
 public class AreaCliente {
@@ -74,7 +81,7 @@ public class AreaCliente {
 	private void initialize() {
 		Connection connection = new ConnectionFactory().conectar();
 
-		System.out.println("id q chegou aqui na area cliente:" + idRecebido);
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -245,9 +252,20 @@ public class AreaCliente {
 		});
 
 		btnVerSinistro.addActionListener(e -> {
-			VisualizarSinistros visualizarSinistros = new VisualizarSinistros(idRecebido);
-			visualizarSinistros.show();
-			frame.dispose();
+			SinistroDAO sinistroDAO = new SinistroDAO(connection);
+			Cliente clienteLogado = clienteDAO.selectById(idRecebido); //id que passa de página a página
+			
+			List<Sinistro> sinistros = sinistroDAO.selectByCliente(idRecebido);
+
+			if (sinistros.isEmpty()) {
+			    JOptionPane.showMessageDialog(frame, "Nada foi encontrado", "Erro de autenticação",
+			            JOptionPane.ERROR_MESSAGE);
+			} else {
+			   
+				VisualizarSinistros visualizarSinistros = new VisualizarSinistros(idRecebido);
+				visualizarSinistros.show();
+				frame.dispose();
+			}
 		});
 
 	}
