@@ -73,7 +73,7 @@ public class AreaCliente {
 	private void initialize() {
 		Connection connection = new ConnectionFactory().conectar();
 
-		System.out.println("id q chegou aqui na area cliente:" + idRecebido);
+		
 		frame = new JFrame();
 		frame.setBounds(100,100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

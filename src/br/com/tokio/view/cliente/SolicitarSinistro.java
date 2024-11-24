@@ -178,7 +178,7 @@ public class SolicitarSinistro {
 			SeguroDAO seguroDAO = new SeguroDAO(connection);
 
 			Sinistro sinistro = new Sinistro(tipo,Date.valueOf(data),descricao,false,seguroDAO.selectByCliente(idRecebido).getIdSeguro(),idRecebido);
-			System.out.println(sinistro.getTipoSinistro());
+			
 			sinistroDAO.insert(sinistro);
 
 			AreaCliente areaCliente = new AreaCliente(idRecebido);

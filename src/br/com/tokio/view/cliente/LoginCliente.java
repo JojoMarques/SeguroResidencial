@@ -162,7 +162,7 @@ public class LoginCliente {
 			
 			if (resultado == 1) {
 				AreaCliente areaCliente = new AreaCliente(resultadoAutenticacao.get(1));
-				System.out.println("lixo: " + resultadoAutenticacao.get(0));
+				
 				areaCliente.show(); // Mostra a nova tela
 				frame.dispose();
 			} else if (resultado == 2) {
