@@ -1,0 +1,28 @@
+INSERT INTO t_imovel (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) 
+VALUES ('01001000', 123, 'Rua A', 'Centro', 'São Paulo', 'Brasil', 'SP', 85.5, 350000.00, 1);
+
+INSERT INTO t_imovel (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) 
+VALUES ('22041001', 456, 'Avenida B', 'Copacabana', 'Rio de Janeiro', 'Brasil', 'RJ', 90.0, 450000.00, 2);
+
+INSERT INTO t_imovel (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) 
+VALUES ('30130100', 789, 'Rua C', 'Savassi', 'Belo Horizonte', 'Brasil', 'MG', 70.0, 300000.00, 3);
+
+INSERT INTO t_imovel (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) 
+VALUES ('80010010', 101, 'Rua D', 'Centro', 'Curitiba', 'Brasil', 'PR', 65.0, 250000.00, 4);
+
+INSERT INTO t_imovel (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) 
+VALUES ('50020020', 202, 'Avenida E', 'Boa Viagem', 'Recife', 'Brasil', 'PE', 120.0, 600000.00, 5);
+
+INSERT INTO t_imovel (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) 
+VALUES ('60030030', 303, 'Rua F', 'Meireles', 'Fortaleza', 'Brasil', 'CE', 110.0, 550000.00, 6);
+
+INSERT INTO t_imovel (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) 
+VALUES ('70040040', 404, 'Avenida G', 'Asa Sul', 'Brasília', 'Brasil', 'DF', 130.0, 700000.00, 7);
+
+INSERT INTO t_imovel (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) 
+VALUES ('40050050', 505, 'Rua H', 'Pituba', 'Salvador', 'Brasil', 'BA', 75.0, 320000.00, 8);
+
+INSERT INTO t_imovel (cep, numero, logradouro, bairro, cidade, pais, estado, vl_area, vl_imovel, cd_cliente) 
+VALUES ('30060060', 606, 'Avenida I', 'Aldeota', 'Fortaleza', 'Brasil', 'CE', 80.0, 380000.00, 9);
+
+COMMIT;

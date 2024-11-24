@@ -51,9 +51,10 @@ public class AreaCliente {
 	}
 
 	/**
-	 * Cria a tela 'área do cliente', onde ele pode ser direcionado para o visualizar dados, vizualizar apólice
-	 * e solicitar sinistro [o sinistro é registrado no banco de dados],
-	 * agora passando os dados do cliente logado
+	 * Cria a tela 'área do cliente', onde ele pode ser direcionado para o
+	 * visualizar dados, vizualizar apólice e solicitar sinistro [o sinistro é
+	 * registrado no banco de dados], agora passando os dados do cliente logado
+	 * 
 	 * @param int - id do cliente
 	 */
 	public AreaCliente(int idCliente) {
@@ -62,20 +63,20 @@ public class AreaCliente {
 	}
 
 	/**
-	 * Cria a tela 'área do cliente', onde ele pode ser direcionado para o visualizar dados, vizualizar apólice
-	 * e solicitar sinistro [o sinistro é registrado no banco de dados]
+	 * Cria a tela 'área do cliente', onde ele pode ser direcionado para o
+	 * visualizar dados, vizualizar apólice e solicitar sinistro [o sinistro é
+	 * registrado no banco de dados]
 	 */
 	public AreaCliente() {
 		initialize();
 	}
 
-	
 	private void initialize() {
 		Connection connection = new ConnectionFactory().conectar();
 
 		System.out.println("id q chegou aqui na area cliente:" + idRecebido);
 		frame = new JFrame();
-		frame.setBounds(100,100, 800, 600);
+		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -136,7 +137,7 @@ public class AreaCliente {
 		btnSinistro.setBackground(new Color(225, 193, 85));
 		btnSinistro.setBounds(96, 44, 200, 30);
 		panelInformacoes.add(btnSinistro);
-		
+
 		JButton btnVerSinistro = new JButton("Seus sinistros");
 		btnVerSinistro.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnVerSinistro.setBackground(new Color(225, 193, 85));
@@ -177,21 +178,22 @@ public class AreaCliente {
 		// Buscar valores dos pacotes associados ao seguro
 		double valorAssistencia = clienteDAO.getValorAssistencia(seguro.getIdAssistencia());
 		double valorCobertura = clienteDAO.getValorCobertura(seguro.getIdCobertura());
+		double fatorVariante = 0;
 
 		// Fatores ajustados para o seguro residencial
 		double fatorArea = 1 + (imovel.getArea() / 1000); // Fator de risco baseado na área
-		double fatorBasePremio = 0.005; // Taxa base de 0,5% sobre o valor do imóvel
-		double premioBase = imovel.getValorImovel() * fatorBasePremio; // Prêmio base calculado
+		double fatorBasePremio = 0.001; // Taxa base de 0,5% sobre o valor do imóvel
+		double premioBase = (imovel.getValorImovel() * fatorBasePremio)/12; // Prêmio base calculado
 
 		// Adicionar valores dos pacotes ao prêmio
-		double mensalidade = ((premioBase * fatorArea) + valorAssistencia + valorCobertura + 30.00)/12; 
-						
+		double mensalidade = ((premioBase * fatorArea) + valorAssistencia + valorCobertura + 30.00);
+
 		DecimalFormat df = new DecimalFormat("#.00");
 		textFieldValor.setText(String.valueOf(df.format(mensalidade)));
 		panel.add(textFieldValor);
 		textFieldValor.setColumns(10);
 
-		SeguroDAO  seguroDAO = new SeguroDAO(connection);
+		SeguroDAO seguroDAO = new SeguroDAO(connection);
 		seguro = seguroDAO.selectByCliente(idRecebido);
 		Date dataInicio = seguro.getDataInicio();
 		Date dataVencimento = new Date(dataInicio.getTime() + (30L * 24 * 60 * 60 * 1000)); // add um mês na mensalidade
@@ -241,7 +243,7 @@ public class AreaCliente {
 			visualizarApolice.show();
 			frame.dispose();
 		});
-		
+
 		btnVerSinistro.addActionListener(e -> {
 			VisualizarSinistros visualizarSinistros = new VisualizarSinistros(idRecebido);
 			visualizarSinistros.show();
@@ -250,7 +252,6 @@ public class AreaCliente {
 
 	}
 
-	
 	public void show() {
 		frame.setVisible(true);
 	}
