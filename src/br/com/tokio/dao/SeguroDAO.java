@@ -233,7 +233,7 @@ public class SeguroDAO {
 	 * @return List<Seguro> - lista de seguros
 	 * */
     public List<Seguro> buscarPorCorretora(int idCorretora) {
-        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia " +
+        String sql = "SELECT cd_seguro, vl_premio, dt_inicio, dt_fim, cd_cliente, cd_cobertura, cd_assistencia, cd_corretora " +
                      "FROM T_SEGURO " +
                      "WHERE cd_corretora = ?";
         List<Seguro> listSeguros = new ArrayList<>();
@@ -252,6 +252,7 @@ public class SeguroDAO {
                 seguro.setIdCliente(rs.getInt("cd_cliente"));
                 seguro.setIdCobertura(rs.getInt("cd_cobertura"));
                 seguro.setIdAssistencia(rs.getInt("cd_assistencia"));
+                seguro.setIdCorretora(rs.getInt("cd_corretora"));
 
                 listSeguros.add(seguro);
             }
