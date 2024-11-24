@@ -248,8 +248,8 @@ public class ConfirmarDados {
 				clienteCriado = novoCliente.getLastCliente();
 				
 				InserirImovel inserirImovel = new InserirImovel(clienteCriado, seguroRecebido, corretoraRecebida, habitacaoRecebida, pacoteCoberturaSelecionada, pacoteAssistenciaSelecionada );
-				inserirImovel.show(); // Mostra a tela de edição
-				frame.dispose(); // Fecha a tela atual
+				inserirImovel.show(); 
+				frame.dispose();
 			} else {
 				JOptionPane.showMessageDialog(frame, "As senhas estão diferentes", "Erro de autenticação",
 						JOptionPane.ERROR_MESSAGE);

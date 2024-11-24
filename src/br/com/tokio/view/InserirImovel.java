@@ -297,6 +297,8 @@ public class InserirImovel {
 				int idCorretora = corretoraDAO.selectByName(corretoraRecebida);
 				seguroRecebido.setIdCorretora(idCorretora);
 
+				
+				
 				SeguroDAO seguroDAO = new SeguroDAO(connection);
 				seguroDAO.insert(seguroRecebido);
 
@@ -311,6 +313,30 @@ public class InserirImovel {
 			}
 
 		});
+		
+		
+		// Adicione um botão "Preencher" ao painel
+		JButton btnPreencher = new JButton("");
+		btnPreencher.setBackground(new Color(240, 240, 240));
+		btnPreencher.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnPreencher.setBounds(85, 380, 116, 39);
+		btnPreencher.setFocusPainted(false); 
+		btnPreencher.setBorder(BorderFactory.createEmptyBorder());
+		panel.add(btnPreencher);
+
+
+		// Ação do botão de preenchimento
+		btnPreencher.addActionListener(e -> {
+		    txtCEP.setText("12345678");
+		    txtLogradouro.setText("Rua Borba");
+		    txtNumero.setText("123");
+		    txtCidade.setText("Mauá");
+		    txtBairro.setText("São Paulo");
+		    txtArea.setText("100"); 
+		    txtValorImovel.setText("250000");
+		    comboBoxEstado.setSelectedItem("SP");
+		});
+
 
 		// Evento para retornar à tela inicial
 		btnLogoTelaInicial.addActionListener(e -> {

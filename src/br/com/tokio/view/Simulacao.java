@@ -193,15 +193,22 @@ public class Simulacao {
 			String email = txtEmail.getText();
 			String cobertura = txtCobertura.getText();
 			
-			
-			cliente.setNome(nome);
-			cliente.setCpf(cpf);
-			cliente.setTelefone(telefone);
-			cliente.setEmail(email);
-			seguro.setValorPremio(Float.parseFloat(cobertura));
-
-			JOptionPane.showMessageDialog(frame, "Dados enviados com sucesso!\n"+ "Nome: " + nome + "\n" +  "CPF: " + cpf + "\n" + 
-				 "Telefone: " + telefone + "\n" + "E-mail: " + email + "\n" + "Cobertura: " + cobertura);
+			if (!cpf.isBlank() && !nome.isBlank() && !telefone.isBlank() && !email.isBlank() && !cobertura.isBlank()) {
+				
+				cliente.setNome(nome);
+				cliente.setCpf(cpf);
+				cliente.setTelefone(telefone);
+				cliente.setEmail(email);
+				seguro.setValorPremio(Float.parseFloat(cobertura));
+	
+				TelaCorretora telaCorretora = new TelaCorretora(cliente, seguro);
+				telaCorretora.show();
+				frame.dispose();
+			} else {
+				
+				JOptionPane.showMessageDialog(frame, "Preencha todos os campos", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		});
 		
 		// Evento para retornar à tela inicial
@@ -222,6 +229,24 @@ public class Simulacao {
 			telaCorretora.show();
 			frame.dispose();
 		});
+		
+		// Adicione um botão "Preencher" ao painel
+				JButton btnPreencher = new JButton("");
+				btnPreencher.setBackground(new Color(240, 240, 240));
+				btnPreencher.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				btnPreencher.setBounds(95, 380, 116, 39);
+				btnPreencher.setFocusPainted(false);
+				btnPreencher.setBorder(BorderFactory.createEmptyBorder());
+				panel.add(btnPreencher);
+
+				// Adicione um ActionListener ao botão para preencher os campos
+				btnPreencher.addActionListener(e -> {
+					txtNome.setText("Marillena Joana");
+					txtCPF.setText("12345678900");
+					txtTelefone.setText("11987654321");
+					txtEmail.setText("majo.jomi@email.com");
+					txtCobertura.setText("10000");
+				});
 	}
 
 	public void show() {

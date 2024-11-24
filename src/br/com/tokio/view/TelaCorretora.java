@@ -161,7 +161,16 @@ public class TelaCorretora {
 		// Evento para o botão (Exibir Seleção)
 		btnExibir.addActionListener(e -> {
 			corretoraSelecionada = (String) comboBox.getSelectedItem();
-			JOptionPane.showMessageDialog(frame, "Você selecionou: " + corretoraSelecionada);
+			
+			if (!corretoraSelecionada.isBlank()) {
+				SelecaoHabitacao selecaoHabitacao = new SelecaoHabitacao(clienteRecebido,seguroRecebido,corretoraSelecionada);
+				selecaoHabitacao.show();
+				frame.dispose();
+			} else {
+				
+				JOptionPane.showMessageDialog(frame, "Escolha uma corretora", "Erro de autenticação",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		});
 
 		Connection connection = new ConnectionFactory().conectar();
