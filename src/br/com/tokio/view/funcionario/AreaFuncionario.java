@@ -31,6 +31,7 @@ import br.com.tokio.dao.CorretoraDAO;
 import br.com.tokio.dao.PacoteAssistenciaDAO;
 import br.com.tokio.dao.PacoteCoberturaDAO;
 import br.com.tokio.dao.SeguroDAO;
+import br.com.tokio.model.Corretora;
 import br.com.tokio.model.Impressora;
 import br.com.tokio.model.Seguro;
 import br.com.tokio.view.TelaInicial;
@@ -468,7 +469,8 @@ public class AreaFuncionario {
             	int idCorretora = Integer.parseInt(textCorretora.getText());  // Pegando o ID da corretora do campo de texto
             	
             	if (idCorretora != 0) {
-            		seguros = dao.buscarPorCorretora(idCorretora);  // Preenchendo a lista com os resultados da consulta
+            		seguros = dao.buscarPorCorretora(idCorretora);
+            		// Preenchendo a lista com os resultados da consulta
             	}else {
             		seguros = List.of();
             	}
@@ -570,6 +572,7 @@ public class AreaFuncionario {
 		PacoteAssistenciaDAO assistenciaDAO = new PacoteAssistenciaDAO(connection);
 		PacoteCoberturaDAO coberturaDAO = new PacoteCoberturaDAO(connection);
 		CorretoraDAO corretoraDAO = new CorretoraDAO(connection);
+		System.out.println(seguro.getIdCorretora());
 		
         return String.format(
             "ID: %d | Prêmio: R$ %.2f | Início: %s | Fim: %s | Id do cliente: %d | Nome do Cliente: %s | CPF do Cliente: %s |"
