@@ -1,0 +1,28 @@
+INSERT INTO t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) 
+VALUES ('Carlos Silva', '12345678901', '11987654321', 'carlos.silva@hotmail.com', 'senha123');
+
+INSERT INTO t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) 
+VALUES ('Maria Oliveira', '23456789012', '21976543210', 'maria.oliveira@yahoo.com', 'senha456');
+
+INSERT INTO t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) 
+VALUES ('João Santos', '34567890123', '31965432109', 'joao.santos@gmail.com', 'senha789');
+
+INSERT INTO t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) 
+VALUES ('Ana Costa', '45678901234', '41954321098', 'ana.costa@gmail.com', 'senha321');
+
+INSERT INTO t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) 
+VALUES ('Pedro Lima', '56789012345', '51943210987', 'pedro.lima@gmail.com', 'senha654');
+
+INSERT INTO t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) 
+VALUES ('Julia Ferreira', '67890123456', '61932109876', 'julia.ferreira@hotmail.com', 'senha987');
+
+INSERT INTO t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) 
+VALUES ('Ricardo Almeida', '78901234567', '71921098765', 'ricardo.almeida@yahoo.com', 'senha432');
+
+INSERT INTO t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) 
+VALUES ('Fernanda Souza', '11122233344', '81910987654', 'fernanda.souza@outlook.com', 'senha876');
+
+INSERT INTO t_cliente (nm_cliente, cpf_cliente, telefone_cliente, email_cliente, ds_senha_cliente) 
+VALUES ('Paulo Rocha', '90123456789', '91909876543', 'paulo.rocha@outlook.com', 'senha101');
+
+COMMIT;

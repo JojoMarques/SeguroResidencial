@@ -1,0 +1,28 @@
+INSERT INTO t_sinistro (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente)
+VALUES ('Incêndio', TO_DATE('2025-01-10', 'YYYY-MM-DD'), 'Incêndio parcial na cozinha.', 'A', 1, 1);
+
+INSERT INTO t_sinistro (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente)
+VALUES ('Roubo', TO_DATE('2025-02-15', 'YYYY-MM-DD'), 'Roubo de eletrônicos.', 'F', 2, 2);
+
+INSERT INTO t_sinistro (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente)
+VALUES ('Danos elétricos', TO_DATE('2025-03-01', 'YYYY-MM-DD'), 'Curto-circuito em eletrodomésticos.', 'A', 3, 3);
+
+INSERT INTO t_sinistro (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente)
+VALUES ('Inundação', TO_DATE('2025-01-25', 'YYYY-MM-DD'), 'Inundação no porão após chuva forte.', 'F', 4, 4);
+
+INSERT INTO t_sinistro (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente)
+VALUES ('Incêndio', TO_DATE('2025-02-10', 'YYYY-MM-DD'), 'Incêndio na garagem.', 'A', 5, 5);
+
+INSERT INTO t_sinistro (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente)
+VALUES ('Vandalismo', TO_DATE('2025-02-28', 'YYYY-MM-DD'), 'Vidros das janelas quebrados por vandalismo.', 'F', 6, 6);
+
+INSERT INTO t_sinistro (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente)
+VALUES ('Roubo', TO_DATE('2025-03-05', 'YYYY-MM-DD'), 'Arrombamento com roubo de objetos pessoais.', 'A', 7, 7);
+
+INSERT INTO t_sinistro (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente)
+VALUES ('Danos estruturais', TO_DATE('2025-01-15', 'YYYY-MM-DD'), 'Trincas nas paredes devido a obras próximas.', 'F', 8, 8);
+
+INSERT INTO t_sinistro (tp_sinistro, dt_sinistro, ds_sinistro, status, cd_seguro, cd_cliente)
+VALUES ('Inundação', TO_DATE('2025-02-20', 'YYYY-MM-DD'), 'Inundação no quintal e cozinha.', 'A', 9, 9);
+
+COMMIT;
