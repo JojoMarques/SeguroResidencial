@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.SystemColor;
 import java.sql.Connection;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
@@ -183,9 +184,10 @@ public class AreaCliente {
 		double premioBase = imovel.getValorImovel() * fatorBasePremio; // Prêmio base calculado
 
 		// Adicionar valores dos pacotes ao prêmio
-		double mensalidade = (premioBase * fatorArea) + valorAssistencia + valorCobertura + 30.00; 
-																								
-		textFieldValor.setText(String.valueOf(mensalidade));
+		double mensalidade = ((premioBase * fatorArea) + valorAssistencia + valorCobertura + 30.00)/12; 
+						
+		DecimalFormat df = new DecimalFormat("#.00");
+		textFieldValor.setText(String.valueOf(df.format(mensalidade)));
 		panel.add(textFieldValor);
 		textFieldValor.setColumns(10);
 
