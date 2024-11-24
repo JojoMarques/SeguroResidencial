@@ -151,11 +151,7 @@ public class VisualizarSinistros {
 		
 		List<Sinistro> sinistros = sinistroDAO.selectByCliente(idRecebido);
 
-		// Adicionar os itens ao painel
-		if (sinistros.isEmpty()) {
-		    JOptionPane.showMessageDialog(frame, "Nada foi encontrado", "Erro de autenticação",
-		            JOptionPane.ERROR_MESSAGE);
-		} else {
+		
 		    for (Sinistro sinistro : sinistros) {
 		        panel.setLayout(new GridLayout(0, 1, 0, 0));
 		        JLabel lblSinistro = new JLabel(formatarSinistro(sinistro));
@@ -165,8 +161,7 @@ public class VisualizarSinistros {
 		        lblSinistro.setAlignmentX(Component.LEFT_ALIGNMENT);
 		        panel.add(lblSinistro);
 		    }
-		}
-
+		
 	
 		btnVoltar.addActionListener(e -> {
 			AreaCliente areaCliente = new AreaCliente(idRecebido);
