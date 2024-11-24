@@ -366,7 +366,7 @@ public class VisualizarApolice {
 		
 		PacoteCobertura pacoteCobertura = seguroDAO.selectCoberturaPorCliente(idRecebido);
 		PacoteAssistencia pacoteAsssistencia = seguroDAO.selectPacotePorCliente(idRecebido);
-		Corretora corretora = seguroDAO.selectCorretoraByIdSeguro(idRecebido) ;
+		Corretora corretora = seguroDAO.selectCorretoraByIdSeguro(seguro.getIdSeguro()) ;
 		
 		JLabel lblCdCobertura = new JLabel("Código da Cobertura:");
 		lblCdCobertura.setFont(new Font("Tahoma", Font.PLAIN, 13));

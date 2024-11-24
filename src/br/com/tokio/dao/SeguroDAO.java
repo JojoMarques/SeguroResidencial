@@ -1,3 +1,4 @@
+
 package br.com.tokio.dao;
 
 import java.sql.Connection;
@@ -544,4 +545,3 @@ public class SeguroDAO {
         return corretora;  
     }
 }
-

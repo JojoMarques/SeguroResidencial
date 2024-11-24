@@ -62,7 +62,7 @@ CREATE TABLE t_cliente (
     cd_cliente       NUMBER(5) NOT NULL,
     ds_senha_cliente VARCHAR(8),
     nm_cliente       VARCHAR(50),
-    cpf_cliente      VARCHAR(11),
+    cpf_cliente      VARCHAR(11) UNIQUE,
     telefone_cliente VARCHAR(11),
     email_cliente    VARCHAR2(50)
 );
@@ -131,7 +131,7 @@ CREATE TABLE t_funcionario (
     dt_admissao    DATE,
     senha          VARCHAR(8),
     nm_func        VARCHAR2(50),
-    cpf_func       VARCHAR(11),
+    cpf_func       VARCHAR(11) UNIQUE,
     telefone_func  VARCHAR(11),
     email_func     VARCHAR2(50)
 );
