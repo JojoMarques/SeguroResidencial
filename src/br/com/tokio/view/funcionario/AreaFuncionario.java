@@ -328,7 +328,7 @@ public class AreaFuncionario {
 		scrollPanelInformacoes.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		panel2.add(scrollPanelInformacoes);
 
-		JLabel lblTitulo = new JLabel("Informações da Apólice");
+		JLabel lblTitulo = new JLabel("Relatório:");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblTitulo.setBounds(306, 5, 167, 20);

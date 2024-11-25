@@ -145,7 +145,7 @@ public class VisualizarApolice {
 		JScrollPane scrollPanelInformacoes = new JScrollPane(panel);
 		scrollPanelInformacoes.setBounds(28, 152, 512, 387);
 		scrollPanelInformacoes.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPanelInformacoes.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPanelInformacoes.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		frame.getContentPane().add(scrollPanelInformacoes);
 		panel.setLayout(new GridLayout(0, 2, 0, 0));
@@ -522,7 +522,6 @@ public class VisualizarApolice {
 			Impressora impressora = new Impressora();
 	        impressora.iniciarImpressao(panel);
 			
-			frame.dispose(); 
 		});
 
 		btnVoltar.addActionListener(e -> {
