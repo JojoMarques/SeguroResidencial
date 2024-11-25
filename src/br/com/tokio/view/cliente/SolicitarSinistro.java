@@ -124,7 +124,7 @@ public class SolicitarSinistro {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JLabel lblDadosSimulacao = new JLabel("Dados para simulação:");
+		JLabel lblDadosSimulacao = new JLabel("Dados do sinistro:");
 		lblDadosSimulacao.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDadosSimulacao.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblDadosSimulacao.setBounds(200, 35, 163, 39);
