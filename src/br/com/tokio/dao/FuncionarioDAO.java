@@ -69,7 +69,7 @@ public class FuncionarioDAO implements Autenticar {
 	 * @param Funcionario - funcionario
 	 * */
 	public void update(Funcionario funcionario) {
-		String sql = "update t_funcionario set nm_func = ?, cpf_func = ?, telefone_func = ?, email_func = ?, ds_acesso_func = ?, dt_admissao = ?, senha = ? where cd_funcionario";
+		String sql = "update t_funcionario set nm_func = ?, cpf_func = ?, telefone_func = ?, email_func = ?, ds_acesso_func = ?, dt_admissao = ?, senha = ? where cd_funcionario = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
